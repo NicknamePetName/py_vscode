@@ -4,6 +4,16 @@ import os
 import csv
 import re
 import copy
+""" import logging
+
+# 配置日志记录
+logging.basicConfig(filename='app.log', level=logging.ERROR)
+
+try:
+    print(a)
+except Exception as e:
+    logging.error(f"错误：{e}") """
+    
 
 '''
     1.会员卡问题
@@ -122,6 +132,13 @@ product_data = {
     'stock': ''
 }
 
+product_catalog_data = {
+    'task_id': '',
+    'category_id': '',
+    'parent_id': '',
+    'category_name': ''
+}
+
 headers = {
     'Content-Type': 'application/json',
     'Connection': 'keep-alive',
@@ -208,11 +225,11 @@ def getCustomerData(customer,user_data,pet_data,card_data):
     user_data_copy['hospital_name'] = customerInfoData['hospital_name']
     
 
-    csv_file = './医院数据/用户数据.csv'
+    csv_file1 = './医院数据/用户数据.csv'
     # 检查文件是否存在且不为空
-    file_exists = os.path.isfile(csv_file) and os.path.getsize(csv_file) > 0
+    file_exists = os.path.isfile(csv_file1) and os.path.getsize(csv_file1) > 0
     # 保存到.csv文件中
-    with open(csv_file,'a',encoding='utf-8',newline='') as f:
+    with open(csv_file1,'a',encoding='utf-8',newline='') as f:
         # 将文件对象转换成 DictWriter 对象
         writer = csv.DictWriter(f,fieldnames = user_data.keys())
         # 如果文件是新创建的，写入表头
@@ -252,11 +269,11 @@ def getCustomerData(customer,user_data,pet_data,card_data):
         card_data_copy['hospital_name'] = customerInfoData['hospital_name']
 
 
-        csv_file = './医院数据/用户卡信息.csv'
+        csv_file2 = './医院数据/用户卡信息.csv'
         # 检查文件是否存在且不为空
-        file_exists = os.path.isfile(csv_file) and os.path.getsize(csv_file) > 0
+        file_exists = os.path.isfile(csv_file2) and os.path.getsize(csv_file2) > 0
         # 保存到.csv文件中
-        with open(csv_file,'a',encoding='utf-8',newline='') as f:
+        with open(csv_file2,'a',encoding='utf-8',newline='') as f:
             # 将文件对象转换成 DictWriter 对象
             writer = csv.DictWriter(f,fieldnames = card_data.keys())
             # 如果文件是新创建的，写入表头
@@ -298,11 +315,11 @@ def getCustomerData(customer,user_data,pet_data,card_data):
         pet_data_copy['hospital_name'] = petInfoData['hospital_name']
 
 
-        csv_file = './医院数据/宠物数据.csv'
+        csv_file3 = './医院数据/宠物数据.csv'
         # 检查文件是否存在且不为空
-        file_exists = os.path.isfile(csv_file) and os.path.getsize(csv_file) > 0
+        file_exists = os.path.isfile(csv_file3) and os.path.getsize(csv_file3) > 0
         # 保存到.csv文件中
-        with open(csv_file,'a',encoding='utf-8',newline='') as f:
+        with open(csv_file3,'a',encoding='utf-8',newline='') as f:
             # 将文件对象转换成 DictWriter 对象
             writer = csv.DictWriter(f,fieldnames = pet_data.keys())
             # 如果文件是新创建的，写入表头
@@ -382,7 +399,9 @@ def getExpenseCalendarData(customer):
 
         
 # 获取商品信息  
-def getProductData(product_data):
+def getProductData(product_data,product_catalog_data):
+    # 类目列表
+    product_catalog_data_list = []
     # 类目信息
     catalog_dict = {}
     # (GET) http://127.0.0.1:13301/base%2fsetting%2fusage
@@ -417,7 +436,10 @@ def getProductData(product_data):
     # 备注： 从 1-12分别为：挂号，处方，检验，影像，处置，手术，住院，寄养，疫苗，驱虫，美容，商品；非处方为71
     catalog_list = ['占位','挂号','处方','检验','影像','处置','手术','住院','寄养','疫苗','驱虫','美容','商品','非处方']
     URL_product = headURL + 'base%2fsetting%2fcategory%2fsub%2f'
-    for i in range(1,14):
+    for i in range(1,3):
+        # 商品类目
+        product_catalog_data_copy = copy.deepcopy(product_catalog_data) # 深拷贝
+
         product_list = []
         # print('正在采集商品信息：' + catalog_list[i] + '中！！！')
         if i == 13:
@@ -439,12 +461,28 @@ def getProductData(product_data):
         responseListData = json.loads(response.text)['Data']
 
         if responseListData == []: 
+            # task_id 老子不知道
+            # category_id 分类ID 为空
+            product_catalog_data_copy['parent_id'] = responseListData['con_category_id'] # 父类分类ID
+            # category_name 分类名称 为空
+            product_catalog_data_list.append(product_catalog_data_copy)
             continue
-
+        
         data_all = []
         # 获取商品详细信息  （POST）http://127.0.0.1:13301/base%2fsetting%2fgoods%2fget
         URL_product_detail = headURL + 'base%2fsetting%2fgoods%2fget'
         for responseData in responseListData:
+
+            # 商品类目
+            product_catalog_data_copy = copy.deepcopy(product_catalog_data) # 深拷贝
+            # task_id 老子不知道
+            product_catalog_data_copy['category_id'] = responseData['id'] # 分类 id
+            product_catalog_data_copy['parent_id'] = responseData['con_category_id'] # 父类分类ID
+            product_catalog_data_copy['category_name'] = responseData['name'] # 分类名称
+            product_catalog_data_list.append(product_catalog_data_copy)
+
+
+
             print('正在采集商品信息：' + catalog_list[i] + '-' + responseData['name'] + '中！！！')
             # 记录所有的二级目录 id 映射 name
             catalog_dict[str(responseData['id'])] = responseData['name']
@@ -525,17 +563,29 @@ def getProductData(product_data):
 
             product_list.append(product_data_copy)
 
-        csv_file = './医院数据/商品信息.csv'
+        csv_file4 = './医院数据/商品信息.csv'
         # 检查文件是否存在且不为空
-        file_exists = os.path.isfile(csv_file) and os.path.getsize(csv_file) > 0
+        file_exists = os.path.isfile(csv_file4) and os.path.getsize(csv_file4) > 0
         # 保存到.csv文件中
-        with open(csv_file,'a',encoding='utf-8',newline='') as f:
+        with open(csv_file4,'a',encoding='utf-8',newline='') as f:
             # 将文件对象转换成 DictWriter 对象
             writer = csv.DictWriter(f,fieldnames = product_data.keys())
             # 如果文件是新创建的，写入表头
             if not file_exists:
                 writer.writeheader()
             writer.writerows(product_list)
+        
+    csv_file5 = './医院数据/商品分类信息.csv'
+    # 检查文件是否存在且不为空
+    file_exists = os.path.isfile(csv_file5) and os.path.getsize(csv_file5) > 0
+    # 保存到.csv文件中
+    with open(csv_file5,'a',encoding='utf-8',newline='') as f:
+        # 将文件对象转换成 DictWriter 对象
+        writer = csv.DictWriter(f,fieldnames = product_catalog_data.keys())
+        # 如果文件是新创建的，写入表头
+        if not file_exists:
+            writer.writeheader()
+        writer.writerows(product_catalog_data_list)
         
 
 
@@ -552,12 +602,15 @@ def getProductData(product_data):
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # 获取商品信息
-getProductData(product_data)
+getProductData(product_data,product_catalog_data)
 
 
 
 # ---------------------------------------------------------------------------------------------
 # for customer in customer_data['Data']:
+# 判断是不是本店用户
+#     if int(customer['is_chain']) == 1:
+#         continue
 
 #     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
         
