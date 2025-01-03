@@ -1,0 +1,36 @@
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "activitytype": "0",
+            "con_category_id": "2",
+            "id": "13",
+            "name": "耗材类"
+        },
+        {
+            "activitytype": "0",
+            "con_category_id": "2",
+            "id": "19",
+            "name": "生物制剂"
+        },
+        {
+            "activitytype": "0",
+            "con_category_id": "2",
+            "id": "23",
+            "name": "注射类"
+        },
+        {
+            "activitytype": "0",
+            "con_category_id": "2",
+            "id": "50",
+            "name": "口服类"
+        },
+        {
+            "activitytype": "0",
+            "con_category_id": "2",
+            "id": "64",
+            "name": "外用类"
+        }
+    ]
+}
