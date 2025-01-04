@@ -134,7 +134,7 @@ product_data = {
 
 # 采集数据起止日期-结束日期
 start_time = '2019-01-01'
-end_time = '2026-01-01'
+end_time = '2027-01-01'
 
 product_catalog_data = {
     'task_id': '',
@@ -164,6 +164,7 @@ headers_text = {
     'sign': sign,
     'userid': userid
 }
+
 headURL = 'http://127.0.0.1:13301/'
 
 
@@ -458,7 +459,7 @@ def getProductData(product_data,product_catalog_data):
         
         response = requests.get(URL_product_catalog,headers=headers)
 
-        file_ = '医院数据/商品信息/' + catalog_list[i]
+        file_ = '医院数据/商品信息/' + str(i) + '-' + catalog_list[i]
         if not os.path.exists(file_):   # 不存在则创建
             # 创建文件夹
             os.makedirs(file_)
@@ -500,7 +501,7 @@ def getProductData(product_data,product_catalog_data):
             data = int(responseData['id'])
             productResponse = requests.post(URL_product_detail,data=json.dumps(data),headers=headers)
             
-            file_product = file_ + '/' + replace_special_chars(responseData['name'].strip())
+            file_product = file_ + '/' + str(responseData['id']) + '-' + replace_special_chars(responseData['name'].strip())
             if not os.path.exists(file_product):   # 不存在则创建
                 # 创建文件夹
                 os.makedirs(file_product)
@@ -525,7 +526,7 @@ def getProductData(product_data,product_catalog_data):
             # 更详细信息  （GET) http://127.0.0.1:13301/base%2fsetting%2fgood%2f1693
             URL_product_detail_other = headURL + 'base%2fsetting%2fgood%2f' + str(product['id'])
             product_detail_response = requests.get(URL_product_detail_other,headers=headers)
-            file_product_other = file_ + '/' + replace_special_chars(catalog_dict[str(product['con_category_id'])].strip())
+            file_product_other = file_ + '/' + str(product['con_category_id']) +  '-' + replace_special_chars(catalog_dict[str(product['con_category_id'])].strip())
             if not os.path.exists(file_product_other):   # 不存在则创建
                 # 创建文件夹
                 os.makedirs(file_product_other)
@@ -599,6 +600,29 @@ def getProductData(product_data,product_catalog_data):
 
 
 
+# 获取疫苗信息  （POST）http://127.0.0.1:13301/consumer%2fcenter%2fvaccine_insect_record
+def getVaccineData(customer):
+    URL_Vaccine = headURL + 'consumer%2fcenter%2fvaccine_insect_record'
+    data = {
+        "pet_id": 0,
+        "consumer_id": customer['id'],
+        "bill_state": 0,
+        "start": start_time,
+        "end": end_time,
+        "project_type": 0
+    }
+
+    vaccine_response = requests.post(URL_Vaccine,data=data,headers=headers)
+
+    file_ = '医院数据/免疫驱虫/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip())
+    if not os.path.exists():   # 不存在则创建
+        # 创建文件夹
+        os.makedirs('医院数据')
+
+    # 将顾客信息写入customer.json中
+    with open(f'./医院数据/customer_all.json','w',encoding='utf-8') as f:
+        f.write(response.text)
+
 
 
 
@@ -611,29 +635,27 @@ def getProductData(product_data,product_catalog_data):
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # 获取商品信息
-# getProductData(product_data,product_catalog_data)
+getProductData(product_data,product_catalog_data)
 
 
 
 # ---------------------------------------------------------------------------------------------
 for customer in customer_data['Data']:
     # 判断是不是本店用户    
-    # if int(customer['is_chain']) == 1:  # 只爬取本店信息
-    #     continue
-
-    if int(customer['id']) > 1582: 
+    if int(customer['is_chain']) == 1:  # 只爬取本店信息
         continue
+
 
     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
         
     print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
 
     # 获取客户信息
-    getCustomerData(customer,user_data,pet_data,card_data)
+    # getCustomerData(customer,user_data,pet_data,card_data)
 
-    print("获取当前客户：宠物编号的消费记录！！！")
+    print("获取消费记录！！！") # 获取当前客户：宠物编号的消费记录！！！
     # 获取消费记录
-    getExpenseCalendarData(customer)
+    # getExpenseCalendarData(customer)
 
 
 
