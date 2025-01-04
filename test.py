@@ -386,6 +386,11 @@ def getExpenseCalendarData(customer):
 
         # 遍历订单 id 获取订单详细信息
         for order in json.loads(petOrderResponse.text)['Data']:
+
+            # 当前宠物的订单
+            if order['code'] != pet['code']:
+                continue
+            
             # 根据 订单id 获取 详细订单信息  （POST）http://127.0.0.1:13301/daily%2fwork%2fbill_list_detail 
             URL_order_detail = headURL + 'daily%2fwork%2fbill_list_detail'
             dataorderDetail = {
@@ -606,14 +611,17 @@ def getProductData(product_data,product_catalog_data):
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # 获取商品信息
-getProductData(product_data,product_catalog_data)
+# getProductData(product_data,product_catalog_data)
 
 
 
 # ---------------------------------------------------------------------------------------------
 for customer in customer_data['Data']:
     # 判断是不是本店用户    
-    if int(customer['is_chain']) == 1:  # 只爬取本店信息
+    # if int(customer['is_chain']) == 1:  # 只爬取本店信息
+    #     continue
+
+    if int(customer['id']) > 1582: 
         continue
 
     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
@@ -623,6 +631,7 @@ for customer in customer_data['Data']:
     # 获取客户信息
     getCustomerData(customer,user_data,pet_data,card_data)
 
+    print("获取当前客户：宠物编号的消费记录！！！")
     # 获取消费记录
     getExpenseCalendarData(customer)
 
