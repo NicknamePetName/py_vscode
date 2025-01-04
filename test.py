@@ -19,13 +19,13 @@ except Exception as e:
     1.会员卡问题
 '''
 
-# info = input('请输入参数-info:')
-# sign = input('请输入参数-sign:')
-# userid = input('请输入参数-userId:')
+info = input('请输入参数-info:')
+sign = input('请输入参数-sign:')
+userid = input('请输入参数-userId:')
 
-info = 'GBZa3ajLfh|VrAGvMjLwd'
-sign = '0005d5b1b4187661204abb15184604ad'
-userid = '1'
+# info = 'GBZa3ajLfh|VrAGvMjLwd'
+# sign = '0005d5b1b4187661204abb15184604ad'
+# userid = '1'
 
 # 一杨
 # info = 'vzfEEqkUjG|RymcKz9JmF'
@@ -131,6 +131,10 @@ product_data = {
     'inspection_model': '',
     'stock': ''
 }
+
+# 采集数据起止日期-结束日期
+start_time = '2019-01-01'
+end_time = '2026-01-01'
 
 product_catalog_data = {
     'task_id': '',
@@ -347,8 +351,8 @@ def getExpenseCalendarData(customer):
         "pet_id": 0,
         "consumer_id": customer['id'],
         "bill_state": 0,
-        "start": "2019-01-01",
-        "end": "2025-01-01",
+        "start": start_time,
+        "end": end_time,
         "project_type": 0
     }
     response = requests.post(URL_ex_ca_all,data=json.dumps(data),headers=headers)
@@ -366,8 +370,8 @@ def getExpenseCalendarData(customer):
         # 根据 宠物编号获取 订单列表  (POST) http://127.0.0.1:13301/daily%2fwork%2fbill_list 
         URL_pet_code = headURL + 'daily%2fwork%2fbill_list'
         dataPetCode = {
-            "start": "2019-01-02",
-            "end": "2025-01-02",
+            "start": start_time,
+            "end": end_time,
             "key_word": pet['code'],
             "type": 9,
             "show_by_consumer_or_pet": 0
@@ -436,7 +440,7 @@ def getProductData(product_data,product_catalog_data):
     # 备注： 从 1-12分别为：挂号，处方，检验，影像，处置，手术，住院，寄养，疫苗，驱虫，美容，商品；非处方为71
     catalog_list = ['占位','挂号','处方','检验','影像','处置','手术','住院','寄养','疫苗','驱虫','美容','商品','非处方']
     URL_product = headURL + 'base%2fsetting%2fcategory%2fsub%2f'
-    for i in range(1,3):
+    for i in range(1,14):
         # 商品类目
         product_catalog_data_copy = copy.deepcopy(product_catalog_data) # 深拷贝
 
@@ -463,7 +467,7 @@ def getProductData(product_data,product_catalog_data):
         if responseListData == []: 
             # task_id 老子不知道
             # category_id 分类ID 为空
-            product_catalog_data_copy['parent_id'] = responseListData['con_category_id'] # 父类分类ID
+            product_catalog_data_copy['parent_id'] = str(i) # 父类分类ID
             # category_name 分类名称 为空
             product_catalog_data_list.append(product_catalog_data_copy)
             continue
@@ -607,20 +611,20 @@ getProductData(product_data,product_catalog_data)
 
 
 # ---------------------------------------------------------------------------------------------
-# for customer in customer_data['Data']:
-# 判断是不是本店用户
-#     if int(customer['is_chain']) == 1:
-#         continue
+for customer in customer_data['Data']:
+    # 判断是不是本店用户    
+    if int(customer['is_chain']) == 1:  # 只爬取本店信息
+        continue
 
-#     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
+    # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
         
-#     print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
+    print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
 
-#     # 获取客户信息
-#     getCustomerData(customer,user_data,pet_data,card_data)
+    # 获取客户信息
+    getCustomerData(customer,user_data,pet_data,card_data)
 
-#     # 获取消费记录
-#     getExpenseCalendarData(customer)
+    # 获取消费记录
+    getExpenseCalendarData(customer)
 
 
 
