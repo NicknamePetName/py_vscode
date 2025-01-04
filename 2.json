@@ -2,22 +2,22 @@
     "Code": 0,
     "Message": "SUCCESS",
     "Data": {
-        "id": 601,
-        "pet_name": "蓝莓",
-        "consumer_id": 529,
-        "consumer_name": "王",
-        "telephone": "18955914975",
+        "id": 2,
+        "pet_name": "咪娅",
+        "consumer_id": 2,
+        "consumer_name": "张秋芬",
+        "telephone": "18955915569",
         "kind": "猫类",
-        "species": "蓝猫",
+        "species": "美国短毛猫",
         "sex": 2,
-        "birthday": "2024-01-31 12:09:45",
+        "birthday": "2022-12-19 10:50:56",
         "is_sterilized": 0,
-        "code": "p000600",
-        "weight": "",
+        "code": "P000001",
+        "weight": "0.75",
         "is_chain": 0,
         "hospital_id": 1,
         "hospital_code": "VrAGvMjLwd",
         "hospital_name": "萌宠拾光动物医院",
-        "is_member": 0
+        "is_member": 1
     }
 }

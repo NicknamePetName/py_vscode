@@ -132,6 +132,36 @@ product_data = {
     'stock': ''
 }
 
+vaccine_data = {
+    'task_id': '',
+    'id': '',
+    'createtime': '',
+    'creater': '',
+    'owner_id': '',
+    'pet_id': '',
+    'name': '',
+    'hospital_id': '',
+    'hospital_code': '',
+    'hospital_name': ''
+}
+
+vaccine_detail_data = {
+    'task_id': '',
+    'createtime': '',
+    'creater': '',
+    'updater': '',
+    'his_protection_id': '',
+    'cure_employee_name': '',
+    'name': '',
+    'weight': '',
+    'temperature': '',
+    'discription': '',
+    'eventtime': '',
+    'state': '',
+    'hospital_id': '',
+    'hospital_code': '',
+    'hospital_name': ''
+}
 # 采集数据起止日期-结束日期
 start_time = '2019-01-01'
 end_time = '2027-01-01'
@@ -366,46 +396,43 @@ def getExpenseCalendarData(customer):
     with open(f'./' + file_ + '/expenseCalendar.json','w',encoding='utf-8') as f:
         f.write(response.text)
     
-    # 遍历宠物编号获取订单号
-    for pet in customer['pets']:
-        # 根据 宠物编号获取 订单列表  (POST) http://127.0.0.1:13301/daily%2fwork%2fbill_list 
-        URL_pet_code = headURL + 'daily%2fwork%2fbill_list'
-        dataPetCode = {
-            "start": start_time,
-            "end": end_time,
-            "key_word": pet['code'],
-            "type": 9,
-            "show_by_consumer_or_pet": 0
+    # 遍历消费记录表获取订单详情
+    for order in json.loads(response.text)['Data']:
+        # 根据 订单id 获取 详细订单信息  （POST）http://127.0.0.1:13301/daily%2fwork%2fbill_list_detail 
+        URL_order_detail = headURL + 'daily%2fwork%2fbill_list_detail'
+
+        dataorderDetail_0 = {
+            "id": order['pet_id'],
+            "bill_type": 0,
+            "show_type": 0,
+            "start": "",
+            "end": "",
+            "ids": ""
         }
-        petOrderResponse = requests.post(URL_pet_code,data=json.dumps(dataPetCode),headers=headers)
-        filePetCode = file_ + '/' + replace_special_chars(pet['name'].strip())
-        if not os.path.exists(filePetCode):   # 不存在则创建
-            # 创建文件夹
-            os.makedirs(filePetCode)
-        with open(f'./' + filePetCode + '/totalOrder.json','w',encoding='utf-8') as f:
-            f.write(petOrderResponse.text)
 
-        # 遍历订单 id 获取订单详细信息
-        for order in json.loads(petOrderResponse.text)['Data']:
+        dataorderDetail_1 = {
+            "id": order['id'],
+            "bill_type": 1,
+            "show_type": 0,
+            "start": "",
+            "end": "",
+            "ids": ""
+        }
 
-            # 当前宠物的订单
-            if order['code'] != pet['code']:
-                continue
-            
-            # 根据 订单id 获取 详细订单信息  （POST）http://127.0.0.1:13301/daily%2fwork%2fbill_list_detail 
-            URL_order_detail = headURL + 'daily%2fwork%2fbill_list_detail'
-            dataorderDetail = {
-                "id": order['id'],
-                "bill_type": 1,
-                "show_type": 0,
-                "start": "",
-                "end": "",
-                "ids": ""
-            }
-            orderDetailResponse = requests.post(URL_order_detail, data=json.dumps(dataorderDetail), headers=headers)
-            with open(f'./' + filePetCode + '/' + str(order['id']) + '-orderDetail.json','w',encoding='utf-8') as f:
+        
+
+        if int(order['id']) == 0:
+            orderDetailResponse = requests.post(URL_order_detail, data=json.dumps(dataorderDetail_0), headers=headers)
+        else:
+            orderDetailResponse = requests.post(URL_order_detail, data=json.dumps(dataorderDetail_1), headers=headers)
+        
+        file_detail = file_ + '/' + str(order['pet_id']) + '-' + replace_special_chars(order['pet_name'].strip())
+        if not os.path.exists(file_detail):   # 不存在则创建
+        # 创建文件夹
+            os.makedirs(file_detail)
+        with open(f'./' + file_detail + '/' + str(order['id']) + '-orderDetail.json','w',encoding='utf-8') as f:
                 f.write(orderDetailResponse.text)
-
+            
 
         
 # 获取商品信息  
@@ -601,7 +628,13 @@ def getProductData(product_data,product_catalog_data):
 
 
 # 获取疫苗驱虫信息  （POST）http://127.0.0.1:13301/consumer%2fcenter%2fvaccine_insect_record
-def getVaccineData(customer):
+def getVaccineData(customer,vaccine_data,vaccine_detail_data):
+
+    # 客户信息 取医院编号  (GET) http://127.0.0.1:13301/daily%2fwork%2fconsumer%2f4497
+    URL_customer = headURL + 'daily%2fwork%2fconsumer%2f' + str(customer['id'])
+    customer_response = requests.get(URL_customer,headers=headers)
+    customerResponseData = json.loads(customer_response.text)['Data']
+
     URL_Vaccine = headURL + 'consumer%2fcenter%2fvaccine_insect_record'
     data = {
         "pet_id": 0,
@@ -613,6 +646,34 @@ def getVaccineData(customer):
     }
 
     vaccine_response = requests.post(URL_Vaccine,data=json.dumps(data),headers=headers)
+
+    # 组装数据到 vaccine_data 中
+    for vaccineResponseData in json.loads(vaccine_response.text)['Data']:
+        vaccine_data_copy = copy.deepcopy(vaccine_data) # 深拷贝
+        # task_id 老子不知道
+        vaccine_data_copy['id'] = vaccineResponseData['id'] # 疫苗单ID
+        vaccine_data_copy['createtime'] = vaccineResponseData['event_time'] # 数据添加时间
+        vaccine_data_copy['creater'] = vaccineResponseData['cure_employee_name'] # 创建数据的人员名称
+        vaccine_data_copy['owner_id'] = customer['id'] # 顾客ID
+        vaccine_data_copy['pet_id'] = vaccineResponseData['pet_id'] # 宠物ID
+        vaccine_data_copy['name'] = vaccineResponseData['protection_name'] + ':' + vaccineResponseData['protection_detail_name'] # 名称
+        vaccine_data_copy['hospital_id'] = vaccineResponseData['hospital_id'] # 医院ID
+        vaccine_data_copy['hospital_code'] = customerResponseData['hospital_code'] # 医院编号
+        vaccine_data_copy['hospital_name'] = vaccineResponseData['hospital_name'] # 医院名称
+
+        csv_file6 = './医院数据/疫苗单表.csv'
+        # 检查文件是否存在且不为空
+        file_exists = os.path.isfile(csv_file6) and os.path.getsize(csv_file6) > 0
+        # 保存到.csv文件中
+        with open(csv_file6,'a',encoding='utf-8',newline='') as f:
+            # 将文件对象转换成 DictWriter 对象
+            writer = csv.DictWriter(f,fieldnames = vaccine_data.keys())
+            # 如果文件是新创建的，写入表头
+            if not file_exists:
+                writer.writeheader()
+            writer.writerow(vaccine_data_copy)
+
+
 
     file_ = '医院数据/免疫驱虫/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip())
     if not os.path.exists(file_):   # 不存在则创建
@@ -682,7 +743,7 @@ def getVaccineData(customer):
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # 获取商品信息
-# getProductData(product_data,product_catalog_data)
+getProductData(product_data,product_catalog_data)
 
 
 
@@ -691,21 +752,21 @@ for customer in customer_data['Data']:
     # 判断是不是本店用户    
     if int(customer['is_chain']) == 1:  # 只爬取本店信息
         continue
-
+    
     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
         
     print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
 
     # 获取客户信息
-    # getCustomerData(customer,user_data,pet_data,card_data)
+    getCustomerData(customer,user_data,pet_data,card_data)
 
-    # print("获取消费记录！！！") # 获取当前客户：宠物编号的消费记录！！！
+    print("获取消费记录！！！") # 获取当前客户：宠物编号的消费记录！！！
     # 获取消费记录
-    # getExpenseCalendarData(customer)
+    getExpenseCalendarData(customer)
 
     print("获取疫苗驱虫信息!!!")
     # 获取疫苗驱虫信息
-    getVaccineData(customer)
+    getVaccineData(customer,vaccine_data,vaccine_detail_data)
 
 
 
