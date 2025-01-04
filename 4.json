@@ -1,0 +1,40 @@
+
+
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 291,
+            "his_protection_id": 115,
+            "cure_employee_id": 2,
+            "cure_employee_name": "付医生",
+            "name": "二免",
+            "weight": "",
+            "temperature": "",
+            "discription": "基础疫苗二免",
+            "eventtime": "2024-07-11 09:12:16",
+            "state": 0,
+            "tag": 2,
+            "his_consumptions": null,
+            "next_year_time": "",
+            "is_next_year": 0
+        },
+        {
+            "id": 292,
+            "his_protection_id": 115,
+            "cure_employee_id": 2,
+            "cure_employee_name": "付医生",
+            "name": "三免",
+            "weight": "",
+            "temperature": "",
+            "discription": "基础疫苗三免",
+            "eventtime": "2024-08-01 09:12:16",
+            "state": 1,
+            "tag": 2,
+            "his_consumptions": null,
+            "next_year_time": "",
+            "is_next_year": 0
+        }
+    ]
+}

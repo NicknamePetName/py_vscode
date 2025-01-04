@@ -19,13 +19,13 @@ except Exception as e:
     1.会员卡问题
 '''
 
-info = input('请输入参数-info:')
-sign = input('请输入参数-sign:')
-userid = input('请输入参数-userId:')
+# info = input('请输入参数-info:')
+# sign = input('请输入参数-sign:')
+# userid = input('请输入参数-userId:')
 
-# info = 'GBZa3ajLfh|VrAGvMjLwd'
-# sign = '0005d5b1b4187661204abb15184604ad'
-# userid = '1'
+info = 'GBZa3ajLfh|VrAGvMjLwd'
+sign = '0005d5b1b4187661204abb15184604ad'
+userid = '1'
 
 # 一杨
 # info = 'vzfEEqkUjG|RymcKz9JmF'
@@ -189,7 +189,7 @@ if not os.path.exists('医院数据'):   # 不存在则创建
     # 创建文件夹
     os.makedirs('医院数据')
 
-# 将顾客信息写入customer.json中
+# 将顾客信息写入customer_all.json中
 with open(f'./医院数据/customer_all.json','w',encoding='utf-8') as f:
     f.write(response.text)
 
@@ -600,7 +600,7 @@ def getProductData(product_data,product_catalog_data):
 
 
 
-# 获取疫苗信息  （POST）http://127.0.0.1:13301/consumer%2fcenter%2fvaccine_insect_record
+# 获取疫苗驱虫信息  （POST）http://127.0.0.1:13301/consumer%2fcenter%2fvaccine_insect_record
 def getVaccineData(customer):
     URL_Vaccine = headURL + 'consumer%2fcenter%2fvaccine_insect_record'
     data = {
@@ -612,17 +612,63 @@ def getVaccineData(customer):
         "project_type": 0
     }
 
-    vaccine_response = requests.post(URL_Vaccine,data=data,headers=headers)
+    vaccine_response = requests.post(URL_Vaccine,data=json.dumps(data),headers=headers)
 
     file_ = '医院数据/免疫驱虫/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip())
-    if not os.path.exists():   # 不存在则创建
+    if not os.path.exists(file_):   # 不存在则创建
         # 创建文件夹
-        os.makedirs('医院数据')
+        os.makedirs(file_)
 
-    # 将顾客信息写入customer.json中
-    with open(f'./医院数据/customer_all.json','w',encoding='utf-8') as f:
-        f.write(response.text)
+    # 将免疫驱虫信息写入vaccine_all.json中
+    with open(f'./' + file_ + '/vaccine_all.json','w',encoding='utf-8') as f:
+        f.write(vaccine_response.text)
+    
+    # 使用顾客 ID 查找宠物信息  (GET)  http://127.0.0.1:13301/daily%2fwork%2fpets%2f529
+    URL_pets = headURL + 'daily%2fwork%2fpets%2f' + str(customer['id'])
+    pets_response = requests.get(URL_pets,headers=headers)
 
+    for pet in json.loads(pets_response.text)['Data']:
+        # 疫苗头部信息  (GET) http://127.0.0.1:13301/daily%2fwork%2fclinic_pet%2f601 
+        URL_clinic_pet = headURL + 'daily%2fwork%2fclinic_pet%2f' + str(pet['id'])
+        clinic_pet_response = requests.get(URL_clinic_pet,headers=headers)
+        file_pet = file_ + '/' + str(pet['id']) + '-' + replace_special_chars(pet['pet_name'].strip())
+        if not os.path.exists(file_pet):   # 不存在则创建
+        # 创建文件夹
+            os.makedirs(file_pet)
+        # 将疫苗头部信息 写入vaccine-head.json中
+        with open(f'./' + file_pet + '/vaccine-head.json','w',encoding='utf-8') as f:
+            f.write(clinic_pet_response.text)
+
+
+        # 疫苗导航栏信息  （GET）http://127.0.0.1:13301/daily%2fwork%2fprotections%2f601 
+        URL_protections = headURL + 'daily%2fwork%2fprotections%2f' + str(pet['id'])
+        protections_response = requests.get(URL_protections,headers=headers)
+        # 将疫苗导航栏信息 写入vaccine-nav.json中
+        with open(f'./' + file_pet + '/vaccine-nav.json','w',encoding='utf-8') as f:
+            f.write(protections_response.text)
+        for protection in json.loads(protections_response.text)['Data']: 
+            # 疫苗详细信息（GET）http://127.0.0.1:13301/daily%2fwork%2fprotection%2f115%2f529 
+            URL_protection = headURL + 'daily%2fwork%2fprotection%2f' + str(protection['id']) + '%2f' + str(customer['id'])
+            protection_response = requests.get(URL_protection,headers=headers)
+            # 将疫苗详细信息 写入 protection['id']-protection['name']
+            with open(f'./' + file_pet + '/' + str(protection['id']) + '-' + protection['name'] +  '.json','w',encoding='utf-8') as f:
+                f.write(protection_response.text)
+        
+        # 驱虫导航栏信息  (GET) http://127.0.0.1:13301/daily%2fwork%2finsects%2f601 
+        URL_insects = headURL + 'daily%2fwork%2finsects%2f' + str(pet['id'])
+        insects_response = requests.get(URL_insects,headers=headers)
+        # 将驱虫导航栏信息 写入insecticide-nav.json中
+        with open(f'./' + file_pet + '/insecticide-nav.json','w',encoding='utf-8') as f:
+            f.write(insects_response.text)
+        for insect in json.loads(insects_response.text)['Data']:
+            # 驱虫详细信息  (GET) http://127.0.0.1:13301/daily%2fwork%2finsect%2f43%2f529 
+            URL_insect = headURL + 'daily%2fwork%2finsect%2f' + str(insect['id']) + '%2f' + str(customer['id'])
+            insect_response = requests.get(URL_insect,headers=headers)
+            # 将驱虫详细信息 写入 insect['id']-insect['name']
+            with open(f'./' + file_pet + '/' + str(insect['id']) + '-' + insect['name'] +  '.json','w',encoding='utf-8') as f:
+                f.write(insect_response.text)
+        
+        
 
 
 
@@ -632,10 +678,11 @@ def getVaccineData(customer):
 
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# ---------------------------------------------------------------------------------------------
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # 获取商品信息
-getProductData(product_data,product_catalog_data)
+# getProductData(product_data,product_catalog_data)
 
 
 
@@ -645,7 +692,6 @@ for customer in customer_data['Data']:
     if int(customer['is_chain']) == 1:  # 只爬取本店信息
         continue
 
-
     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
         
     print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
@@ -653,9 +699,13 @@ for customer in customer_data['Data']:
     # 获取客户信息
     # getCustomerData(customer,user_data,pet_data,card_data)
 
-    print("获取消费记录！！！") # 获取当前客户：宠物编号的消费记录！！！
+    # print("获取消费记录！！！") # 获取当前客户：宠物编号的消费记录！！！
     # 获取消费记录
     # getExpenseCalendarData(customer)
+
+    print("获取疫苗驱虫信息!!!")
+    # 获取疫苗驱虫信息
+    getVaccineData(customer)
 
 
 

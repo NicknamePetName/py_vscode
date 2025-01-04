@@ -1,0 +1,102 @@
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": {
+        "id": 529,
+        "name": "王",
+        "namepy": "W",
+        "telephone": "18955914975",
+        "back_up_telephone": "",
+        "birthday": "",
+        "sex": 0,
+        "address": "",
+        "email": "",
+        "understand": "",
+        "bonus": 0,
+        "deposit_money": 0,
+        "add_time": "2024-05-31 12:10:29",
+        "make_an_appointment_tag": 0,
+        "is_black_list": 0,
+        "black_list": "",
+        "consumer_tags": [],
+        "is_chain": 0,
+        "hospital_id": 1,
+        "hospital_code": "VrAGvMjLwd",
+        "hospital_name": "萌宠拾光动物医院"
+    }
+}
+
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 601,
+            "his_consumer_id": 529,
+            "head_portrait": "",
+            "pet_name": "蓝莓",
+            "pet_namepy": "LM",
+            "pet_code": "p000600",
+            "pet_birthday": "2024-01-31 12:09:45",
+            "pet_sex": 2,
+            "coat_color": "",
+            "kind": "猫类",
+            "con_kind_id": 1,
+            "con_species_id": 243,
+            "species": "蓝猫",
+            "species_py": "",
+            "is_dead": 0,
+            "is_immunity": 0,
+            "is_sterilized": 0,
+            "is_insecticide": 0,
+            "discription": "",
+            "add_time": "2024-05-31 12:10:29",
+            "weight": "",
+            "is_chain": 0,
+            "hospital_id": 1,
+            "hospital_code": "VrAGvMjLwd",
+            "hospital_name": "萌宠拾光动物医院",
+            "sys_file_id": 0,
+            "sync_appointment": 0,
+            "sys_file_guid": "",
+            "sys_file_extension": ""
+        }
+    ]
+}
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 908,
+            "his_consumer_id": 816,
+            "head_portrait": "",
+            "pet_name": "毛球",
+            "pet_namepy": "MQ",
+            "pet_code": "9867",
+            "pet_birthday": "2012-01-04 15:42:55",
+            "pet_sex": 2,
+            "coat_color": "",
+            "kind": "狗类",
+            "con_kind_id": 2,
+            "con_species_id": 269,
+            "species": "泰迪串",
+            "species_py": "",
+            "is_dead": 0,
+            "is_immunity": 0,
+            "is_sterilized": 0,
+            "is_insecticide": 0,
+            "discription": "",
+            "add_time": "2025-01-04 15:43:38",
+            "weight": "",
+            "is_chain": 0,
+            "hospital_id": 1,
+            "hospital_code": "VrAGvMjLwd",
+            "hospital_name": "萌宠拾光动物医院",
+            "sys_file_id": 0,
+            "sync_appointment": 0,
+            "sys_file_guid": "",
+            "sys_file_extension": ""
+        }
+    ]
+}
