@@ -283,6 +283,9 @@ def getCustomerData(customer,user_data,pet_data,card_data):
 
     # 组装数据到 card_data 中
     cardInfoDataList = json.loads(customerInfoResponse1.text)['Data']
+    if not isinstance(cardInfoDataList,list):
+        cardInfoDataList = []
+
     for cardInfoData in cardInfoDataList:
         card_data_copy = copy.deepcopy(card_data)  # 深拷贝
         # task_id 老子不知道
@@ -326,6 +329,9 @@ def getCustomerData(customer,user_data,pet_data,card_data):
     customerInfoResponse3 = requests.get(URL_3,headers=headers)
 
     petInfoDataList = json.loads(customerInfoResponse3.text)['Data']
+    if not isinstance(petInfoDataList,list):
+        petInfoDataList = []
+
     for petInfoData in petInfoDataList:
         # 组装数据到 pet_data 中
         pet_data_copy = copy.deepcopy(pet_data)  # 深拷贝
@@ -395,9 +401,13 @@ def getExpenseCalendarData(customer):
 
     with open(f'./' + file_ + '/expenseCalendar.json','w',encoding='utf-8') as f:
         f.write(response.text)
-    
+
+    responseData = json.loads(response.text)['Data']
+    if not isinstance(responseData,list):
+        responseData = []
+
     # 遍历消费记录表获取订单详情
-    for order in json.loads(response.text)['Data']:
+    for order in responseData:
         # 根据 订单id 获取 详细订单信息  （POST）http://127.0.0.1:13301/daily%2fwork%2fbill_list_detail 
         URL_order_detail = headURL + 'daily%2fwork%2fbill_list_detail'
 
@@ -496,6 +506,8 @@ def getProductData(product_data,product_catalog_data):
             f.write(response.text)
 
         responseListData = json.loads(response.text)['Data']
+        if not isinstance(responseListData,list):
+            responseListData = []
 
         if responseListData == []: 
             # task_id 老子不知道
@@ -508,8 +520,8 @@ def getProductData(product_data,product_catalog_data):
         data_all = []
         # 获取商品详细信息  （POST）http://127.0.0.1:13301/base%2fsetting%2fgoods%2fget
         URL_product_detail = headURL + 'base%2fsetting%2fgoods%2fget'
-        for responseData in responseListData:
 
+        for responseData in responseListData:
             # 商品类目
             product_catalog_data_copy = copy.deepcopy(product_catalog_data) # 深拷贝
             # task_id 老子不知道
@@ -545,8 +557,13 @@ def getProductData(product_data,product_catalog_data):
 
         print('正在写入:' + catalog_list[i] + '-商品信息到CSV中！！！')
 
+        responseListAllData = json.loads(responseListAll.text)['Data']
+
+        if not isinstance(responseListAllData,list):
+            responseListAllData = []
+
         # 组装数据到 product_list 中
-        for product in json.loads(responseListAll.text)['Data']:
+        for product in responseListAllData:
             # print(product)
             # print(replace_special_chars(catalog_dict[str(product['con_category_id'])].strip())) # 口服类
 
@@ -647,8 +664,12 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
 
     vaccine_response = requests.post(URL_Vaccine,data=json.dumps(data),headers=headers)
 
+    vaccineResponseListData = json.loads(vaccine_response.text)['Data']
+    if not isinstance(vaccineResponseListData,list):
+        vaccineResponseListData = []
+
     # 组装数据到 vaccine_data 中
-    for vaccineResponseData in json.loads(vaccine_response.text)['Data']:
+    for vaccineResponseData in vaccineResponseListData:
         vaccine_data_copy = copy.deepcopy(vaccine_data) # 深拷贝
         # task_id 老子不知道
         vaccine_data_copy['id'] = vaccineResponseData['id'] # 疫苗单ID
@@ -688,7 +709,12 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
     URL_pets = headURL + 'daily%2fwork%2fpets%2f' + str(customer['id'])
     pets_response = requests.get(URL_pets,headers=headers)
 
-    for pet in json.loads(pets_response.text)['Data']:
+    petsResponseData = json.loads(pets_response.text)['Data']
+
+    if not isinstance(petsResponseData, list):
+        petsResponseData = []
+
+    for pet in petsResponseData:
         # 疫苗头部信息  (GET) http://127.0.0.1:13301/daily%2fwork%2fclinic_pet%2f601 
         URL_clinic_pet = headURL + 'daily%2fwork%2fclinic_pet%2f' + str(pet['id'])
         clinic_pet_response = requests.get(URL_clinic_pet,headers=headers)
@@ -707,7 +733,11 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
         # 将疫苗导航栏信息 写入vaccine-nav.json中
         with open(f'./' + file_pet + '/vaccine-nav.json','w',encoding='utf-8') as f:
             f.write(protections_response.text)
-        for protection in json.loads(protections_response.text)['Data']: 
+
+        protectionsResponseListData = json.loads(protections_response.text)['Data']
+        if not isinstance(protectionsResponseListData,list):
+            protectionsResponseListData = []
+        for protection in protectionsResponseListData: 
             # 疫苗详细信息（GET）http://127.0.0.1:13301/daily%2fwork%2fprotection%2f115%2f529 
             URL_protection = headURL + 'daily%2fwork%2fprotection%2f' + str(protection['id']) + '%2f' + str(customer['id'])
             protection_response = requests.get(URL_protection,headers=headers)
@@ -721,7 +751,11 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
         # 将驱虫导航栏信息 写入insecticide-nav.json中
         with open(f'./' + file_pet + '/insecticide-nav.json','w',encoding='utf-8') as f:
             f.write(insects_response.text)
-        for insect in json.loads(insects_response.text)['Data']:
+        
+        insectsResponseListData = json.loads(insects_response.text)['Data']
+        if not isinstance(insectsResponseListData,list):
+            insectsResponseListData = []
+        for insect in insectsResponseListData:
             # 驱虫详细信息  (GET) http://127.0.0.1:13301/daily%2fwork%2finsect%2f43%2f529 
             URL_insect = headURL + 'daily%2fwork%2finsect%2f' + str(insect['id']) + '%2f' + str(customer['id'])
             insect_response = requests.get(URL_insect,headers=headers)
@@ -748,7 +782,12 @@ getProductData(product_data,product_catalog_data)
 
 
 # ---------------------------------------------------------------------------------------------
-for customer in customer_data['Data']:
+
+customerListData = customer_data['Data']
+if not isinstance(customerListData,list):
+    customerListData = []
+
+for customer in customerListData:
     # 判断是不是本店用户    
     if int(customer['is_chain']) == 1:  # 只爬取本店信息
         continue
