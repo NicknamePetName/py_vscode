@@ -160,7 +160,11 @@ vaccine_detail_data = {
     'state': '',
     'hospital_id': '',
     'hospital_code': '',
-    'hospital_name': ''
+    'hospital_name': '',
+    'add_employee_name': '',
+    'con_category_name': '',
+    'commodity_name': '',
+    'commodity_brand': ''
 }
 # 采集数据起止日期-结束日期
 start_time = '2019-01-01'
@@ -429,8 +433,6 @@ def getExpenseCalendarData(customer):
             "ids": ""
         }
 
-        
-
         if int(order['id']) == 0:
             orderDetailResponse = requests.post(URL_order_detail, data=json.dumps(dataorderDetail_0), headers=headers)
         else:
@@ -652,6 +654,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
     customer_response = requests.get(URL_customer,headers=headers)
     customerResponseData = json.loads(customer_response.text)['Data']
 
+    # 客户疫苗免疫信息（POST）http://127.0.0.1:13301/consumer%2fcenter%2fvaccine_insect_record
     URL_Vaccine = headURL + 'consumer%2fcenter%2fvaccine_insect_record'
     data = {
         "pet_id": 0,
@@ -677,7 +680,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
         vaccine_data_copy['creater'] = vaccineResponseData['cure_employee_name'] # 创建数据的人员名称
         vaccine_data_copy['owner_id'] = customer['id'] # 顾客ID
         vaccine_data_copy['pet_id'] = vaccineResponseData['pet_id'] # 宠物ID
-        vaccine_data_copy['name'] = vaccineResponseData['protection_name'] + ':' + vaccineResponseData['protection_detail_name'] # 名称
+        vaccine_data_copy['name'] = vaccineResponseData['protection_name'] + '-' + vaccineResponseData['protection_detail_name']+ '-' + vaccineResponseData['medication_content'] # 名称
         vaccine_data_copy['hospital_id'] = vaccineResponseData['hospital_id'] # 医院ID
         vaccine_data_copy['hospital_code'] = customerResponseData['hospital_code'] # 医院编号
         vaccine_data_copy['hospital_name'] = vaccineResponseData['hospital_name'] # 医院名称
@@ -718,6 +721,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
         # 疫苗头部信息  (GET) http://127.0.0.1:13301/daily%2fwork%2fclinic_pet%2f601 
         URL_clinic_pet = headURL + 'daily%2fwork%2fclinic_pet%2f' + str(pet['id'])
         clinic_pet_response = requests.get(URL_clinic_pet,headers=headers)
+        clinicPetResponseData = json.loads(clinic_pet_response.text)['Data']
         file_pet = file_ + '/' + str(pet['id']) + '-' + replace_special_chars(pet['pet_name'].strip())
         if not os.path.exists(file_pet):   # 不存在则创建
         # 创建文件夹
@@ -744,10 +748,66 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
             # 将疫苗详细信息 写入 protection['id']-protection['name']
             with open(f'./' + file_pet + '/' + str(protection['id']) + '-' + protection['name'] +  '.json','w',encoding='utf-8') as f:
                 f.write(protection_response.text)
+            
+            protectionResponseData = json.loads(protection_response.text)['Data']
+            if not isinstance(protectionResponseData,list):
+                protectionResponseData = []
+            
+            for protectionData in protectionResponseData:
+                # 组装数据到 vaccine_detail_data 中
+                vaccine_detail_data_copy = copy.deepcopy(vaccine_detail_data) # 深拷贝
+                # task_id 老子不知道
+                vaccine_detail_data_copy['createtime'] = protectionData['eventtime'] # 数据添加时间
+                vaccine_detail_data_copy['creater'] = protectionData['cure_employee_name'] # 添加信息人员
+                # updater 最后修改信息人员 参数无
+                vaccine_detail_data_copy['his_protection_id'] = protectionData['id'] # 疫苗单ID
+                vaccine_detail_data_copy['cure_employee_name'] = protectionData['cure_employee_name'] # 主治医生
+                vaccine_detail_data_copy['name'] = protectionData['name'] # 名称
+                vaccine_detail_data_copy['weight'] = protectionData['weight'] # 体重
+                vaccine_detail_data_copy['temperature'] = protectionData['temperature'] # 体温
+                vaccine_detail_data_copy['discription'] = protectionData['discription'] # 备注
+                vaccine_detail_data_copy['eventtime'] = protectionData['eventtime'] # 疫苗时间
+                vaccine_detail_data_copy['state'] = protectionData['state'] # 免疫驱虫状态 0-未完成  1-已完成
+                vaccine_detail_data_copy['hospital_id'] = clinicPetResponseData['hospital_id'] # 医院ID
+                vaccine_detail_data_copy['hospital_code'] = clinicPetResponseData['hospital_code'] # 医院编号
+                vaccine_detail_data_copy['hospital_name'] = clinicPetResponseData['hospital_name'] # 医院名称
+                if isinstance(protectionData['his_consumptions'],list):
+                    for hisConsumptions in protectionData['his_consumptions']:
+                        vaccine_detail_data_copy['add_employee_name'] = hisConsumptions['add_employee_name'] # 付医生
+                        vaccine_detail_data_copy['con_category_name'] = hisConsumptions['con_category_name'] # 疫苗服务
+                        vaccine_detail_data_copy['commodity_name'] = hisConsumptions['commodity_name'] # 妙三多
+                        vaccine_detail_data_copy['commodity_brand'] = hisConsumptions['commodity_brand'] # 硕腾
+
+                        csv_file7 = './医院数据/疫苗单详情表.csv'
+                        # 检查文件是否存在且不为空
+                        file_exists = os.path.isfile(csv_file7) and os.path.getsize(csv_file7) > 0
+                        # 保存到.csv文件中
+                        with open(csv_file7,'a',encoding='utf-8',newline='') as f:
+                            # 将文件对象转换成 DictWriter 对象
+                            writer = csv.DictWriter(f,fieldnames = vaccine_detail_data.keys())
+                            # 如果文件是新创建的，写入表头
+                            if not file_exists:
+                                writer.writeheader()
+                            writer.writerow(vaccine_detail_data_copy)
+                else:
+                    csv_file7 = './医院数据/疫苗单详情表.csv'
+                    # 检查文件是否存在且不为空
+                    file_exists = os.path.isfile(csv_file7) and os.path.getsize(csv_file7) > 0
+                    # 保存到.csv文件中
+                    with open(csv_file7,'a',encoding='utf-8',newline='') as f:
+                        # 将文件对象转换成 DictWriter 对象
+                        writer = csv.DictWriter(f,fieldnames = vaccine_detail_data.keys())
+                        # 如果文件是新创建的，写入表头
+                        if not file_exists:
+                            writer.writeheader()
+                        writer.writerow(vaccine_detail_data_copy)
+
+            
         
         # 驱虫导航栏信息  (GET) http://127.0.0.1:13301/daily%2fwork%2finsects%2f601 
         URL_insects = headURL + 'daily%2fwork%2finsects%2f' + str(pet['id'])
         insects_response = requests.get(URL_insects,headers=headers)
+
         # 将驱虫导航栏信息 写入insecticide-nav.json中
         with open(f'./' + file_pet + '/insecticide-nav.json','w',encoding='utf-8') as f:
             f.write(insects_response.text)
@@ -762,7 +822,60 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
             # 将驱虫详细信息 写入 insect['id']-insect['name']
             with open(f'./' + file_pet + '/' + str(insect['id']) + '-' + insect['name'] +  '.json','w',encoding='utf-8') as f:
                 f.write(insect_response.text)
-        
+
+            insectResponseData = json.loads(insect_response.text)['Data']
+            if not isinstance(insectResponseData,list):
+                insectResponseData = []
+
+            for insectData in insectResponseData:
+                # 组装数据到 vaccine_detail_data 中
+                vaccine_detail_data_copy = copy.deepcopy(vaccine_detail_data) # 深拷贝
+                # task_id 老子不知道
+                vaccine_detail_data_copy['createtime'] = insectData['eventtime'] # 数据添加时间
+                vaccine_detail_data_copy['creater'] = insectData['cure_employee_name'] # 添加信息人员
+                # updater 最后修改信息人员 参数无
+                vaccine_detail_data_copy['his_protection_id'] = insectData['id'] # 疫苗单ID
+                vaccine_detail_data_copy['cure_employee_name'] = insectData['cure_employee_name'] # 主治医生
+                vaccine_detail_data_copy['name'] = insectData['name'] # 名称
+                vaccine_detail_data_copy['weight'] = insectData['weight'] # 体重
+                vaccine_detail_data_copy['temperature'] = insectData['temperature'] # 体温
+                vaccine_detail_data_copy['discription'] = insectData['discription'] # 备注
+                vaccine_detail_data_copy['eventtime'] = insectData['eventtime'] # 疫苗时间
+                vaccine_detail_data_copy['state'] = insectData['state'] # 免疫驱虫状态 0-未完成  1-已完成
+                vaccine_detail_data_copy['hospital_id'] = clinicPetResponseData['hospital_id'] # 医院ID
+                vaccine_detail_data_copy['hospital_code'] = clinicPetResponseData['hospital_code'] # 医院编号
+                vaccine_detail_data_copy['hospital_name'] = clinicPetResponseData['hospital_name'] # 医院名称
+                if isinstance(insectData['his_consumptions'],list):
+                    for hisConsumptions in insectData['his_consumptions']:
+                        vaccine_detail_data_copy['add_employee_name'] = hisConsumptions['add_employee_name'] # 付医生
+                        vaccine_detail_data_copy['con_category_name'] = hisConsumptions['con_category_name'] # 疫苗服务
+                        vaccine_detail_data_copy['commodity_name'] = hisConsumptions['commodity_name'] # 妙三多
+                        vaccine_detail_data_copy['commodity_brand'] = hisConsumptions['commodity_brand'] # 硕腾
+
+                        csv_file7 = './医院数据/疫苗单详情表.csv'
+                        # 检查文件是否存在且不为空
+                        file_exists = os.path.isfile(csv_file7) and os.path.getsize(csv_file7) > 0
+                        # 保存到.csv文件中
+                        with open(csv_file7,'a',encoding='utf-8',newline='') as f:
+                            # 将文件对象转换成 DictWriter 对象
+                            writer = csv.DictWriter(f,fieldnames = vaccine_detail_data.keys())
+                            # 如果文件是新创建的，写入表头
+                            if not file_exists:
+                                writer.writeheader()
+                            writer.writerow(vaccine_detail_data_copy)
+                else:
+                    csv_file7 = './医院数据/疫苗单详情表.csv'
+                    # 检查文件是否存在且不为空
+                    file_exists = os.path.isfile(csv_file7) and os.path.getsize(csv_file7) > 0
+                    # 保存到.csv文件中
+                    with open(csv_file7,'a',encoding='utf-8',newline='') as f:
+                        # 将文件对象转换成 DictWriter 对象
+                        writer = csv.DictWriter(f,fieldnames = vaccine_detail_data.keys())
+                        # 如果文件是新创建的，写入表头
+                        if not file_exists:
+                            writer.writeheader()
+                        writer.writerow(vaccine_detail_data_copy)
+
         
 
 
@@ -776,8 +889,8 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
 # ---------------------------------------------------------------------------------------------
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-# 获取商品信息
-getProductData(product_data,product_catalog_data)
+# 获取商品信息 successful
+# getProductData(product_data,product_catalog_data)
 
 
 
@@ -791,17 +904,20 @@ for customer in customerListData:
     # 判断是不是本店用户    
     if int(customer['is_chain']) == 1:  # 只爬取本店信息
         continue
+
+    if int(customer['id']) != 2:  # 只爬取本店信息
+        continue
     
     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
         
     print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
 
-    # 获取客户信息
-    getCustomerData(customer,user_data,pet_data,card_data)
+    # 获取客户信息 successful
+    # getCustomerData(customer,user_data,pet_data,card_data)
 
-    print("获取消费记录！！！") # 获取当前客户：宠物编号的消费记录！！！
-    # 获取消费记录
-    getExpenseCalendarData(customer)
+    # print("获取消费记录！！！") # 获取当前客户：宠物编号的消费记录！！！
+    # 获取消费记录 successful
+    # getExpenseCalendarData(customer)
 
     print("获取疫苗驱虫信息!!!")
     # 获取疫苗驱虫信息
