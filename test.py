@@ -15,9 +15,6 @@ except Exception as e:
     logging.error(f"错误：{e}") """
     
 
-'''
-    1.会员卡问题
-'''
 
 # info = input('请输入参数-info:')
 # sign = input('请输入参数-sign:')
@@ -166,9 +163,6 @@ vaccine_detail_data = {
     'commodity_name': '',
     'commodity_brand': ''
 }
-# 采集数据起止日期-结束日期
-start_time = '2019-01-01'
-end_time = '2027-01-01'
 
 product_catalog_data = {
     'task_id': '',
@@ -176,6 +170,87 @@ product_catalog_data = {
     'parent_id': '',
     'category_name': ''
 }
+
+cases_data = {
+    'task_id': '',
+    'id': '',
+    'createtime': '',
+    'updatetime': '',
+    'creater': '',
+    'updater': '',
+    'owner_id': '',
+    'pet_id': '',
+    'cure_employee_name': '',
+    'live_id': '',
+    '_code': '',
+    'eventtime': '',
+    'diagnosis': '',
+    'abstract': '',
+    'temperature': '',
+    'weight': '',
+    'breathe': '',
+    'heartrate': '',
+    'crt': '',
+    'tongkong': '',
+    'chiefnote': '',
+    'checknote': '',
+    'carenote': '',
+    'processnote': '',
+    'physicalorder': '',
+    'conditionnote': '',
+    'visitrecord': '',
+    'hospitalnode': '',
+    'sameclinic': '',
+    'healthcheck': '',
+    'service_employee_id': '',
+    'service_employee_name': '',
+    'file_description': '',
+    'group_id': '',
+    'state': '',
+    'open_appointment': '',
+    'appointment_time': '',
+    'is_share': '',
+    'blood_pressure': '',
+    'surgical_record': '',
+    'is_apply': '',
+    'select_model': '',
+    'whethertotransfer': '',
+    'feeding_method': '',
+    'feeding_frequency': '',
+    'food_changes': '',
+    'vaccine_status': '',
+    'deworming_status': '',
+    'previous_medical_records': '',
+    'mentality': '',
+    'mentality_other': '',
+    'visible_mucosa': '',
+    'physical_condition_score': '',
+    'muscle_score': '',
+    'periodontal_score': '',
+    'heart_lung': '',
+    'abdomen': '',
+    'lymph_gland': '',
+    'skin_elasticity': '',
+    'eye_condition': '',
+    'oral_mucosa': '',
+    'suspected_illness': '',
+    'eyes': '',
+    'nose': '',
+    'ears': '',
+    'muscle': '',
+    'skin': '',
+    'nerve': '',
+    'urology': '',
+    'oral_cavity': '',
+    'is_vaccine': '',
+    'is_deworming': '',
+    'clinical_examination': '',
+    'case_level': '',
+    'present_history': '',
+    'is_tw': '',
+    'evet_rft': ''
+}
+
 
 headers = {
     'Content-Type': 'application/json',
@@ -198,6 +273,10 @@ headers_text = {
     'sign': sign,
     'userid': userid
 }
+
+# 采集数据起止日期-结束日期
+start_time = '2019-01-01'
+end_time = '2027-01-01'
 
 headURL = 'http://127.0.0.1:13301/'
 
@@ -833,7 +912,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                 # task_id 老子不知道
                 vaccine_detail_data_copy['createtime'] = insectData['eventtime'] # 数据添加时间
                 vaccine_detail_data_copy['creater'] = insectData['cure_employee_name'] # 添加信息人员
-                # updater 最后修改信息人员 参数无
+                # updater 最后修改信息人员ID 参数无
                 vaccine_detail_data_copy['his_protection_id'] = insectData['id'] # 疫苗单ID
                 vaccine_detail_data_copy['cure_employee_name'] = insectData['cure_employee_name'] # 主治医生
                 vaccine_detail_data_copy['name'] = insectData['name'] # 名称
@@ -880,7 +959,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
 
 
 # 获取病例信息  （POST) http://127.0.0.1:13301/consumer%2fcenter%2fmedical_record
-def getCasesData(customer):
+def getCasesData(customer,cases_data):
     # 病例卡片信息 （POST) http://127.0.0.1:13301/consumer%2fcenter%2fmedical_record
     URL_medical_record = headURL + 'consumer%2fcenter%2fmedical_record'
     # 住院卡片信息  (POST) http://127.0.0.1:13301/consumer%2fcenter%2fhospitalization_record
@@ -978,6 +1057,100 @@ def getCasesData(customer):
         with open(f'./' + file_detail + '/' + str(medicalRecordData['id']) + '-' + 'cases-detail.json','w',encoding='utf-8') as f:
             f.write(cases_detail_response.text)
         
+        # 组装数据到 cases_data 中
+        casesDetailData = json.loads(cases_detail_response.text)['Data']
+        cases_data_copy = copy.deepcopy(cases_data)
+        # task_id 老子不知道
+        cases_data_copy['id'] = casesDetailData['id'] # 病例ID
+        cases_data_copy['createtime'] = casesDetailData['eventtime'] # 数据添加时间
+        # updatetime 数据修改时间 参数无
+        cases_data_copy['creater'] = casesDetailData['cure_employee_id'] # 添加人员ID
+        # updater 最后修改信息人员ID 参数无
+        cases_data_copy['owner_id'] = casesDetailData['his_consumer_id'] # 顾客ID
+        cases_data_copy['pet_id'] = casesDetailData['his_pet_id'] # 宠物ID
+        cases_data_copy['cure_employee_name'] = casesDetailData['cure_employee_name'] # 主治医生
+        # live_id 住院ID 参数无
+        cases_data_copy['_code'] = casesDetailData['code'] # 病例编号
+        cases_data_copy['eventtime'] = casesDetailData['eventtime'] # 病例日期
+        cases_data_copy['diagnosis'] = casesDetailData['diagnosis'] # 诊疗科目
+        cases_data_copy['abstract'] = casesDetailData['abstract'] # 病症分类
+        cases_data_copy['temperature'] = casesDetailData['temperature'] # 体温
+        cases_data_copy['weight'] = casesDetailData['weight'] # 体重
+        cases_data_copy['breathe'] = casesDetailData['breathe'] # 呼吸
+        cases_data_copy['heartrate'] = casesDetailData['heartrate'] # 心率
+        cases_data_copy['crt'] = casesDetailData['crt'] # crt
+        cases_data_copy['tongkong'] = casesDetailData['tongkong'] # 瞳孔
+        cases_data_copy['chiefnote'] = casesDetailData['chiefnote'] # 主诉记录
+        cases_data_copy['checknote'] = casesDetailData['checknote'] # 检验分析
+        cases_data_copy['carenote'] = casesDetailData['carenote'] # 护理记录
+        cases_data_copy['processnote'] = casesDetailData['processnote'] # 处理治疗
+        cases_data_copy['physicalorder'] = casesDetailData['physicalorder'] # 医嘱
+        cases_data_copy['conditionnote'] = casesDetailData['conditionnote'] # 病情诊断
+        cases_data_copy['visitrecord'] = casesDetailData['visitrecord'] # 回访记录
+        cases_data_copy['hospitalnode'] = casesDetailData['hospitalnode'] # 住院病情
+        cases_data_copy['sameclinic'] = casesDetailData['sameclinic'] # 疑似病例
+        cases_data_copy['healthcheck'] = json.dumps(casesDetailData['healthcheck']) # 体格检查内容
+        cases_data_copy['service_employee_id'] = casesDetailData['service_employee_id'] # 服务人员ID
+        cases_data_copy['service_employee_name'] = casesDetailData['service_employee_name'] # 服务人员名称
+        cases_data_copy['file_description'] = casesDetailData['file_description'] # 附件描述
+        cases_data_copy['group_id'] = casesDetailData['group_id'] # 病例组ID
+        cases_data_copy['state'] = casesDetailData['state'] # 病例状态
+        cases_data_copy['open_appointment'] = casesDetailData['open_appointment'] # 是否开启预约
+        cases_data_copy['appointment_time'] = casesDetailData['appointment_time'] # 预约时间
+        cases_data_copy['is_share'] = casesDetailData['is_share'] # 是否和小程序共享查看病例
+        cases_data_copy['blood_pressure'] = casesDetailData['blood_pressure'] # 血压
+        cases_data_copy['surgical_record'] = casesDetailData['surgical_record'] # 手术记录
+        cases_data_copy['is_apply'] = casesDetailData['is_apply'] # 申请/未申请
+        # select_model 创建来源病历进行程（主诉、体况检查、检验分析、诊断治疗、医嘱/回访）字段无法匹配
+        # whethertotransfer 是否为转过来的病历 无参数
+        cases_data_copy['feeding_method'] = json.dumps(casesDetailData['feeding_method']) # 喂养方式
+        cases_data_copy['feeding_frequency'] = casesDetailData['feeding_frequency'] # 喂养频次
+        cases_data_copy['food_changes'] = casesDetailData['food_changes'] # 食物改变
+        cases_data_copy['vaccine_status'] = json.dumps(casesDetailData['vaccine_status']) # 疫苗状态
+        cases_data_copy['deworming_status'] = json.dumps(casesDetailData['deworming_status']) # 驱虫状态
+        cases_data_copy['previous_medical_records'] = casesDetailData['previous_medical_records'] # 既往病例
+        cases_data_copy['mentality'] = casesDetailData['mentality'] # 精神状态
+        cases_data_copy['mentality_other'] = casesDetailData['mentality_other'] # 精神状态其他
+        cases_data_copy['visible_mucosa'] = json.dumps(casesDetailData['visible_mucosa']) # 可视黏膜
+        cases_data_copy['physical_condition_score'] = casesDetailData['physical_condition_score'] # 体况评分
+        cases_data_copy['muscle_score'] = casesDetailData['muscle_score'] # 肌肉评分
+        cases_data_copy['periodontal_score'] = casesDetailData['periodontal_score'] # 牙周评分
+        cases_data_copy['heart_lung'] = json.dumps(casesDetailData['heart_lung']) # 心肺听诊
+        cases_data_copy['abdomen'] = json.dumps(casesDetailData['abdomen']) # 腹部触诊
+        cases_data_copy['lymph_gland'] = json.dumps(casesDetailData['lymph_gland']) # 淋巴结触诊
+        cases_data_copy['skin_elasticity'] = casesDetailData['skin_elasticity'] # 皮肤弹性
+        cases_data_copy['eye_condition'] = casesDetailData['eye_condition'] # 眼睛情况
+        cases_data_copy['oral_mucosa'] = casesDetailData['oral_mucosa'] # 口腔粘膜
+        cases_data_copy['suspected_illness'] = casesDetailData['suspected_illness'] # 疑似病症
+        cases_data_copy['eyes'] = casesDetailData['eyes'] # 眼睛
+        cases_data_copy['nose'] = casesDetailData['nose'] # 鼻部
+        cases_data_copy['ears'] = casesDetailData['ears'] # 耳朵
+        cases_data_copy['muscle'] = casesDetailData['muscle'] # 肌肉
+        cases_data_copy['skin'] = casesDetailData['skins'] # 皮肤
+        cases_data_copy['nerve'] = casesDetailData['nerve'] # 神经
+        cases_data_copy['urology'] = casesDetailData['urology'] # 泌尿
+        cases_data_copy['oral_cavity'] = casesDetailData['oral_cavity'] # 口腔
+        cases_data_copy['is_vaccine'] = casesDetailData['is_vaccine'] # 未选/未/已经
+        cases_data_copy['is_deworming'] = casesDetailData['is_deworming'] # 未选/未/已经
+        cases_data_copy['clinical_examination'] = casesDetailData['clinical_examination'] # 临床检查
+        cases_data_copy['case_level'] = casesDetailData['case_level'] # -
+        cases_data_copy['present_history'] = casesDetailData['present_history'] # -
+        cases_data_copy['is_tw'] = casesDetailData['is_tw'] # -
+        cases_data_copy['evet_rft'] = casesDetailData['evet_rft'] # rft
+
+        csv_file8 = './医院数据/病例信息.csv'
+        # 检查文件是否存在且不为空
+        file_exists = os.path.isfile(csv_file8) and os.path.getsize(csv_file8) > 0
+        # 保存到.csv文件中
+        with open(csv_file8,'a',encoding='utf-8',newline='') as f:
+            # 将文件对象转换成 DictWriter 对象
+            writer = csv.DictWriter(f,fieldnames = cases_data.keys())
+            # 如果文件是新创建的，写入表头
+            if not file_exists:
+                writer.writeheader()
+            writer.writerow(cases_data_copy)
+        
+
         
     if not isinstance(hospitalizationRecordResponseData,list):
         hospitalizationRecordResponseData = []
@@ -1040,6 +1213,98 @@ def getCasesData(customer):
                     f.write(hospitalization_detail_response.text)
                 
 
+                # 组装数据到 cases_data 中
+                hospitalizationDetailData = json.loads(hospitalization_detail_response.text)['Data']
+                cases_data_copy = copy.deepcopy(cases_data)
+                # task_id 老子不知道
+                cases_data_copy['id'] = hospitalizationDetailData['id'] # 病例ID
+                cases_data_copy['createtime'] = hospitalizationDetailData['eventtime'] # 数据添加时间
+                # updatetime 数据修改时间 参数无
+                cases_data_copy['creater'] = hospitalizationDetailData['cure_employee_id'] # 添加人员ID
+                # updater 最后修改信息人员ID 参数无
+                cases_data_copy['owner_id'] = hospitalizationDetailData['his_consumer_id'] # 顾客ID
+                cases_data_copy['pet_id'] = hospitalizationDetailData['his_pet_id'] # 宠物ID
+                cases_data_copy['cure_employee_name'] = hospitalizationDetailData['cure_employee_name'] # 主治医生
+                # live_id 住院ID 参数无
+                cases_data_copy['_code'] = hospitalizationDetailData['code'] # 病例编号
+                cases_data_copy['eventtime'] = hospitalizationDetailData['eventtime'] # 病例日期
+                cases_data_copy['diagnosis'] = hospitalizationDetailData['diagnosis'] # 诊疗科目
+                cases_data_copy['abstract'] = hospitalizationDetailData['abstract'] # 病症分类
+                cases_data_copy['temperature'] = hospitalizationDetailData['temperature'] # 体温
+                cases_data_copy['weight'] = hospitalizationDetailData['weight'] # 体重
+                cases_data_copy['breathe'] = hospitalizationDetailData['breathe'] # 呼吸
+                cases_data_copy['heartrate'] = hospitalizationDetailData['heartrate'] # 心率
+                cases_data_copy['crt'] = hospitalizationDetailData['crt'] # crt
+                cases_data_copy['tongkong'] = hospitalizationDetailData['tongkong'] # 瞳孔
+                cases_data_copy['chiefnote'] = hospitalizationDetailData['chiefnote'] # 主诉记录
+                cases_data_copy['checknote'] = hospitalizationDetailData['checknote'] # 检验分析
+                cases_data_copy['carenote'] = hospitalizationDetailData['carenote'] # 护理记录
+                cases_data_copy['processnote'] = hospitalizationDetailData['processnote'] # 处理治疗
+                cases_data_copy['physicalorder'] = hospitalizationDetailData['physicalorder'] # 医嘱
+                cases_data_copy['conditionnote'] = hospitalizationDetailData['conditionnote'] # 病情诊断
+                cases_data_copy['visitrecord'] = hospitalizationDetailData['visitrecord'] # 回访记录
+                cases_data_copy['hospitalnode'] = hospitalizationDetailData['hospitalnode'] # 住院病情
+                cases_data_copy['sameclinic'] = hospitalizationDetailData['sameclinic'] # 疑似病例
+                cases_data_copy['healthcheck'] = json.dumps(hospitalizationDetailData['healthcheck']) # 体格检查内容
+                cases_data_copy['service_employee_id'] = hospitalizationDetailData['service_employee_id'] # 服务人员ID
+                cases_data_copy['service_employee_name'] = hospitalizationDetailData['service_employee_name'] # 服务人员名称
+                cases_data_copy['file_description'] = hospitalizationDetailData['file_description'] # 附件描述
+                cases_data_copy['group_id'] = hospitalizationDetailData['group_id'] # 病例组ID
+                cases_data_copy['state'] = hospitalizationDetailData['state'] # 病例状态
+                cases_data_copy['open_appointment'] = hospitalizationDetailData['open_appointment'] # 是否开启预约
+                cases_data_copy['appointment_time'] = hospitalizationDetailData['appointment_time'] # 预约时间
+                cases_data_copy['is_share'] = hospitalizationDetailData['is_share'] # 是否和小程序共享查看病例
+                cases_data_copy['blood_pressure'] = hospitalizationDetailData['blood_pressure'] # 血压
+                cases_data_copy['surgical_record'] = hospitalizationDetailData['surgical_record'] # 手术记录
+                cases_data_copy['is_apply'] = hospitalizationDetailData['is_apply'] # 申请/未申请
+                # select_model 创建来源病历进行程（主诉、体况检查、检验分析、诊断治疗、医嘱/回访）字段无法匹配
+                # whethertotransfer 是否为转过来的病历 无参数
+                cases_data_copy['feeding_method'] = json.dumps(hospitalizationDetailData['feeding_method']) # 喂养方式
+                cases_data_copy['feeding_frequency'] = hospitalizationDetailData['feeding_frequency'] # 喂养频次
+                cases_data_copy['food_changes'] = hospitalizationDetailData['food_changes'] # 食物改变
+                cases_data_copy['vaccine_status'] = json.dumps(hospitalizationDetailData['vaccine_status']) # 疫苗状态
+                cases_data_copy['deworming_status'] = json.dumps(hospitalizationDetailData['deworming_status']) # 驱虫状态
+                cases_data_copy['previous_medical_records'] = hospitalizationDetailData['previous_medical_records'] # 既往病例
+                cases_data_copy['mentality'] = hospitalizationDetailData['mentality'] # 精神状态
+                cases_data_copy['mentality_other'] = hospitalizationDetailData['mentality_other'] # 精神状态其他
+                cases_data_copy['visible_mucosa'] = json.dumps(hospitalizationDetailData['visible_mucosa']) # 可视黏膜
+                cases_data_copy['physical_condition_score'] = hospitalizationDetailData['physical_condition_score'] # 体况评分
+                cases_data_copy['muscle_score'] = hospitalizationDetailData['muscle_score'] # 肌肉评分
+                cases_data_copy['periodontal_score'] = hospitalizationDetailData['periodontal_score'] # 牙周评分
+                cases_data_copy['heart_lung'] = json.dumps(hospitalizationDetailData['heart_lung']) # 心肺听诊
+                cases_data_copy['abdomen'] = json.dumps(hospitalizationDetailData['abdomen']) # 腹部触诊
+                cases_data_copy['lymph_gland'] = json.dumps(hospitalizationDetailData['lymph_gland']) # 淋巴结触诊
+                cases_data_copy['skin_elasticity'] = hospitalizationDetailData['skin_elasticity'] # 皮肤弹性
+                cases_data_copy['eye_condition'] = hospitalizationDetailData['eye_condition'] # 眼睛情况
+                cases_data_copy['oral_mucosa'] = hospitalizationDetailData['oral_mucosa'] # 口腔粘膜
+                cases_data_copy['suspected_illness'] = hospitalizationDetailData['suspected_illness'] # 疑似病症
+                cases_data_copy['eyes'] = hospitalizationDetailData['eyes'] # 眼睛
+                cases_data_copy['nose'] = hospitalizationDetailData['nose'] # 鼻部
+                cases_data_copy['ears'] = hospitalizationDetailData['ears'] # 耳朵
+                cases_data_copy['muscle'] = hospitalizationDetailData['muscle'] # 肌肉
+                cases_data_copy['skin'] = hospitalizationDetailData['skins'] # 皮肤
+                cases_data_copy['nerve'] = hospitalizationDetailData['nerve'] # 神经
+                cases_data_copy['urology'] = hospitalizationDetailData['urology'] # 泌尿
+                cases_data_copy['oral_cavity'] = hospitalizationDetailData['oral_cavity'] # 口腔
+                cases_data_copy['is_vaccine'] = hospitalizationDetailData['is_vaccine'] # 未选/未/已经
+                cases_data_copy['is_deworming'] = hospitalizationDetailData['is_deworming'] # 未选/未/已经
+                cases_data_copy['clinical_examination'] = hospitalizationDetailData['clinical_examination'] # 临床检查
+                cases_data_copy['case_level'] = hospitalizationDetailData['case_level'] # -
+                cases_data_copy['present_history'] = hospitalizationDetailData['present_history'] # -
+                cases_data_copy['is_tw'] = hospitalizationDetailData['is_tw'] # -
+                cases_data_copy['evet_rft'] = hospitalizationDetailData['evet_rft'] # rft
+
+                csv_file8 = './医院数据/病例信息.csv'
+                # 检查文件是否存在且不为空
+                file_exists = os.path.isfile(csv_file8) and os.path.getsize(csv_file8) > 0
+                # 保存到.csv文件中
+                with open(csv_file8,'a',encoding='utf-8',newline='') as f:
+                    # 将文件对象转换成 DictWriter 对象
+                    writer = csv.DictWriter(f,fieldnames = cases_data.keys())
+                    # 如果文件是新创建的，写入表头
+                    if not file_exists:
+                        writer.writeheader()
+                    writer.writerow(cases_data_copy)
 
 
 
@@ -1066,7 +1331,7 @@ def getCasesData(customer):
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # 获取商品信息 successful
-# getProductData(product_data,product_catalog_data)
+getProductData(product_data,product_catalog_data)
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1080,27 +1345,27 @@ for customer in customerListData:
     if int(customer['is_chain']) == 1:  # 只爬取本店信息
         continue
 
-    if int(customer['id']) != 1730:  # 只爬取本店信息
-        continue
+    # if int(customer['id']) != 1730:  # 只爬取本店信息
+    #     continue
     
     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
         
     print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
 
     # 获取客户信息 successful
-    # getCustomerData(customer,user_data,pet_data,card_data)
+    getCustomerData(customer,user_data,pet_data,card_data)
 
-    # print("获取消费记录中！！！") # 获取当前客户：宠物编号的消费记录！！！
+    print("获取消费记录中！！！") # 获取当前客户：宠物编号的消费记录！！！
     # 获取消费记录 successful
-    # getExpenseCalendarData(customer)
+    getExpenseCalendarData(customer)
 
-    # print("获取疫苗驱虫信息中！！！")
+    print("获取疫苗驱虫信息中！！！")
     # 获取疫苗驱虫信息 successful
-    # getVaccineData(customer,vaccine_data,vaccine_detail_data)
+    getVaccineData(customer,vaccine_data,vaccine_detail_data)
 
-    # print("获取病例信息中！！！")
+    print("获取病例信息中！！！")
     # 获取病例信息
-    getCasesData(customer)
+    getCasesData(customer,cases_data)
 
 
 

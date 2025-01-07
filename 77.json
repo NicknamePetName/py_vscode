@@ -1,6 +1,915 @@
-http: //127.0.0.1:13301/daily%2fwork%2freturn_visit_list%2f305
 {
     "Code": 0,
     "Message": "SUCCESS",
-    "Data": []
+    "Data": {
+        "id": 11169,
+        "his_consumer_id": 1730,
+        "his_pet_id": 2299,
+        "cure_employee_id": 10,
+        "cure_employee_name": "曾艺元",
+        "service_employee_id": 10,
+        "surgical_record": "",
+        "service_employee_name": "曾艺元",
+        "code": "NO202406160014",
+        "eventtime": "2024-06-16 16:48:33",
+        "diagnosis": "",
+        "abstract": "",
+        "temperature": "",
+        "weight": "4.4",
+        "original_weight": "4.4",
+        "breathe": "30",
+        "heartrate": "150",
+        "crt": "",
+        "tongkong": "",
+        "chiefnote": "近期呕吐多次，呕吐物发现蛔虫，吃了驱虫药依然呕吐，没有食欲，可能拉软便。",
+        "checknote": "",
+        "carenote": "",
+        "processnote": "1，止吐\r\n2，保护胃黏膜",
+        "physicalorder": "后续注意呕吐和排虫情况。",
+        "conditionnote": "蛔虫造成的呕吐不止。",
+        "visitrecord": "",
+        "hospitalnode": "",
+        "sameclinic": "",
+        "healthcheck": "{\"Head\":{\"Normal\":true,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Bones\":{\"Normal\":true,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Skin\":{\"Normal\":true,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Lymph\":{\"Normal\":true,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Heart\":{\"Normal\":true,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Viscus\":{\"Normal\":true,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Anus\":{\"Normal\":true,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"}}",
+        "his_hospital_id": 0,
+        "his_consumptions": [
+            {
+                "add_employee_name": "曾艺元",
+                "id": 139919,
+                "order_value": 1,
+                "his_consumer_id": 1730,
+                "his_consumer_name": "陈先生",
+                "his_pet_id": 2299,
+                "his_pet_name": "加菲",
+                "his_bill_id": 11322,
+                "con_commodity_id": 2326,
+                "con_category_id": 107,
+                "con_category_name": "11.显微镜检查",
+                "top_category_id": 3,
+                "commodity_code": "Y0000000161",
+                "commodity_encode": "",
+                "commodity_name": "粪便检查（染色+普片）",
+                "commodity_namepy": "FBJC（RS+PP）",
+                "commodity_brand": "",
+                "commodity_isuse_alias": 0,
+                "commodity_aliasname": "",
+                "commodity_standardname": "",
+                "commodity_standardcode": "",
+                "commodity_vender": "",
+                "commodity_format": "",
+                "commodity_unit": "样本",
+                "commodity_use_memberprice": 0,
+                "commodity_memberprice": 0,
+                "commodity_isuse_stock": 0,
+                "commodity_isuse_off": 1,
+                "commodity_isuse_batch": 0,
+                "commodity_isrecommend": 0,
+                "commodity_isexchange": 0,
+                "commodity_ismeal": 0,
+                "usages": "",
+                "usagesquantity": "",
+                "useunit": "",
+                "quantity": 1,
+                "price": 82.5,
+                "payprice": 82.5,
+                "bussinesstype": 61,
+                "sale_employee_id": 10,
+                "sale_employee_name": "曾艺元",
+                "service_employee_id": 10,
+                "service_employee_name": "曾艺元",
+                "cure_employee_id": 0,
+                "cure_employee_name": "",
+                "daily_id": 0,
+                "bill_type": 1,
+                "state": 0,
+                "mark": "",
+                "eventtime": "2024-06-16 16:51:14",
+                "meter_number": 0,
+                "his_consumption_id": 0,
+                "parent_id": 11169,
+                "tag": 2,
+                "his_pet_code": "",
+                "is_count_stock": 0,
+                "sale_type": 0,
+                "sale_percent": 0,
+                "sale_royalty_price": 0,
+                "service_type": 0,
+                "service_percent": 0,
+                "service_royalty_price": 0,
+                "pay_state": 0,
+                "off": 0,
+                "lot_number": "",
+                "is_refund": 0,
+                "original_consumption_id": 0,
+                "is_commodity_deposit": 0,
+                "purchase_reminder": 0,
+                "only_update_usage": 0,
+                "usage_of_meal": null,
+                "select_model": 0,
+                "is_update_sm": 0,
+                "is_new_stock": 0,
+                "his_retreat_bill_id": 0,
+                "is_generate_examine": 1,
+                "is_generate_image": 0,
+                "is_use_metercard": 0,
+                "is_account": 0
+            },
+            {
+                "add_employee_name": "曾艺元",
+                "id": 139920,
+                "order_value": 2,
+                "his_consumer_id": 1730,
+                "his_consumer_name": "陈先生",
+                "his_pet_id": 2299,
+                "his_pet_name": "加菲",
+                "his_bill_id": 11322,
+                "con_commodity_id": 2253,
+                "con_category_id": 102,
+                "con_category_name": "03.血常规检查",
+                "top_category_id": 3,
+                "commodity_code": "Y0000000088",
+                "commodity_encode": "",
+                "commodity_name": "血常规5分类",
+                "commodity_namepy": "XCG5FL",
+                "commodity_brand": "",
+                "commodity_isuse_alias": 0,
+                "commodity_aliasname": "",
+                "commodity_standardname": "",
+                "commodity_standardcode": "",
+                "commodity_vender": "迈瑞",
+                "commodity_format": "",
+                "commodity_unit": "测",
+                "commodity_use_memberprice": 0,
+                "commodity_memberprice": 0,
+                "commodity_isuse_stock": 0,
+                "commodity_isuse_off": 1,
+                "commodity_isuse_batch": 0,
+                "commodity_isrecommend": 0,
+                "commodity_isexchange": 0,
+                "commodity_ismeal": 0,
+                "usages": "",
+                "usagesquantity": "",
+                "useunit": "",
+                "quantity": 1,
+                "price": 120,
+                "payprice": 120,
+                "bussinesstype": 61,
+                "sale_employee_id": 10,
+                "sale_employee_name": "曾艺元",
+                "service_employee_id": 10,
+                "service_employee_name": "曾艺元",
+                "cure_employee_id": 0,
+                "cure_employee_name": "",
+                "daily_id": 0,
+                "bill_type": 1,
+                "state": 0,
+                "mark": "",
+                "eventtime": "2024-06-16 16:51:14",
+                "meter_number": 0,
+                "his_consumption_id": 0,
+                "parent_id": 11169,
+                "tag": 2,
+                "his_pet_code": "",
+                "is_count_stock": 0,
+                "sale_type": 0,
+                "sale_percent": 0,
+                "sale_royalty_price": 0,
+                "service_type": 0,
+                "service_percent": 0,
+                "service_royalty_price": 0,
+                "pay_state": 0,
+                "off": 0,
+                "lot_number": "",
+                "is_refund": 0,
+                "original_consumption_id": 0,
+                "is_commodity_deposit": 0,
+                "purchase_reminder": 0,
+                "only_update_usage": 0,
+                "usage_of_meal": null,
+                "select_model": 0,
+                "is_update_sm": 0,
+                "is_new_stock": 0,
+                "his_retreat_bill_id": 0,
+                "is_generate_examine": 1,
+                "is_generate_image": 0,
+                "is_use_metercard": 0,
+                "is_account": 0
+            },
+            {
+                "add_employee_name": "曾艺元",
+                "id": 139921,
+                "order_value": 3,
+                "his_consumer_id": 1730,
+                "his_consumer_name": "陈先生",
+                "his_pet_id": 2299,
+                "his_pet_name": "加菲",
+                "his_bill_id": 11322,
+                "con_commodity_id": 2209,
+                "con_category_id": 98,
+                "con_category_name": "02.检测板、试剂盒等快速检查",
+                "top_category_id": 3,
+                "commodity_code": "Y0000000017",
+                "commodity_encode": "",
+                "commodity_name": "猫血清淀粉体/SAA",
+                "commodity_namepy": "MXQDFT/SAA",
+                "commodity_brand": "",
+                "commodity_isuse_alias": 0,
+                "commodity_aliasname": "",
+                "commodity_standardname": "",
+                "commodity_standardcode": "",
+                "commodity_vender": "安捷",
+                "commodity_format": "5条/盒",
+                "commodity_unit": "条",
+                "commodity_use_memberprice": 0,
+                "commodity_memberprice": 0,
+                "commodity_isuse_stock": 1,
+                "commodity_isuse_off": 1,
+                "commodity_isuse_batch": 0,
+                "commodity_isrecommend": 0,
+                "commodity_isexchange": 0,
+                "commodity_ismeal": 0,
+                "usages": "",
+                "usagesquantity": "",
+                "useunit": "",
+                "quantity": 1,
+                "price": 132,
+                "payprice": 132,
+                "bussinesstype": 61,
+                "sale_employee_id": 10,
+                "sale_employee_name": "曾艺元",
+                "service_employee_id": 10,
+                "service_employee_name": "曾艺元",
+                "cure_employee_id": 0,
+                "cure_employee_name": "",
+                "daily_id": 0,
+                "bill_type": 1,
+                "state": 0,
+                "mark": "",
+                "eventtime": "2024-06-16 16:51:15",
+                "meter_number": 0,
+                "his_consumption_id": 0,
+                "parent_id": 11169,
+                "tag": 2,
+                "his_pet_code": "",
+                "is_count_stock": 0,
+                "sale_type": 0,
+                "sale_percent": 0,
+                "sale_royalty_price": 0,
+                "service_type": 0,
+                "service_percent": 0,
+                "service_royalty_price": 0,
+                "pay_state": 0,
+                "off": 0,
+                "lot_number": "",
+                "is_refund": 0,
+                "original_consumption_id": 0,
+                "is_commodity_deposit": 0,
+                "purchase_reminder": 0,
+                "only_update_usage": 0,
+                "usage_of_meal": null,
+                "select_model": 0,
+                "is_update_sm": 0,
+                "is_new_stock": 0,
+                "his_retreat_bill_id": 0,
+                "is_generate_examine": 1,
+                "is_generate_image": 0,
+                "is_use_metercard": 0,
+                "is_account": 0
+            },
+            {
+                "add_employee_name": "曾艺元",
+                "id": 139934,
+                "order_value": 2,
+                "his_consumer_id": 1730,
+                "his_consumer_name": "陈先生",
+                "his_pet_id": 2299,
+                "his_pet_name": "加菲",
+                "his_bill_id": 11325,
+                "con_commodity_id": 1804,
+                "con_category_id": 81,
+                "con_category_name": "09.消化系统药",
+                "top_category_id": 2,
+                "commodity_code": "Y0000001126",
+                "commodity_encode": "",
+                "commodity_name": "A/硕腾赛瑞宁针剂0.1ml",
+                "commodity_namepy": "A/STSRNZJ0.1ml",
+                "commodity_brand": "",
+                "commodity_isuse_alias": 0,
+                "commodity_aliasname": "",
+                "commodity_standardname": "",
+                "commodity_standardcode": "",
+                "commodity_vender": "硕腾",
+                "commodity_format": "20ml/瓶",
+                "commodity_unit": "0.1ml",
+                "commodity_use_memberprice": 0,
+                "commodity_memberprice": 0,
+                "commodity_isuse_stock": 1,
+                "commodity_isuse_off": 1,
+                "commodity_isuse_batch": 0,
+                "commodity_isrecommend": 0,
+                "commodity_isexchange": 0,
+                "commodity_ismeal": 0,
+                "usages": "",
+                "usagesquantity": "",
+                "useunit": "",
+                "quantity": 5,
+                "price": 11.4,
+                "payprice": 11.4,
+                "bussinesstype": 63,
+                "sale_employee_id": 10,
+                "sale_employee_name": "曾艺元",
+                "service_employee_id": 10,
+                "service_employee_name": "曾艺元",
+                "cure_employee_id": 0,
+                "cure_employee_name": "",
+                "daily_id": 0,
+                "bill_type": 1,
+                "state": 0,
+                "mark": "",
+                "eventtime": "2024-06-16 17:41:50",
+                "meter_number": 0,
+                "his_consumption_id": 0,
+                "parent_id": 11169,
+                "tag": 2,
+                "his_pet_code": "",
+                "is_count_stock": 0,
+                "sale_type": 0,
+                "sale_percent": 0,
+                "sale_royalty_price": 0,
+                "service_type": 0,
+                "service_percent": 0,
+                "service_royalty_price": 0,
+                "pay_state": 0,
+                "off": 0,
+                "lot_number": "",
+                "is_refund": 0,
+                "original_consumption_id": 0,
+                "is_commodity_deposit": 0,
+                "purchase_reminder": 0,
+                "only_update_usage": 0,
+                "usage_of_meal": null,
+                "select_model": 0,
+                "is_update_sm": 0,
+                "is_new_stock": 0,
+                "his_retreat_bill_id": 0,
+                "is_generate_examine": 0,
+                "is_generate_image": 0,
+                "is_use_metercard": 0,
+                "is_account": 0
+            },
+            {
+                "add_employee_name": "曾艺元",
+                "id": 139935,
+                "order_value": 3,
+                "his_consumer_id": 1730,
+                "his_consumer_name": "陈先生",
+                "his_pet_id": 2299,
+                "his_pet_name": "加菲",
+                "his_bill_id": 11325,
+                "con_commodity_id": 1813,
+                "con_category_id": 81,
+                "con_category_name": "09.消化系统药",
+                "top_category_id": 2,
+                "commodity_code": "Y0000001135",
+                "commodity_encode": "",
+                "commodity_name": "抑酸药口服（AMLZ）20mg",
+                "commodity_namepy": "YSYKF（AMLZ）20mg",
+                "commodity_brand": "",
+                "commodity_isuse_alias": 1,
+                "commodity_aliasname": "抑酸药（OMLZ）",
+                "commodity_standardname": "",
+                "commodity_standardcode": "",
+                "commodity_vender": "",
+                "commodity_format": "20mg*28片/盒",
+                "commodity_unit": "片",
+                "commodity_use_memberprice": 0,
+                "commodity_memberprice": 0,
+                "commodity_isuse_stock": 1,
+                "commodity_isuse_off": 1,
+                "commodity_isuse_batch": 0,
+                "commodity_isrecommend": 0,
+                "commodity_isexchange": 0,
+                "commodity_ismeal": 0,
+                "usages": "",
+                "usagesquantity": "",
+                "useunit": "",
+                "quantity": 1,
+                "price": 4.2,
+                "payprice": 4.2,
+                "bussinesstype": 63,
+                "sale_employee_id": 10,
+                "sale_employee_name": "曾艺元",
+                "service_employee_id": 10,
+                "service_employee_name": "曾艺元",
+                "cure_employee_id": 0,
+                "cure_employee_name": "",
+                "daily_id": 0,
+                "bill_type": 1,
+                "state": 0,
+                "mark": "",
+                "eventtime": "2024-06-16 17:41:51",
+                "meter_number": 0,
+                "his_consumption_id": 0,
+                "parent_id": 11169,
+                "tag": 2,
+                "his_pet_code": "",
+                "is_count_stock": 0,
+                "sale_type": 0,
+                "sale_percent": 0,
+                "sale_royalty_price": 0,
+                "service_type": 0,
+                "service_percent": 0,
+                "service_royalty_price": 0,
+                "pay_state": 0,
+                "off": 0,
+                "lot_number": "",
+                "is_refund": 0,
+                "original_consumption_id": 0,
+                "is_commodity_deposit": 0,
+                "purchase_reminder": 0,
+                "only_update_usage": 0,
+                "usage_of_meal": null,
+                "select_model": 0,
+                "is_update_sm": 0,
+                "is_new_stock": 0,
+                "his_retreat_bill_id": 0,
+                "is_generate_examine": 0,
+                "is_generate_image": 0,
+                "is_use_metercard": 0,
+                "is_account": 0
+            },
+            {
+                "add_employee_name": "曾艺元",
+                "id": 139938,
+                "order_value": 1,
+                "his_consumer_id": 1730,
+                "his_consumer_name": "陈先生",
+                "his_pet_id": 2299,
+                "his_pet_name": "加菲",
+                "his_bill_id": 11325,
+                "con_commodity_id": 1796,
+                "con_category_id": 81,
+                "con_category_name": "09.消化系统药",
+                "top_category_id": 2,
+                "commodity_code": "Y0000001118",
+                "commodity_encode": "",
+                "commodity_name": "A/保灵胃溃宁500mg",
+                "commodity_namepy": "A/BLWKN500mg",
+                "commodity_brand": "",
+                "commodity_isuse_alias": 0,
+                "commodity_aliasname": "",
+                "commodity_standardname": "",
+                "commodity_standardcode": "",
+                "commodity_vender": "天津保灵",
+                "commodity_format": "500mg*24片/盒",
+                "commodity_unit": "片",
+                "commodity_use_memberprice": 0,
+                "commodity_memberprice": 0,
+                "commodity_isuse_stock": 1,
+                "commodity_isuse_off": 1,
+                "commodity_isuse_batch": 0,
+                "commodity_isrecommend": 0,
+                "commodity_isexchange": 0,
+                "commodity_ismeal": 0,
+                "usages": "",
+                "usagesquantity": "",
+                "useunit": "",
+                "quantity": 3,
+                "price": 5.88,
+                "payprice": 5.88,
+                "bussinesstype": 63,
+                "sale_employee_id": 10,
+                "sale_employee_name": "曾艺元",
+                "service_employee_id": 10,
+                "service_employee_name": "曾艺元",
+                "cure_employee_id": 0,
+                "cure_employee_name": "",
+                "daily_id": 0,
+                "bill_type": 1,
+                "state": 0,
+                "mark": "",
+                "eventtime": "2024-06-16 17:45:56",
+                "meter_number": 0,
+                "his_consumption_id": 0,
+                "parent_id": 11169,
+                "tag": 2,
+                "his_pet_code": "",
+                "is_count_stock": 0,
+                "sale_type": 0,
+                "sale_percent": 0,
+                "sale_royalty_price": 0,
+                "service_type": 0,
+                "service_percent": 0,
+                "service_royalty_price": 0,
+                "pay_state": 0,
+                "off": 0,
+                "lot_number": "",
+                "is_refund": 0,
+                "original_consumption_id": 0,
+                "is_commodity_deposit": 0,
+                "purchase_reminder": 0,
+                "only_update_usage": 0,
+                "usage_of_meal": null,
+                "select_model": 0,
+                "is_update_sm": 0,
+                "is_new_stock": 0,
+                "his_retreat_bill_id": 0,
+                "is_generate_examine": 0,
+                "is_generate_image": 0,
+                "is_use_metercard": 0,
+                "is_account": 0
+            }
+        ],
+        "file_list": [],
+        "body_file_list": [],
+        "file_description": "",
+        "state": 0,
+        "open_appointment": 0,
+        "appointment_time": "",
+        "group_id": 0,
+        "is_share": 0,
+        "is_apply": 0,
+        "blood_pressure": "",
+        "hospital_name": "一扬动物医院（东莞庄路）",
+        "hospital_id": 3,
+        "is_chain": 0,
+        "update_time": "2024-06-17 11:38:06",
+        "feeding_method": "{\"solid_food\":{\"is_select\":0,\"text\":\"\"},\"wet_grain\":{\"is_select\":0,\"text\":\"\"},\"coarse_cereals\":{\"is_select\":0,\"text\":\"\"},\"pet_snacks\":{\"is_select\":0,\"text\":\"\"},\"self_control\":{\"is_select\":0,\"text\":\"\"}}",
+        "feeding_method_model": {
+            "solid_food": {
+                "is_select": 0,
+                "text": ""
+            },
+            "wet_grain": {
+                "is_select": 0,
+                "text": ""
+            },
+            "coarse_cereals": {
+                "is_select": 0,
+                "text": ""
+            },
+            "pet_snacks": {
+                "is_select": 0,
+                "text": ""
+            },
+            "self_control": {
+                "is_select": 0,
+                "text": ""
+            }
+        },
+        "feeding_frequency": 0,
+        "food_changes": "",
+        "vaccine_status": "{\"multi\":{\"is_select\":0,\"commodity_name\":\"\",\"frequency\":\"\"},\"rabid_dog\":{\"is_select\":0,\"commodity_name\":\"\",\"frequency\":\"\"}}",
+        "deworming_status": "{\"in_vivo\":{\"is_select\":0,\"commodity_name\":\"\",\"frequency\":\"\"},\"in_vitro\":{\"is_select\":0,\"commodity_name\":\"\",\"frequency\":\"\"}}",
+        "vaccine_status_model": {
+            "multi": {
+                "is_select": 0,
+                "commodity_name": "",
+                "frequency": ""
+            },
+            "rabid_dog": {
+                "is_select": 0,
+                "commodity_name": "",
+                "frequency": ""
+            }
+        },
+        "deworming_status_model": {
+            "in_vivo": {
+                "is_select": 0,
+                "commodity_name": "",
+                "frequency": ""
+            },
+            "in_vitro": {
+                "is_select": 0,
+                "commodity_name": "",
+                "frequency": ""
+            }
+        },
+        "previous_medical_records": "",
+        "mentality_other": "",
+        "clinical_examination": "BCS：5/9，体表检查良好，腹部触诊良好，心肺听诊良好。",
+        "mentality": 0,
+        "visible_mucosa": "{\"pink\":{\"is_select\":0,\"text\":\"\"},\"pale\":{\"is_select\":0,\"text\":\"\"},\"jaundice\":{\"is_select\":0,\"text\":\"\"},\"brown\":{\"is_select\":0,\"text\":\"\"},\"cyanosis\":{\"is_select\":0,\"text\":\"\"},\"petechiae\":{\"is_select\":0,\"text\":\"\"},\"other\":{\"is_select\":0,\"text\":\"\"}}",
+        "visible_mucosa_model": {
+            "pink": {
+                "is_select": 0,
+                "text": ""
+            },
+            "pale": {
+                "is_select": 0,
+                "text": ""
+            },
+            "jaundice": {
+                "is_select": 0,
+                "text": ""
+            },
+            "brown": {
+                "is_select": 0,
+                "text": ""
+            },
+            "cyanosis": {
+                "is_select": 0,
+                "text": ""
+            },
+            "petechiae": {
+                "is_select": 0,
+                "text": ""
+            },
+            "other": {
+                "is_select": 0,
+                "text": ""
+            }
+        },
+        "physical_condition_score": 0,
+        "muscle_score": 0,
+        "periodontal_score": 0,
+        "heart_lung": "{\"heart_sounds\":{\"is_select\":0,\"text\":\"\"},\"heart_murmur_grading\":{\"is_select\":0,\"text\":\"\"},\"arrhythmias\":{\"is_select\":0,\"text\":\"\"},\"galloping_horse_sound\":{\"is_select\":0,\"text\":\"\"},\"lung_sound\":{\"is_select\":0,\"text\":\"\"},\"snore\":{\"is_select\":0,\"text\":\"\"},\"wheezing_sound\":{\"is_select\":0,\"text\":\"\"},\"dry_rale\":{\"is_select\":0,\"text\":\"\"},\"moist_rale\":{\"is_select\":0,\"text\":\"\"},\"other\":{\"is_select\":0,\"text\":\"\"}}",
+        "heart_lung_model": {
+            "heart_sounds": {
+                "is_select": 0,
+                "text": ""
+            },
+            "heart_murmur_grading": {
+                "is_select": 0,
+                "text": ""
+            },
+            "arrhythmias": {
+                "is_select": 0,
+                "text": ""
+            },
+            "galloping_horse_sound": {
+                "is_select": 0,
+                "text": ""
+            },
+            "lung_sound": {
+                "is_select": 0,
+                "text": ""
+            },
+            "snore": {
+                "is_select": 0,
+                "text": ""
+            },
+            "wheezing_sound": {
+                "is_select": 0,
+                "text": ""
+            },
+            "dry_rale": {
+                "is_select": 0,
+                "text": ""
+            },
+            "moist_rale": {
+                "is_select": 0,
+                "text": ""
+            },
+            "other": {
+                "is_select": 0,
+                "text": ""
+            }
+        },
+        "eyes": "",
+        "nose": "",
+        "oral_cavity": "",
+        "ears": "",
+        "muscle": "",
+        "skins": "",
+        "nerve": "",
+        "urology": "",
+        "abdomen": "{\"no_abnormal\":{\"is_select\":0,\"text\":\"\"},\"abdominal_sensitivity\":{\"is_select\":0,\"text\":\"\"},\"abdominal_pain\":{\"is_select\":0,\"text\":\"\"},\"intestinal_emptiness\":{\"is_select\":0,\"text\":\"\"},\"intestinal_constipation\":{\"is_select\":0,\"text\":\"\"},\"abdominal_asymmetry\":{\"is_select\":0,\"text\":\"\"},\"abdominal_symmetry\":{\"is_select\":0,\"text\":\"\"},\"wave_sensation\":{\"is_select\":0,\"text\":\"\"},\"other\":{\"is_select\":0,\"text\":\"\"}}",
+        "abdomen_model": {
+            "no_abnormal": {
+                "is_select": 0,
+                "text": ""
+            },
+            "abdominal_sensitivity": {
+                "is_select": 0,
+                "text": ""
+            },
+            "abdominal_pain": {
+                "is_select": 0,
+                "text": ""
+            },
+            "intestinal_emptiness": {
+                "is_select": 0,
+                "text": ""
+            },
+            "intestinal_constipation": {
+                "is_select": 0,
+                "text": ""
+            },
+            "abdominal_asymmetry": {
+                "is_select": 0,
+                "text": ""
+            },
+            "abdominal_symmetry": {
+                "is_select": 0,
+                "text": ""
+            },
+            "wave_sensation": {
+                "is_select": 0,
+                "text": ""
+            },
+            "other": {
+                "is_select": 0,
+                "text": ""
+            }
+        },
+        "lymph_gland": "{\"no_abnormal\":{\"is_select\":0,\"text\":\"\"},\"increased_lymph_nodes\":{\"is_select\":0,\"text\":\"\"},\"lymph_node_enlargement\":{\"is_select\":0,\"text\":\"\"},\"lymph_gland_enlarge\":{\"is_select\":0,\"text\":\"\"},\"other\":{\"is_select\":0,\"text\":\"\"}}",
+        "lymph_gland_model": {
+            "no_abnormal": {
+                "is_select": 0,
+                "text": ""
+            },
+            "increased_lymph_nodes": {
+                "is_select": 0,
+                "text": ""
+            },
+            "lymph_node_enlargement": {
+                "is_select": 0,
+                "text": ""
+            },
+            "lymph_gland_enlarge": {
+                "is_select": 0,
+                "text": ""
+            },
+            "other": {
+                "is_select": 0,
+                "text": ""
+            }
+        },
+        "skin_elasticity": "0",
+        "eye_condition": "0",
+        "oral_mucosa": "0",
+        "suspected_illness": "",
+        "pet_weight": [
+            {
+                "ID": 2265,
+                "weight": "4",
+                "record_time": "2024-06-16 16:49:19"
+            },
+            {
+                "ID": 2279,
+                "weight": "4",
+                "record_time": "2024-06-17 20:37:31"
+            },
+            {
+                "ID": 5269,
+                "weight": "5",
+                "record_time": "2024-11-24 15:55:31"
+            }
+        ],
+        "is_vaccine": 0,
+        "is_deworming": 0,
+        "hydration_status_list": [
+            {
+                "id": 1,
+                "type": 0,
+                "text": "良好"
+            },
+            {
+                "id": 2,
+                "type": 0,
+                "text": "轻度延迟"
+            },
+            {
+                "id": 3,
+                "type": 0,
+                "text": "明显延迟"
+            },
+            {
+                "id": 4,
+                "type": 0,
+                "text": "皮下水肿"
+            },
+            {
+                "id": 5,
+                "type": 0,
+                "text": "维持皱褶状态"
+            },
+            {
+                "id": 6,
+                "type": 1,
+                "text": "未见明显异常"
+            },
+            {
+                "id": 7,
+                "type": 1,
+                "text": "凹陷正常"
+            },
+            {
+                "id": 8,
+                "type": 1,
+                "text": "轻微凹陷"
+            },
+            {
+                "id": 9,
+                "type": 1,
+                "text": "陷入眼眶"
+            },
+            {
+                "id": 10,
+                "type": 1,
+                "text": "深陷眼眶"
+            },
+            {
+                "id": 11,
+                "type": 2,
+                "text": "粘膜湿润"
+            },
+            {
+                "id": 12,
+                "type": 2,
+                "text": "粘膜轻度干燥或发粘"
+            },
+            {
+                "id": 13,
+                "type": 2,
+                "text": "粘膜干燥或发粘"
+            },
+            {
+                "id": 14,
+                "type": 3,
+                "text": "正常(\u003c2秒)"
+            },
+            {
+                "id": 15,
+                "type": 3,
+                "text": "轻度增加(2秒)"
+            },
+            {
+                "id": 16,
+                "type": 3,
+                "text": "增加(2~2.5秒)"
+            },
+            {
+                "id": 17,
+                "type": 3,
+                "text": "明显增加(\u003e3秒)"
+            },
+            {
+                "id": 18,
+                "type": 0,
+                "text": "0"
+            },
+            {
+                "id": 19,
+                "type": 1,
+                "text": "0"
+            },
+            {
+                "id": 20,
+                "type": 2,
+                "text": "0"
+            },
+            {
+                "id": 21,
+                "type": 0,
+                "text": "0"
+            },
+            {
+                "id": 22,
+                "type": 1,
+                "text": "0"
+            },
+            {
+                "id": 23,
+                "type": 2,
+                "text": "0"
+            },
+            {
+                "id": 24,
+                "type": 0,
+                "text": "0"
+            },
+            {
+                "id": 25,
+                "type": 1,
+                "text": "0"
+            },
+            {
+                "id": 26,
+                "type": 2,
+                "text": "0"
+            },
+            {
+                "id": 27,
+                "type": 0,
+                "text": "0"
+            },
+            {
+                "id": 28,
+                "type": 1,
+                "text": "0"
+            },
+            {
+                "id": 29,
+                "type": 2,
+                "text": "0"
+            }
+        ],
+        "case_level": 0,
+        "present_history": "",
+        "operate_type": 0,
+        "is_tw": 0,
+        "evet_rft": ""
+    }
 }
