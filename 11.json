@@ -1,0 +1,38 @@
+GET http: //127.0.0.1:13301/daily%2fwork%2fpets%2f507
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 579,
+            "his_consumer_id": 507,
+            "head_portrait": "",
+            "pet_name": "花花",
+            "pet_namepy": "HH",
+            "pet_code": "p000578",
+            "pet_birthday": "2014-04-09 14:42:41",
+            "pet_sex": 1,
+            "coat_color": "",
+            "kind": "狗类",
+            "con_kind_id": 2,
+            "con_species_id": 294,
+            "species": "田园犬",
+            "species_py": "",
+            "is_dead": 0,
+            "is_immunity": 0,
+            "is_sterilized": 0,
+            "is_insecticide": 0,
+            "discription": "",
+            "add_time": "2024-04-09 14:43:12",
+            "weight": "10",
+            "is_chain": 0,
+            "hospital_id": 1,
+            "hospital_code": "VrAGvMjLwd",
+            "hospital_name": "萌宠拾光动物医院",
+            "sys_file_id": 0,
+            "sync_appointment": 0,
+            "sys_file_guid": "",
+            "sys_file_extension": ""
+        }
+    ]
+}

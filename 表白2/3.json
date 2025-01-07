@@ -1,0 +1,16 @@
+{GET http://127.0.0.1:13301/daily%2fwork%2fmedical_record%2f240 HTTP/1.1
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 134,
+            "eventtime": "2023-04-12 11:55:01",
+            "abstract": "病例",
+            "cure_employee_id": 2,
+            "hospital_name": "萌宠拾光动物医院",
+            "update_time": "2023-04-12 12:09:15",
+            "hospital_id": 1,
+            "is_chain": 0
+        }
+    ]
+}

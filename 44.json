@@ -1,0 +1,31 @@
+{ http://127.0.0.1:13301/daily%2fwork%2fhospitalizations%2f205 
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 10,
+            "eventtime": "2024-04-09 14:06:58",
+            "abstract": "",
+            "state": 0,
+            "hospital_name": "萌宠拾光动物医院",
+            "hospital_id": 1,
+            "is_chain": 0,
+            "clinics": [
+                {
+                    "id": 305,
+                    "abstract": "第-20天",
+                    "eventtime": "2024-03-20 14:07:58",
+                    "cure_employee_id": 2,
+                    "hospital_name": "萌宠拾光动物医院",
+                    "hospital_id": 1,
+                    "is_chain": 0,
+                    "update_time": "2024-04-09 14:41:18",
+                    "whethertotransfer": 0,
+                    "parent_id": 10,
+                    "group-id": 0,
+                    "his_hospital_id": 10
+                }
+            ]
+        }
+    ]
+}

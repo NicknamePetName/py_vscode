@@ -1,0 +1,44 @@
+{
+    "Head": {
+        "Normal": true,
+        "Abnormal": false,
+        "IsShowDescription": 2,
+        "Description": ""
+    },
+    "Bones": {
+        "Normal": true,
+        "Abnormal": false,
+        "IsShowDescription": 2,
+        "Description": ""
+    },
+    "Skin": {
+        "Normal": true,
+        "Abnormal": false,
+        "IsShowDescription": 2,
+        "Description": ""
+    },
+    "Lymph": {
+        "Normal": true,
+        "Abnormal": false,
+        "IsShowDescription": 2,
+        "Description": ""
+    },
+    "Heart": {
+        "Normal": true,
+        "Abnormal": false,
+        "IsShowDescription": 2,
+        "Description": ""
+    },
+    "Viscus": {
+        "Normal": true,
+        "Abnormal": false,
+        "IsShowDescription": 2,
+        "Description": ""
+    },
+    "Anus": {
+        "Normal": false,
+        "Abnormal": true,
+        "IsShowDescription": 0,
+        "Description": "拉稀"
+    }
+}

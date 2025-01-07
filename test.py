@@ -23,14 +23,14 @@ except Exception as e:
 # sign = input('请输入参数-sign:')
 # userid = input('请输入参数-userId:')
 
-info = 'GBZa3ajLfh|VrAGvMjLwd'
-sign = '0005d5b1b4187661204abb15184604ad'
-userid = '1'
+# info = 'GBZa3ajLfh|VrAGvMjLwd'
+# sign = '0005d5b1b4187661204abb15184604ad'
+# userid = '1'
 
 # 一杨
-# info = 'vzfEEqkUjG|RymcKz9JmF'
-# sign = 'e4aea2eba51e1dfc5f582d9387c58f06'
-# userid = '14'
+info = 'vzfEEqkUjG|RymcKz9JmF'
+sign = 'e4aea2eba51e1dfc5f582d9387c58f06'
+userid = '14'
 print('开始采集数据！！！')
 
 user_data = {
@@ -223,8 +223,8 @@ if not os.path.exists('医院数据'):   # 不存在则创建
     # 创建文件夹
     os.makedirs('医院数据')
 
-# 将顾客信息写入customer_all.json中
-with open(f'./医院数据/customer_all.json','w',encoding='utf-8') as f:
+# 将顾客信息写入customer-all.json中
+with open(f'./医院数据/customer-all.json','w',encoding='utf-8') as f:
     f.write(response.text)
 
 
@@ -403,7 +403,7 @@ def getExpenseCalendarData(customer):
     # 创建文件夹
         os.makedirs(file_)
 
-    with open(f'./' + file_ + '/expenseCalendar.json','w',encoding='utf-8') as f:
+    with open(f'./' + file_ + '/expense-calendar.json','w',encoding='utf-8') as f:
         f.write(response.text)
 
     responseData = json.loads(response.text)['Data']
@@ -704,8 +704,8 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
         # 创建文件夹
         os.makedirs(file_)
 
-    # 将免疫驱虫信息写入vaccine_all.json中
-    with open(f'./' + file_ + '/vaccine_all.json','w',encoding='utf-8') as f:
+    # 将免疫驱虫信息写入vaccine-all.json中
+    with open(f'./' + file_ + '/vaccine-all.json','w',encoding='utf-8') as f:
         f.write(vaccine_response.text)
     
     # 使用顾客 ID 查找宠物信息  (GET)  http://127.0.0.1:13301/daily%2fwork%2fpets%2f529
@@ -879,6 +879,182 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
         
 
 
+# 获取病例信息  （POST) http://127.0.0.1:13301/consumer%2fcenter%2fmedical_record
+def getCasesData(customer):
+    # 病例卡片信息 （POST) http://127.0.0.1:13301/consumer%2fcenter%2fmedical_record
+    URL_medical_record = headURL + 'consumer%2fcenter%2fmedical_record'
+    # 住院卡片信息  (POST) http://127.0.0.1:13301/consumer%2fcenter%2fhospitalization_record
+    URL_hospitalization_record = headURL + 'consumer%2fcenter%2fhospitalization_record'
+    data ={
+        "pet_id": 0,
+        "consumer_id": customer['id'],
+        "bill_state": 0,
+        "start": start_time,
+        "end": end_time,
+        "project_type": 0
+    }
+    medical_record_response = requests.post(URL_medical_record,data=json.dumps(data),headers=headers)
+    hospitalization_record_response = requests.post(URL_hospitalization_record,data=json.dumps(data),headers=headers)
+    medicalRecordResponseData = json.loads(medical_record_response.text)['Data']
+    hospitalizationRecordResponseData = json.loads(hospitalization_record_response.text)['Data']
+
+    
+    file_ = '医院数据/病例信息/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip())
+    if not os.path.exists(file_):   # 不存在则创建
+        # 创建文件夹
+        os.makedirs(file_)
+
+    # 将病例信息写入cases-all.json中
+    with open(f'./' + file_ + '/cases-all.json','w',encoding='utf-8') as f:
+        f.write(medical_record_response.text)
+    # 将住院信息信息写入hospitalization-all.json中
+    with open(f'./' + file_ + '/hospitalization-all.json','w',encoding='utf-8') as f:
+        f.write(hospitalization_record_response.text)
+
+    # 医疗记录版本信息  (GET)  http://127.0.0.1:13301/daily%2fwork%2fmedical_record_version 
+    URL_medical_record_version = headURL + 'daily%2fwork%2fmedical_record_version'
+    # 诊断信息 (GET) http://127.0.0.1:13301/daily%2fwork%2fdiagnosis
+    URL_diagnosis = headURL + 'daily%2fwork%2fdiagnosis'
+    # 给药途径 (GET) http://127.0.0.1:13301/base%2fsetting%2fusage
+    URL_usage = headURL + 'base%2fsetting%2fusage'
+    # {"Code":0,"Message":"SUCCESS","Data":["内科","外科"]} (GET) http://127.0.0.1:13301/daily%2fwork%2fabstracts
+    URL_abstracts = headURL + 'daily%2fwork%2fabstracts'
+
+    medical_record_version_response = requests.get(URL_medical_record_version,headers=headers)
+    diagnosis_response = requests.get(URL_diagnosis,headers=headers)
+    usage_response = requests.get(URL_usage,headers=headers)
+    abstracts_response = requests.get(URL_abstracts,headers=headers)
+
+    # 将医疗记录版本信息写入medical-record-version.json中
+    with open(f'./' + file_ + '/medical-record-version.json','w',encoding='utf-8') as f:
+        f.write(medical_record_version_response.text)
+    # 将诊断信息写入diagnosis.json中
+    with open(f'./' + file_ + '/diagnosis.json','w',encoding='utf-8') as f:
+        f.write(diagnosis_response.text)
+    # 将给药途径写入usage.json中
+    with open(f'./' + file_ + '/usage.json','w',encoding='utf-8') as f:
+        f.write(usage_response.text)
+    # 将"Data":["内科","外科"]写入abstracts.json中
+    with open(f'./' + file_ + '/abstracts.json','w',encoding='utf-8') as f:
+        f.write(abstracts_response.text)
+
+
+
+    if not isinstance(medicalRecordResponseData,list):
+        medicalRecordResponseData = []
+
+    # 获取病例详细信息
+    for medicalRecordData in medicalRecordResponseData:
+        # 病例详情头信息  (GET) http://127.0.0.1:13301/daily%2fwork%2fclinic_pet%2f160
+        URL_cases_head = headURL + 'daily%2fwork%2fclinic_pet%2f' + str(medicalRecordData['pet_id'])
+        # 病例导航信息  (GET) http://127.0.0.1:13301/daily%2fwork%2fmedical_record%2f160
+        URL_cases_nav = headURL + 'daily%2fwork%2fmedical_record%2f' + str(medicalRecordData['pet_id'])
+        # 回访名单信息  (GET) http://127.0.0.1:13301/daily%2fwork%2freturn_visit_list%2f234 
+        URL_return_visit_list = headURL + 'daily%2fwork%2freturn_visit_list%2f' + str(medicalRecordData['id'])
+        # 病例详情信息  (GET) http://127.0.0.1:13301/daily%2fwork%2fmedical_record_detail%2f234
+        URL_cases_detail = headURL + 'daily%2fwork%2fmedical_record_detail%2f' + str(medicalRecordData['id'])
+        
+
+        cases_head_response = requests.get(URL_cases_head,headers=headers)
+        cases_nav_response = requests.get(URL_cases_nav,headers=headers)
+        return_visit_list_response = requests.get(URL_return_visit_list,headers=headers)
+        cases_detail_response = requests.get(URL_cases_detail,headers=headers)
+
+        file_detail = file_ + '/' + str(medicalRecordData['pet_id']) + '-' + replace_special_chars(medicalRecordData['pet_name'].strip()) + '/' + '病例'
+        if not os.path.exists(file_detail):   # 不存在则创建
+            # 创建文件夹
+            os.makedirs(file_detail)
+        
+        # 将病详情头信息写入cases-head.json中
+        with open(f'./' + file_detail + '/cases-head.json','w',encoding='utf-8') as f:
+            f.write(cases_head_response.text)
+        # 将病例导航信息写入cases-nav.json中
+        with open(f'./' + file_detail + '/cases-nav.json','w',encoding='utf-8') as f:
+            f.write(cases_nav_response.text)
+        # 将回访名单信息写入['病例号']-return-visit-list.json中
+        with open(f'./' + file_detail + '/' + str(medicalRecordData['id']) + '-' + 'return-visit-list.json','w',encoding='utf-8') as f:
+            f.write(return_visit_list_response.text)
+        # 将病例详情信息写入['病例号']-cases-detail.json中
+        with open(f'./' + file_detail + '/' + str(medicalRecordData['id']) + '-' + 'cases-detail.json','w',encoding='utf-8') as f:
+            f.write(cases_detail_response.text)
+        
+        
+    if not isinstance(hospitalizationRecordResponseData,list):
+        hospitalizationRecordResponseData = []
+    # 获取住院详细信息
+    for hospitalizationRecordData in hospitalizationRecordResponseData:
+        # 住院详情头信息  (GET) http: //127.0.0.1:13301/daily%2fwork%2fclinic_pet%2f2299
+        URL_hospitalization_head = headURL + 'daily%2fwork%2fclinic_pet%2f' + str(hospitalizationRecordData['pet_id'])
+        # 住院导航信息    (GET) http://127.0.0.1:13301/daily%2fwork%2fhospitalizations%2f2299 
+        URL_hospitalization_nav = headURL + 'daily%2fwork%2fhospitalizations%2f' + str(hospitalizationRecordData['pet_id'])
+        # 住院表头信息    (GET) http://127.0.0.1:13301/daily%2fwork%2fhospitalization%2f697
+        URL_hospitalization_table_head = headURL + 'daily%2fwork%2fhospitalization%2f' + str(hospitalizationRecordData['id'])
+
+        hospitalization_head_response = requests.get(URL_hospitalization_head,headers=headers)
+        hospitalization_nav_response = requests.get(URL_hospitalization_nav,headers=headers)
+        hospitalization_table_head_response = requests.get(URL_hospitalization_table_head,headers=headers)
+
+        file_detail = file_ + '/' + str(hospitalizationRecordData['pet_id']) + '-' + replace_special_chars(hospitalizationRecordData['pet_name'].strip()) + '/' + '住院'
+        if not os.path.exists(file_detail):   # 不存在则创建
+            # 创建文件夹
+            os.makedirs(file_detail)
+        # 将住院详情头信息写入hospitalization-head.json中
+        with open(f'./' + file_detail + '/hospitalization-head.json','w',encoding='utf-8') as f:
+            f.write(hospitalization_head_response.text)
+        # 将住院导航信息写入hospitalization-nav.json中
+        with open(f'./' + file_detail + '/hospitalization-nav.json','w',encoding='utf-8') as f:
+            f.write(hospitalization_nav_response.text)
+        # 将住院表头信息写入hospitalization-table-head.json中
+        with open(f'./' + file_detail + '/hospitalization-table-head.json','w',encoding='utf-8') as f:
+            f.write(hospitalization_table_head_response.text)
+
+
+        hospitalizationNavResponseData = json.loads(hospitalization_nav_response.text)['Data']
+
+        if not isinstance(hospitalizationNavResponseData,list):
+            hospitalizationNavResponseData = []
+        
+        # 获取住院详细信息
+        for hospitalizationNavData in hospitalizationNavResponseData:
+            for clinic in hospitalizationNavData['clinics']:
+                '''时间有问题'''
+                # 住院时间信息  (GET) http://127.0.0.1:13301/consumer%2fcenter%2fmr_update_time%2f11247
+                URL_hospitalization_time = headURL + 'consumer%2fcenter%2fmr_update_time%2f' + str(clinic['id'])
+                # 回访名单信息  (GET)  http://127.0.0.1:13301/daily%2fwork%2freturn_visit_list%2f11247
+                URL_hospitalization_return_visit_list = headURL + 'daily%2fwork%2freturn_visit_list%2f' + str(clinic['id'])
+                # 住院详细信息  (GET) http: //127.0.0.1:13301/daily%2fwork%2fmedical_record_detail%2f11294
+                URL_hospitalization_detail = headURL + 'daily%2fwork%2fmedical_record_detail%2f' + str(clinic['id'])
+
+                hospitalization_time_response = requests.get(URL_hospitalization_time,headers=headers)
+                hospitalization_return_visit_list_response = requests.get(URL_hospitalization_return_visit_list,headers=headers)
+                hospitalization_detail_response = requests.get(URL_hospitalization_detail,headers=headers)
+                
+                # 将住院时间信息写入['住院号']-hospitalization-time.json中
+                with open(f'./' + file_detail + '/' + str(clinic['id']) + '-' + 'hospitalization-time.json','w',encoding='utf-8') as f:
+                    f.write(hospitalization_time_response.text)
+                # 将回访名单信息写入['住院号']-hospitalization-return-visit-list.json中
+                with open(f'./' + file_detail + '/' + str(clinic['id']) + '-' + 'hospitalization-return-visit-list.json','w',encoding='utf-8') as f:
+                    f.write(hospitalization_return_visit_list_response.text)
+                # 将住院详情信息写入['住院号']-hospitalization-detail.json中
+                with open(f'./' + file_detail + '/' + str(clinic['id']) + '-' + 'hospitalization-detail.json','w',encoding='utf-8') as f:
+                    f.write(hospitalization_detail_response.text)
+                
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
 
 
 
@@ -886,12 +1062,11 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
 
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# ---------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # 获取商品信息 successful
 # getProductData(product_data,product_catalog_data)
-
 
 
 # ---------------------------------------------------------------------------------------------
@@ -905,7 +1080,7 @@ for customer in customerListData:
     if int(customer['is_chain']) == 1:  # 只爬取本店信息
         continue
 
-    if int(customer['id']) != 2:  # 只爬取本店信息
+    if int(customer['id']) != 1730:  # 只爬取本店信息
         continue
     
     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
@@ -915,14 +1090,17 @@ for customer in customerListData:
     # 获取客户信息 successful
     # getCustomerData(customer,user_data,pet_data,card_data)
 
-    # print("获取消费记录！！！") # 获取当前客户：宠物编号的消费记录！！！
+    # print("获取消费记录中！！！") # 获取当前客户：宠物编号的消费记录！！！
     # 获取消费记录 successful
     # getExpenseCalendarData(customer)
 
-    print("获取疫苗驱虫信息!!!")
-    # 获取疫苗驱虫信息
-    getVaccineData(customer,vaccine_data,vaccine_detail_data)
+    # print("获取疫苗驱虫信息中！！！")
+    # 获取疫苗驱虫信息 successful
+    # getVaccineData(customer,vaccine_data,vaccine_detail_data)
 
+    # print("获取病例信息中！！！")
+    # 获取病例信息
+    getCasesData(customer)
 
 
 
@@ -932,6 +1110,5 @@ for customer in customerListData:
 
 print("数据导出完毕！！!")
 os.system("pause")
-
 
 

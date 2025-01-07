@@ -1,0 +1,24 @@
+{http://127.0.0.1:13301/consumer%2fcenter%2fhospitalization_record
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 10,
+            "pet_id": 205,
+            "pet_name": "小虎",
+            "in_time": "2024-04-09 14:06:58",
+            "out_time": "2024-04-09 14:06:58",
+            "today": "2025-01-07",
+            "Autoout": 0,
+            "abstract": "",
+            "total_price": 1640,
+            "cure_employee_id": 2,
+            "cure_employee_name": "付医生",
+            "bill_type": 1,
+            "state": 0,
+            "hospital_name": "萌宠拾光动物医院",
+            "hospital_id": 1,
+            "is_chain": 0
+        }
+    ]
+}

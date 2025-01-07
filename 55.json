@@ -1,0 +1,25 @@
+{http://127.0.0.1:13301/daily%2fwork%2fhospitalization%2f10
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": {
+        "id": 10,
+        "his_consumer_id": 193,
+        "his_pet_id": 205,
+        "check_in_day": 274,
+        "medical_employee_id": 2,
+        "medical_employee_name": "付医生",
+        "service_employee_id": 2,
+        "service_employee_name": "付医生",
+        "abstract": "",
+        "intime": "2024-04-09 14:06:58",
+        "outtime": "2024-04-09 14:06:58",
+        "state": 0,
+        "autoout": 0,
+        "discription": "",
+        "hospital_name": "萌宠拾光动物医院",
+        "hospital_id": 1,
+        "is_chain": 0,
+        "include_leave_hospital": 0,
+        "hospitalization_details": null
+    }
+}

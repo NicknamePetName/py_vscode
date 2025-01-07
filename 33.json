@@ -1,0 +1,23 @@
+{http://127.0.0.1:13301/daily%2fwork%2fclinic_pet%2f205
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": {
+        "id": 205,
+        "pet_name": "小虎",
+        "consumer_id": 193,
+        "consumer_name": "李女士",
+        "telephone": "15212328169",
+        "kind": "狗类",
+        "species": "中华田园犬",
+        "sex": 1,
+        "birthday": "0000-00-00 00:00:00",
+        "is_sterilized": 0,
+        "code": "P000204",
+        "weight": "10",
+        "is_chain": 0,
+        "hospital_id": 1,
+        "hospital_code": "VrAGvMjLwd",
+        "hospital_name": "萌宠拾光动物医院",
+        "is_member": 1
+    }
+}

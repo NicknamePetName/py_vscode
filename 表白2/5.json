@@ -1,0 +1,136 @@
+
+
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 18855,
+            "eventtime": "2024-11-24 15:59:48",
+            "abstract": "病历",
+            "cure_employee_id": 23,
+            "cure_employee_name": "",
+            "hospital_name": "一扬动物医院（东莞庄路）",
+            "update_time": "2024-11-26 10:18:08",
+            "hospital_id": 3,
+            "is_chain": 0,
+            "is_tw": 0
+        },
+        {
+            "id": 11169,
+            "eventtime": "2024-06-16 16:48:33",
+            "abstract": "病历",
+            "cure_employee_id": 10,
+            "cure_employee_name": "",
+            "hospital_name": "一扬动物医院（东莞庄路）",
+            "update_time": "2024-06-17 11:38:06",
+            "hospital_id": 3,
+            "is_chain": 0,
+            "is_tw": 0,
+            "list": [
+                {
+                    "id": 11169,
+                    "eventtime": "2024-06-16 16:48:33",
+                    "abstract": "病历",
+                    "cure_employee_id": 10,
+                    "cure_employee_name": "",
+                    "hospital_name": "一扬动物医院（东莞庄路）",
+                    "update_time": "2024-06-17 11:38:06",
+                    "hospital_id": 3,
+                    "is_chain": 0,
+                    "is_tw": 0
+                },
+                {
+                    "id": 11184,
+                    "eventtime": "2024-06-17 11:49:28",
+                    "abstract": "内科",
+                    "group_id": 11169,
+                    "type": 1,
+                    "cure_employee_id": 14,
+                    "cure_employee_name": "",
+                    "hospital_name": "一扬动物医院（东莞庄路）",
+                    "update_time": "2024-06-21 17:34:50",
+                    "hospital_id": 3,
+                    "is_chain": 0,
+                    "is_tw": 0
+                }
+            ]
+        },
+        {
+            "id": 6944,
+            "eventtime": "2024-02-23 10:27:19",
+            "abstract": "病历",
+            "cure_employee_id": 10,
+            "cure_employee_name": "",
+            "hospital_name": "一扬动物医院（东莞庄路）",
+            "update_time": "2024-02-23 10:27:21",
+            "hospital_id": 3,
+            "is_chain": 0,
+            "is_tw": 0
+        },
+        {
+            "id": 5960,
+            "eventtime": "2024-01-17 13:12:35",
+            "abstract": "病历",
+            "cure_employee_id": 10,
+            "cure_employee_name": "",
+            "hospital_name": "一扬动物医院（东莞庄路）",
+            "update_time": "2024-02-23 10:27:37",
+            "hospital_id": 3,
+            "is_chain": 0,
+            "is_tw": 0,
+            "list": [
+                {
+                    "id": 5960,
+                    "eventtime": "2024-01-17 13:12:35",
+                    "abstract": "病历",
+                    "cure_employee_id": 10,
+                    "cure_employee_name": "",
+                    "hospital_name": "一扬动物医院（东莞庄路）",
+                    "update_time": "2024-02-23 10:27:37",
+                    "hospital_id": 3,
+                    "is_chain": 0,
+                    "is_tw": 0
+                },
+                {
+                    "id": 6836,
+                    "eventtime": "2024-02-18 16:07:08",
+                    "abstract": "病历",
+                    "group_id": 5960,
+                    "type": 1,
+                    "cure_employee_id": 10,
+                    "cure_employee_name": "",
+                    "hospital_name": "一扬动物医院（东莞庄路）",
+                    "update_time": "2024-02-18 16:07:31",
+                    "hospital_id": 3,
+                    "is_chain": 0,
+                    "is_tw": 0
+                }
+            ]
+        },
+        {
+            "id": 5459,
+            "eventtime": "2023-12-31 20:08:32",
+            "abstract": "病历",
+            "cure_employee_id": 10,
+            "cure_employee_name": "",
+            "hospital_name": "一扬动物医院（东莞庄路）",
+            "update_time": "2024-01-17 13:12:20",
+            "hospital_id": 3,
+            "is_chain": 0,
+            "is_tw": 0
+        },
+        {
+            "id": 5271,
+            "eventtime": "2023-12-27 11:59:33",
+            "abstract": "病历",
+            "cure_employee_id": 10,
+            "cure_employee_name": "",
+            "hospital_name": "一扬动物医院（东莞庄路）",
+            "update_time": "2023-12-31 12:33:44",
+            "hospital_id": 3,
+            "is_chain": 0,
+            "is_tw": 0
+        }
+    ]
+}
