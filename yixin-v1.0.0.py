@@ -17,18 +17,18 @@ except Exception as e:
     
 
 
-# info = input('请输入参数-info:')
-# sign = input('请输入参数-sign:')
-# userid = input('请输入参数-userId:')
+info = input('请输入参数-info:')
+sign = input('请输入参数-sign:')
+userid = input('请输入参数-userId:')
 
 # info = 'GBZa3ajLfh|VrAGvMjLwd'
 # sign = '0005d5b1b4187661204abb15184604ad'
 # userid = '1'
 
 # 一杨
-info = 'vzfEEqkUjG|RymcKz9JmF'
-sign = 'e4aea2eba51e1dfc5f582d9387c58f06'
-userid = '14'
+# info = 'vzfEEqkUjG|RymcKz9JmF'
+# sign = 'e4aea2eba51e1dfc5f582d9387c58f06'
+# userid = '14'
 
 print('开始采集数据！！！')
 
