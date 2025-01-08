@@ -1,5 +1,6 @@
 .vscode
-*.exe
+表白/**/*.exe
+
 build
 songs
 歌单
