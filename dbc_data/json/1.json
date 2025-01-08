@@ -1,0 +1,25 @@
+http: //127.0.0.1:13301/consumer%2fcenter%2fhospitalization_record
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 697,
+            "pet_id": 2299,
+            "pet_name": "加菲",
+            "in_time": "2024-06-18 10:01:31",
+            "out_time": "2024-06-18 10:01:31",
+            "today": "2025-01-07",
+            "Autoout": 0,
+            "abstract": "",
+            "total_price": 1298.1,
+            "cure_employee_id": 10,
+            "cure_employee_name": "曾艺元",
+            "bill_type": 2,
+            "state": 0,
+            "hospital_name": "一扬动物医院（东莞庄路）",
+            "hospital_id": 3,
+            "is_chain": 0
+        }
+    ]
+}

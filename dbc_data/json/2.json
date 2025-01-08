@@ -1,0 +1,24 @@
+http: //127.0.0.1:13301/daily%2fwork%2fclinic_pet%2f2299
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": {
+        "id": 2299,
+        "pet_name": "加菲",
+        "consumer_id": 1730,
+        "consumer_name": "陈先生",
+        "telephone": "15914338213",
+        "kind": "猫类",
+        "species": "橘猫",
+        "sex": 1,
+        "birthday": "2023-10-27 11:59:15",
+        "is_sterilized": 0,
+        "code": "P000454",
+        "weight": "5",
+        "is_chain": 0,
+        "hospital_id": 3,
+        "hospital_code": "RymcKz9JmF",
+        "hospital_name": "一扬动物医院（东莞庄路）",
+        "is_member": 0
+    }
+}

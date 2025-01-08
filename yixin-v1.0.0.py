@@ -4,12 +4,13 @@ import os
 import csv
 import re
 import copy
-""" import logging
+import logging
+import traceback
 
 # 配置日志记录
-logging.basicConfig(filename='app.log', level=logging.ERROR)
+logging.basicConfig(filename='yixin.log',level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
 
-try:
+""" try:
     print(a)
 except Exception as e:
     logging.error(f"错误：{e}") """
@@ -28,6 +29,7 @@ except Exception as e:
 info = 'vzfEEqkUjG|RymcKz9JmF'
 sign = 'e4aea2eba51e1dfc5f582d9387c58f06'
 userid = '14'
+
 print('开始采集数据！！！')
 
 user_data = {
@@ -1135,8 +1137,14 @@ def getCasesData(customer,cases_data):
         cases_data_copy['clinical_examination'] = casesDetailData['clinical_examination'] # 临床检查
         cases_data_copy['case_level'] = casesDetailData['case_level'] # -
         cases_data_copy['present_history'] = casesDetailData['present_history'] # -
-        cases_data_copy['is_tw'] = casesDetailData['is_tw'] # -
-        cases_data_copy['evet_rft'] = casesDetailData['evet_rft'] # rft
+        try: # -
+            cases_data_copy['is_tw'] = hospitalizationDetailData['is_tw']
+        except Exception:
+            cases_data_copy['is_tw'] = 0
+        try: # rft
+            cases_data_copy['evet_rft'] = hospitalizationDetailData['evet_rft']
+        except Exception:
+            cases_data_copy['evet_rft'] = ''
 
         csv_file8 = './医院数据/病例信息.csv'
         # 检查文件是否存在且不为空
@@ -1291,8 +1299,14 @@ def getCasesData(customer,cases_data):
                 cases_data_copy['clinical_examination'] = hospitalizationDetailData['clinical_examination'] # 临床检查
                 cases_data_copy['case_level'] = hospitalizationDetailData['case_level'] # -
                 cases_data_copy['present_history'] = hospitalizationDetailData['present_history'] # -
-                cases_data_copy['is_tw'] = hospitalizationDetailData['is_tw'] # -
-                cases_data_copy['evet_rft'] = hospitalizationDetailData['evet_rft'] # rft
+                try: # -
+                    cases_data_copy['is_tw'] = hospitalizationDetailData['is_tw']
+                except Exception:
+                    cases_data_copy['is_tw'] = 0
+                try: # rft
+                    cases_data_copy['evet_rft'] = hospitalizationDetailData['evet_rft']
+                except Exception:
+                    cases_data_copy['evet_rft'] = ''
 
                 csv_file8 = './医院数据/病例信息.csv'
                 # 检查文件是否存在且不为空
@@ -1312,26 +1326,25 @@ def getCasesData(customer,cases_data):
 
 
 
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # --------------------------------------------------------------------------------------------
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
+
+
+
+
+
+
 # 获取商品信息 successful
-getProductData(product_data,product_catalog_data)
+try:
+    getProductData(product_data,product_catalog_data)
+except Exception:
+    logging.exception(f"商品信息 发生异常!")
+    print(f"\n\n商品信息 发生异常!!!")
+    traceback.print_exc()
+    os.system("pause")
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1345,30 +1358,60 @@ for customer in customerListData:
     if int(customer['is_chain']) == 1:  # 只爬取本店信息
         continue
 
-    # if int(customer['id']) != 1730:  # 只爬取本店信息
+    # if int(customer['id']) != 657:  # 测试用户
     #     continue
     
     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
-        
+    
+    logging.info(f'正在采集当前客户信息：' + str(customer['id']) + '-' + customer['name'] + '!')
+
     print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
-
-    # 获取客户信息 successful
-    getCustomerData(customer,user_data,pet_data,card_data)
-
-    print("获取消费记录中！！！") # 获取当前客户：宠物编号的消费记录！！！
-    # 获取消费记录 successful
-    getExpenseCalendarData(customer)
-
-    print("获取疫苗驱虫信息中！！！")
-    # 获取疫苗驱虫信息 successful
-    getVaccineData(customer,vaccine_data,vaccine_detail_data)
-
-    print("获取病例信息中！！！")
-    # 获取病例信息
-    getCasesData(customer,cases_data)
+    
+    try: # 获取客户信息 successful
+        getCustomerData(customer,user_data,pet_data,card_data) 
+    except Exception:
+        logging.exception(f"获取客户信息-宠物信息 发生异常!")
+        print(f"\n\n获取客户信息-宠物信息 发生异常!!!")
+        traceback.print_exc()
+        os.system('pause')
+        break
+        
 
 
 
+    print("获取消费记录中···") # 获取当前客户：宠物编号的消费记录！！！
+    try: # 获取消费记录 successful
+        getExpenseCalendarData(customer)
+    except Exception:
+        logging.exception(f"获取消费记录 发生异常!")
+        print(f"\n\n获取消费记录 发生异常!!!")
+        traceback.print_exc()
+        os.system('pause')
+        break
+
+
+
+    print("获取疫苗驱虫信息中···")
+    try: # 获取疫苗驱虫信息 successful
+        getVaccineData(customer,vaccine_data,vaccine_detail_data)
+    except Exception:
+        logging.exception(f"疫苗驱虫信息 发生异常!")
+        print(f"\n\n疫苗驱虫信息 发生异常!!!")
+        traceback.print_exc()
+        os.system('pause')
+        break
+
+
+
+    print("获取病例信息中···")
+    try: # 获取病例信息 successful
+        getCasesData(customer,cases_data)
+    except Exception:
+        logging.exception(f"获取病例信息 发生异常!")
+        print(f"\n\n获取病例信息 发生异常!!!")
+        traceback.print_exc()
+        os.system('pause')
+        break
 
 
 

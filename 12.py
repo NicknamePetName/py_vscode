@@ -1,4 +1,0 @@
-import json
-healthcheck = "{\"Head\":{\"Normal\":false,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Bones\":{\"Normal\":false,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Skin\":{\"Normal\":false,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Lymph\":{\"Normal\":false,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Heart\":{\"Normal\":false,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Viscus\":{\"Normal\":false,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"},\"Anus\":{\"Normal\":false,\"Abnormal\":false,\"IsShowDescription\":2,\"Description\":\"\"}}"
-
-print(json.dumps(json.loads(healthcheck)))

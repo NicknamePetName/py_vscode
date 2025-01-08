@@ -1,0 +1,25 @@
+{http://127.0.0.1:13301/daily%2fwork%2fhospitalization%2f697
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": {
+        "id": 697,
+        "his_consumer_id": 1730,
+        "his_pet_id": 2299,
+        "check_in_day": 203,
+        "medical_employee_id": 10,
+        "medical_employee_name": "曾艺元",
+        "service_employee_id": 10,
+        "service_employee_name": "曾艺元",
+        "abstract": "",
+        "intime": "2024-06-18 10:01:31",
+        "outtime": "2024-06-18 10:01:31",
+        "state": 0,
+        "autoout": 0,
+        "discription": "",
+        "hospital_name": "一扬动物医院（东莞庄路）",
+        "hospital_id": 3,
+        "is_chain": 0,
+        "include_leave_hospital": 1,
+        "hospitalization_details": null
+    }
+}

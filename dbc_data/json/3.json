@@ -1,0 +1,76 @@
+http: //127.0.0.1:13301/daily%2fwork%2fhospitalizations%2f2299 
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 11,
+            "eventtime": "2024-04-09 14:44:02",
+            "abstract": "",
+            "state": 0,
+            "hospital_name": "萌宠拾光动物医院",
+            "hospital_id": 1,
+            "is_chain": 0,
+            "clinics": []
+        }
+    ]
+}
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 697,
+            "eventtime": "2024-06-18 10:01:31",
+            "abstract": "",
+            "state": 0,
+            "hospital_name": "一扬动物医院（东莞庄路）",
+            "hospital_id": 3,
+            "is_chain": 0,
+            "clinics": [
+                {
+                    "id": 11294,
+                    "abstract": "第3天",
+                    "eventtime": "2024-06-20 10:05:26",
+                    "cure_employee_id": 14,
+                    "hospital_name": "一扬动物医院（东莞庄路）",
+                    "hospital_id": 3,
+                    "is_chain": 0,
+                    "update_time": "2024-06-21 17:56:06",
+                    "whethertotransfer": 0,
+                    "parent_id": 697,
+                    "group-id": 0,
+                    "his_hospital_id": 697
+                },
+                {
+                    "id": 11247,
+                    "abstract": "第2天",
+                    "eventtime": "2024-06-19 09:45:03",
+                    "cure_employee_id": 14,
+                    "hospital_name": "一扬动物医院（东莞庄路）",
+                    "hospital_id": 3,
+                    "is_chain": 0,
+                    "update_time": "2024-06-21 17:36:01",
+                    "whethertotransfer": 0,
+                    "parent_id": 697,
+                    "group-id": 0,
+                    "his_hospital_id": 697
+                },
+                {
+                    "id": 11216,
+                    "abstract": "第1天",
+                    "eventtime": "2024-06-18 10:01:34",
+                    "cure_employee_id": 14,
+                    "hospital_name": "一扬动物医院（东莞庄路）",
+                    "hospital_id": 3,
+                    "is_chain": 0,
+                    "update_time": "2024-06-21 17:35:34",
+                    "whethertotransfer": 0,
+                    "parent_id": 697,
+                    "group-id": 0,
+                    "his_hospital_id": 697
+                }
+            ]
+        }
+    ]
+}
