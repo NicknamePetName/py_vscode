@@ -1,16 +1,34 @@
-{GET http://127.0.0.1:13301/daily%2fwork%2fmedical_record%2f240 HTTP/1.1
+HTTP/1.1 200 OK
+Cache-Control: no-cache, no-store, must-revalidate
+Content-Length: 6970
+Content-Type: application/json
+Date: Thu,
+09 Jan 2025 04: 04: 31 GMT
+Expires: 0
+Pragma: no-cache
+Server: fasthttp
+
+{
     "Code": 0,
     "Message": "SUCCESS",
-    "Data": [
-        {
-            "id": 134,
-            "eventtime": "2023-04-12 11:55:01",
-            "abstract": "病例",
-            "cure_employee_id": 2,
-            "hospital_name": "萌宠拾光动物医院",
-            "update_time": "2023-04-12 12:09:15",
-            "hospital_id": 1,
-            "is_chain": 0
-        }
-    ]
+    "Data": {
+        "content": "?\u003c?xml version=\"1.0\" encoding=\"utf-8\"?\u003e\r\n\u003cReport ScriptLanguage=\"CSharp\" ReportInfo.Created=\"07/29/2014 23:03:34\" ReportInfo.Modified=\"11/15/2021 16:55:57\" ReportInfo.CreatorVersion=\"2013.2.5.0\"\u003e\r\n  \u003cDictionary\u003e\r\n    \u003cTableDataSource Name=\"数据表0\" ReferenceName=\".数据表0\" DataType=\"System.Int32\" Enabled=\"true\"\u003e\r\n      \u003cColumn Name=\"顾客姓名\" DataType=\"System.String\"/\u003e\r\n      \u003cColumn Name=\"宠物名\" DataType=\"System.String\"/\u003e\r\n      \u003cColumn Name=\"种类\" DataType=\"System.String\"/\u003e\r\n      \u003cColumn Name=\"品种\" DataType=\"System.String\"/\u003e\r\n      \u003cColumn Name=\"性别\" DataType=\"System.String\"/\u003e\r\n      \u003cColumn Name=\"年龄\" DataType=\"System.String\"/\u003e\r\n      \u003cColumn Name=\"免疫时间\" DataType=\"System.String\"/\u003e\r\n      \u003cColumn Name=\"免疫类型\" DataType=\"System.String\"/\u003e\r\n      \u003cColumn Name=\"顾客电话\" DataType=\"System.String\"/\u003e\r\n    \u003c/TableDataSource\u003e\r\n    \u003cTotal Name=\"Total\" TotalType=\"Count\" Evaluator=\"Data1\"/\u003e\r\n  \u003c/Dictionary\u003e\r\n  \u003cReportPage Name=\"Page1\" PaperWidth=\"232\" Guides=\"292.95,434.7,614.25,699.3,359.1,444.15,18.9,103.95,189,274.05,529.2\"\u003e\r\n    \u003cReportTitleBand Name=\"ReportTitle1\" Width=\"801.36\" Height=\"28.35\" Guides=\"0,18.9\"\u003e\r\n      \u003cTextObject Name=\"Text1\" Left=\"292.95\" Width=\"141.75\" Height=\"18.9\" Text=\"免疫记录清单\" Font=\"宋体, 12pt, style=Bold\"/\u003e\r\n    \u003c/ReportTitleBand\u003e\r\n    \u003cPageHeaderBand Name=\"PageHeader1\" Top=\"31.55\" Width=\"801.36\" Height=\"28.35\" Guides=\"0,18.9\"\u003e\r\n      \u003cTextObject Name=\"Text9\" Left=\"680.75\" Width=\"113.4\" Height=\"28.35\" Border.Lines=\"All\" Text=\"免疫类型\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n      \u003cTextObject Name=\"Text6\" Left=\"406.7\" Width=\"56.7\" Height=\"28.35\" Border.Lines=\"All\" Text=\"性别\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n      \u003cTextObject Name=\"Text2\" Width=\"85.05\" Height=\"28.35\" Border.Lines=\"All\" Text=\"顾客姓名\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n      \u003cTextObject Name=\"Text3\" Left=\"170.45\" Width=\"85.05\" Height=\"28.35\" Border.Lines=\"All\" Text=\"宠物名\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n      \u003cTextObject Name=\"Text4\" Left=\"255.5\" Width=\"56.7\" Height=\"28.35\" Border.Lines=\"All\" Text=\"种类\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n      \u003cTextObject Name=\"Text5\" Left=\"312.2\" Width=\"94.5\" Height=\"28.35\" Border.Lines=\"All\" Text=\"品种\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n      \u003cTextObject Name=\"Text7\" Left=\"463.4\" Width=\"85.05\" Height=\"28.35\" Border.Lines=\"All\" Text=\"年龄\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n      \u003cTextObject Name=\"Text8\" Left=\"548.45\" Width=\"132.3\" Height=\"28.35\" Border.Lines=\"All\" Text=\"创建时间\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n      \u003cTextObject Name=\"Text20\" Left=\"84.95\" Width=\"85.05\" Height=\"28.35\" Border.Lines=\"All\" Text=\"顾客电话\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n    \u003c/PageHeaderBand\u003e\r\n    \u003cDataBand Name=\"Data1\" Top=\"63.1\" Width=\"801.36\" Height=\"28.35\" Guides=\"0,18.9\" DataSource=\"数据表0\"\u003e\r\n      \u003cTextObject Name=\"Text10\" Width=\"85.05\" Height=\"28.35\" Border.Lines=\"All\" Text=\"[数据表0.顾客姓名]\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt\"/\u003e\r\n      \u003cTextObject Name=\"Text11\" Left=\"170.45\" Width=\"85.05\" Height=\"28.35\" Border.Lines=\"All\" Text=\"[数据表0.宠物名]\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt\"/\u003e\r\n      \u003cTextObject Name=\"Text12\" Left=\"255.5\" Width=\"56.7\" Height=\"28.35\" Border.Lines=\"All\" Text=\"[数据表0.种类]\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt\"/\u003e\r\n      \u003cTextObject Name=\"Text13\" Left=\"312.2\" Width=\"94.5\" Height=\"28.35\" Border.Lines=\"All\" Text=\"[数据表0.品种]\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt\"/\u003e\r\n      \u003cTextObject Name=\"Text14\" Left=\"406.7\" Width=\"56.7\" Height=\"28.35\" Border.Lines=\"All\" Text=\"[数据表0.性别]\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt\"/\u003e\r\n      \u003cTextObject Name=\"Text15\" Left=\"463.4\" Width=\"85.05\" Height=\"28.35\" Border.Lines=\"All\" Text=\"[数据表0.年龄]\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt\"/\u003e\r\n      \u003cTextObject Name=\"Text16\" Left=\"548.45\" Width=\"132.3\" Height=\"28.35\" Border.Lines=\"All\" Text=\"[数据表0.免疫时间]\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt\"/\u003e\r\n      \u003cTextObject Name=\"Text17\" Left=\"680.75\" Width=\"113.4\" Height=\"28.35\" Border.Lines=\"All\" Text=\"[数据表0.免疫类型]\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt\"/\u003e\r\n      \u003cTextObject Name=\"Text21\" Left=\"85.05\" Width=\"85.05\" Height=\"28.35\" Border.Lines=\"All\" Text=\"[数据表0.顾客电话]\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt\"/\u003e\r\n      \u003cSort\u003e\r\n        \u003cSort Expression=\"[数据表0.免疫时间]\" Descending=\"true\"/\u003e\r\n      \u003c/Sort\u003e\r\n    \u003c/DataBand\u003e\r\n    \u003cReportSummaryBand Name=\"ReportSummary1\" Top=\"94.65\" Width=\"801.36\" Height=\"37.8\"\u003e\r\n      \u003cTextObject Name=\"Text18\" Width=\"680.4\" Height=\"28.35\" Border.Lines=\"All\" Text=\"合计数量\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n      \u003cTextObject Name=\"Text19\" Left=\"680.4\" Width=\"113.4\" Height=\"28.35\" Border.Lines=\"All\" Text=\"[Total]\" HorzAlign=\"Center\" VertAlign=\"Center\" Font=\"宋体, 9pt, style=Bold\"/\u003e\r\n    \u003c/ReportSummaryBand\u003e\r\n  \u003c/ReportPage\u003e\r\n\u003c/Report\u003e\r\n",
+        "sql_datas": [
+            {
+                "title": "数据表0",
+                "data": "[{\"免疫时间\":\"2021-05-22 17:23:23\",\"免疫类型\":\"基础疫苗\",\"品种\":\"\",\"宠物名\":\"星星\",\"年龄\":\"\",\"性别\":\"未知\",\"种类\":\"\",\"顾客姓名\":\"张利杰\",\"顾客电话\":\"17602503062\"}]",
+                "columns": [
+                    "顾客姓名",
+                    "顾客电话",
+                    "宠物名",
+                    "种类",
+                    "品种",
+                    "性别",
+                    "年龄",
+                    "免疫时间",
+                    "免疫类型"
+                ]
+            }
+        ]
+    }
 }

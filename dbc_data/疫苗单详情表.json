@@ -1,0 +1,72 @@
+
+http://127.0.0.1:13301/daily%2fwork%2fprotection%2f1%2f1
+{
+    "Code": 0,
+    "Message": "SUCCESS",
+    "Data": [
+        {
+            "id": 1,
+            "his_protection_id": 1,
+            "cure_employee_id": 1,
+            "cure_employee_name": "管理员",
+            "name": "首免",
+            "weight": "",
+            "temperature": "",
+            "discription": "基础疫苗首免",
+            "eventtime": "2021-05-22 17:23:18",
+            "state": 0,
+            "tag": 2,
+            "his_consumptions": null,
+            "next_year_time": "",
+            "is_next_year": 0
+        },
+        {
+            "id": 2,
+            "his_protection_id": 1,
+            "cure_employee_id": 1,
+            "cure_employee_name": "管理员",
+            "name": "二免",
+            "weight": "",
+            "temperature": "",
+            "discription": "基础疫苗二免",
+            "eventtime": "2021-06-12 17:23:18",
+            "state": 0,
+            "tag": 2,
+            "his_consumptions": null,
+            "next_year_time": "",
+            "is_next_year": 0
+        },
+        {
+            "id": 3,
+            "his_protection_id": 1,
+            "cure_employee_id": 1,
+            "cure_employee_name": "管理员",
+            "name": "三免",
+            "weight": "",
+            "temperature": "",
+            "discription": "基础疫苗三免",
+            "eventtime": "2021-07-03 17:23:18",
+            "state": 0,
+            "tag": 2,
+            "his_consumptions": null,
+            "next_year_time": "",
+            "is_next_year": 0
+        },
+        {
+            "id": 4,
+            "his_protection_id": 1,
+            "cure_employee_id": 1,
+            "cure_employee_name": "管理员",
+            "name": "狂犬",
+            "weight": "",
+            "temperature": "",
+            "discription": "基础疫苗狂犬",
+            "eventtime": "2021-07-24 17:23:18",
+            "state": 0,
+            "tag": 2,
+            "his_consumptions": null,
+            "next_year_time": "",
+            "is_next_year": 0
+        }
+    ]
+}
