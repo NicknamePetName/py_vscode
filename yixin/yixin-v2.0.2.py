@@ -24,9 +24,9 @@ def get_input():
     root.withdraw()  # 隐藏主窗口
 
     # 获取参数
-    info = simpledialog.askstring("Input", "请输入参数-info:")
-    sign = simpledialog.askstring("Input", "请输入参数-sign:")
-    userid = simpledialog.askstring("Input", "请输入参数-userId:")
+    info = simpledialog.askstring("Input", "请输入参数-info:").strip()
+    sign = simpledialog.askstring("Input", "请输入参数-sign:").strip()
+    userid = simpledialog.askstring("Input", "请输入参数-userId:").strip()
 
     # 返回获取的参数
     return info, sign, userid
@@ -361,6 +361,21 @@ def getCustomerData(customer,user_data,pet_data,card_data):
 
 
     # 组装数据到 user_data 中
+    customerInfoData = json.loads(customerInfoResponse2.text)['Data']
+    if int(customerInfoData['Code']) != 0:
+        try:
+            customerInfoResponse2 = requests.get(URL_2, timeout=30, headers=headers)
+        except Exception:
+            try:
+                customerInfoResponse2 = requests.get(URL_2, timeout=30, headers=headers)
+            except Exception:
+                try:
+                    customerInfoResponse2 = requests.get(URL_2, timeout=30, headers=headers)
+                except Exception:
+                    try:
+                        customerInfoResponse2 = requests.get(URL_2, timeout=30, headers=headers)
+                    except Exception:
+                        customerInfoResponse2 = requests.get(URL_2, timeout=30, headers=headers)
     customerInfoData = json.loads(customerInfoResponse2.text)['Data']
     user_data_copy = copy.deepcopy(user_data)  # 深拷贝
     # task_id 老子不知道
@@ -1439,6 +1454,21 @@ def getCasesData(customer,cases_data):
         
         # 组装数据到 cases_data 中
         casesDetailData = json.loads(cases_detail_response.text)['Data']
+        if int(casesDetailData['Code']) != 0:
+            try:
+                cases_detail_response = requests.get(URL_cases_detail, timeout=30, headers=headers)
+            except Exception:
+                try:
+                    cases_detail_response = requests.get(URL_cases_detail, timeout=30, headers=headers)
+                except Exception:
+                    try:
+                        cases_detail_response = requests.get(URL_cases_detail, timeout=30, headers=headers)
+                    except Exception:
+                        try:
+                            cases_detail_response = requests.get(URL_cases_detail, timeout=30, headers=headers)
+                        except Exception:
+                            cases_detail_response = requests.get(URL_cases_detail, timeout=30, headers=headers)
+        casesDetailData = json.loads(cases_detail_response.text)['Data']
         cases_data_copy = copy.deepcopy(cases_data)
         # task_id 老子不知道
         cases_data_copy['id'] = casesDetailData['id'] # 病例ID
@@ -1648,6 +1678,22 @@ def getCasesData(customer,cases_data):
 
                 # 组装数据到 cases_data 中
                 hospitalizationDetailData = json.loads(hospitalization_detail_response.text)['Data']
+                if hospitalizationDetailData['Code'] != 0:
+                    try:
+                        hospitalization_detail_response = requests.get(URL_hospitalization_detail, timeout=30, headers=headers)
+                    except Exception:
+                        try:
+                            hospitalization_detail_response = requests.get(URL_hospitalization_detail, timeout=30, headers=headers)
+                        except Exception:
+                            try:
+                                hospitalization_detail_response = requests.get(URL_hospitalization_detail, timeout=30, headers=headers)
+                            except Exception:
+                                try:
+                                    hospitalization_detail_response = requests.get(URL_hospitalization_detail, timeout=30, headers=headers)
+                                except Exception:
+                                    hospitalization_detail_response = requests.get(URL_hospitalization_detail, timeout=30, headers=headers)
+
+                hospitalizationDetailData = json.loads(hospitalization_detail_response.text)['Data']
                 cases_data_copy = copy.deepcopy(cases_data)
                 # task_id 老子不知道
                 cases_data_copy['id'] = hospitalizationDetailData['id'] # 病例ID
@@ -1762,8 +1808,8 @@ def getCasesData(customer,cases_data):
 
 
 
-# 获取商品信息 successful
-try:
+
+try: # 获取商品信息 successful
     getProductData(product_data,product_catalog_data)
 except Exception:
     logging.exception(f"商品信息 发生异常!")
@@ -1783,8 +1829,8 @@ for customer in customerListData:
     if int(customer['is_chain']) == 1:  # 只爬取本店信息
         continue
 
-    # if int(customer['id']) != 3110:  # 测试用户
-    #     continue
+    if int(customer['id']) > 942:  # 测试用户
+        continue
     
     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
     
