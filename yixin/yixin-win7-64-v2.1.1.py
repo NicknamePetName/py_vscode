@@ -1247,7 +1247,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                 vaccine_detail_data_copy['createtime'] = insectData['eventtime'] # 数据添加时间
                 vaccine_detail_data_copy['creater'] = insectData['cure_employee_name'] # 添加信息人员
                 # updater 最后修改信息人员ID 参数无
-                vaccine_detail_data_copy['his_protection_id'] = insectData['id'] # 疫苗单ID
+                vaccine_detail_data_copy['his_protection_id'] = insectData['his_protection_id'] # 疫苗单ID
                 vaccine_detail_data_copy['cure_employee_name'] = insectData['cure_employee_name'] # 主治医生
                 vaccine_detail_data_copy['name'] = insectData['name'] # 名称
                 vaccine_detail_data_copy['weight'] = insectData['weight'] # 体重
