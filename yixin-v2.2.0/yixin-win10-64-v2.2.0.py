@@ -339,10 +339,10 @@ except Exception:
 # 获取客户信息
 def getCustomerData(customer,user_data,pet_data,card_data):
 
-    file_ = '医院数据/客户信息/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip()).replace('.','')
+    """ file_ = '医院数据/客户信息/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip()).replace('.','')
     if not os.path.exists(file_):   # 不存在则创建
     # 创建文件夹
-        os.makedirs(file_)
+        os.makedirs(file_) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
     
     # 接口 1 响应体 （GET) http://127.0.0.1:13301/daily%2fwork%2fconsumer%2f19  --------------------------------------------------
@@ -411,8 +411,8 @@ def getCustomerData(customer,user_data,pet_data,card_data):
             writer.writeheader()
         writer.writerow(user_data_copy)
 
-    with open(f'./' + file_ + '/customer2.json','w',encoding='utf-8') as f:
-        f.write(customerInfoResponse2.text)
+    """ with open(f'./' + file_ + '/customer2.json','w',encoding='utf-8') as f:
+        f.write(customerInfoResponse2.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
 
     '''3.0版本变动 （GET）http://127.0.0.1:13301/daily%2fwork%2fcardswithretreat%2f19 '''
@@ -472,8 +472,8 @@ def getCustomerData(customer,user_data,pet_data,card_data):
             writer.writerow(card_data_copy)
 
 
-    with open(f'./' + file_ + '/customer1.json','w',encoding='utf-8') as f:
-        f.write(customerInfoResponse1.text)
+    """ with open(f'./' + file_ + '/customer1.json','w',encoding='utf-8') as f:
+        f.write(customerInfoResponse1.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
     
     # 接口 3 响应体 （GET) http://127.0.0.1:13301/daily%2fwork%2fpets%2f19  -------------------------------------------------------------
@@ -536,11 +536,11 @@ def getCustomerData(customer,user_data,pet_data,card_data):
     
 
 
-    with open(f'./' + file_ + '/customer3.json','w',encoding='utf-8') as f:
-        f.write(customerInfoResponse3.text)
+    """ with open(f'./' + file_ + '/customer3.json','w',encoding='utf-8') as f:
+        f.write(customerInfoResponse3.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
     
     # 接口 4 响应体 （GET) http://127.0.0.1:13301/daily%2fwork%2fconsumer_tag%2f19  ------------------------------------------------------
-    URL_4 = headURL + 'daily%2fwork%2fconsumer_tag%2f' + str(customer['id'])
+    """ URL_4 = headURL + 'daily%2fwork%2fconsumer_tag%2f' + str(customer['id'])
     customerInfoResponse4 = ''
 
     retries = 0
@@ -558,11 +558,12 @@ def getCustomerData(customer,user_data,pet_data,card_data):
             
 
     with open(f'./' + file_ + '/customer4.json','w',encoding='utf-8') as f:
-        f.write(customerInfoResponse4.text)
+        f.write(customerInfoResponse4.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
 
 
 # 获取消费记录 （POST) http://127.0.0.1:13301/consumer%2fcenter%2fconsumption_record 
+# 暂时不抓取
 def getExpenseCalendarData(customer):
     URL_ex_ca_all = headURL + 'consumer%2fcenter%2fconsumption_record'
     data = {
@@ -589,13 +590,13 @@ def getExpenseCalendarData(customer):
                 # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
     
 
-    file_ = '医院数据/消费记录/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip()).replace('.','')
+    """ file_ = '医院数据/消费记录/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip()).replace('.','')
     if not os.path.exists(file_):   # 不存在则创建
     # 创建文件夹
         os.makedirs(file_)
 
     with open(f'./' + file_ + '/expense-calendar.json','w',encoding='utf-8') as f:
-        f.write(response.text)
+        f.write(response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
     responseData = json.loads(response.text)['Data']
     if not isinstance(responseData,list):
@@ -637,7 +638,6 @@ def getExpenseCalendarData(customer):
                     retries += 1
                     # if retries == max_retries:  
                         # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
-
         else:
             retries = 0
             while retries < max_retries:
@@ -653,12 +653,12 @@ def getExpenseCalendarData(customer):
                         # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
 
         
-        file_detail = file_ + '/' + str(order['pet_id']) + '-' + replace_special_chars(order['pet_name'].strip()).replace('.','')
+        """ file_detail = file_ + '/' + str(order['pet_id']) + '-' + replace_special_chars(order['pet_name'].strip()).replace('.','')
         if not os.path.exists(file_detail):   # 不存在则创建
         # 创建文件夹
             os.makedirs(file_detail)
         with open(f'./' + file_detail + '/' + str(order['id']) + '-orderDetail.json','w',encoding='utf-8') as f:
-                f.write(orderDetailResponse.text)
+                f.write(orderDetailResponse.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
             
 
         
@@ -668,7 +668,7 @@ def getProductData(product_data,product_catalog_data):
     product_catalog_data_list = []
     # 类目信息
     catalog_dict = {}
-    # (GET) http://127.0.0.1:13301/base%2fsetting%2fusage
+    """ # (GET) http://127.0.0.1:13301/base%2fsetting%2fusage
     product_detail_other1 = headURL + 'base%2fsetting%2fusage'
     # (GET) http://127.0.0.1:13301/base%2fsetting%2fuseunit
     product_detail_other2 = headURL + 'base%2fsetting%2fuseunit'
@@ -733,14 +733,24 @@ def getProductData(product_data,product_catalog_data):
         f.write(product_detail_other2_response.text)
     # 将商品类目写入到 kind.json 中
     with open(f'./' + file_other + '/kind.json','w',encoding='utf-8') as f:
-        f.write(product_detail_other3_response.text)
+        f.write(product_detail_other3_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
     
-
 
 
     # 获取商品类目  （GET）http://127.0.0.1:13301/base%2fsetting%2fcategory%2fsub%2f1  
     # 备注： 从 1-12分别为：挂号，处方，检验，影像，处置，手术，住院，寄养，疫苗，驱虫，美容，商品；非处方为71
     catalog_list = ['占位','挂号','处方','检验','影像','处置','手术','住院','寄养','疫苗','驱虫','美容','商品','非处方']
+
+    for i in range(1,14):
+        # 商品一级类目
+        product_catalog_data_copy = copy.deepcopy(product_catalog_data) # 深拷贝
+        # task_id 老子不知道
+        product_catalog_data_copy['category_id'] = str(i) # 分类 id
+        product_catalog_data_copy['parent_id'] = '0' # 父类分类ID
+        product_catalog_data_copy['category_name'] = catalog_list[i] # 分类名称
+        product_catalog_data_list.append(product_catalog_data_copy)
+
+
     URL_product = headURL + 'base%2fsetting%2fcategory%2fsub%2f'
     for i in range(1,14):
         # 商品类目
@@ -769,26 +779,19 @@ def getProductData(product_data,product_catalog_data):
                     # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
             
 
-        file_ = '医院数据/商品信息/' + str(i) + '-' + catalog_list[i]
+        """ file_ = '医院数据/商品信息/' + str(i) + '-' + catalog_list[i]
         if not os.path.exists(file_):   # 不存在则创建
             # 创建文件夹
             os.makedirs(file_)
 
         # 将商品类目写入到 catalog-list.json 中
         with open(f'./' + file_ + '/catalog-list.json','w',encoding='utf-8') as f:
-            f.write(response.text)
+            f.write(response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
         responseListData = json.loads(response.text)['Data']
         if not isinstance(responseListData,list):
             responseListData = []
 
-        if responseListData == []: 
-            # task_id 老子不知道
-            # category_id 分类ID 为空
-            product_catalog_data_copy['parent_id'] = str(i) # 父类分类ID
-            # category_name 分类名称 为空
-            product_catalog_data_list.append(product_catalog_data_copy)
-            continue
         
         data_all = []
         # 获取商品详细信息  （POST）http://127.0.0.1:13301/base%2fsetting%2fgoods%2fget
@@ -810,7 +813,7 @@ def getProductData(product_data,product_catalog_data):
             catalog_dict[str(responseData['id'])] = responseData['name']
             # 记录所有的商品二级目录信息
             data_all.append(int(responseData['id']))
-            data = int(responseData['id'])
+            """ data = int(responseData['id'])
             productResponse = ''
 
             retries = 0
@@ -832,7 +835,7 @@ def getProductData(product_data,product_catalog_data):
                 os.makedirs(file_product)
             # 将商品写入到 product.json 中
             with open(f'./' + file_product + '/product.json','w',encoding='utf-8') as f:
-                f.write(productResponse.text)
+                f.write(productResponse.text) """  # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
         
         data_all_str = ','.join(map(str, data_all))
         responseListAll = ''
@@ -852,8 +855,8 @@ def getProductData(product_data,product_catalog_data):
         
 
         # 将所有商品写入到 product-all.json 中
-        with open(f'./' + file_ + '/product-all.json','w',encoding='utf-8') as f:
-            f.write(responseListAll.text)
+        """ with open(f'./' + file_ + '/product-all.json','w',encoding='utf-8') as f:
+            f.write(responseListAll.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
         print('正在写入:' + catalog_list[i] + '-商品信息到CSV中！！！')
 
@@ -883,13 +886,13 @@ def getProductData(product_data,product_catalog_data):
                     retries += 1
                     # if retries == max_retries:  
                         # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
-            file_product_other = file_ + '/' + str(product['con_category_id']) +  '-' + replace_special_chars(catalog_dict[str(product['con_category_id'])].strip()).replace('.','')
+            """ file_product_other = file_ + '/' + str(product['con_category_id']) +  '-' + replace_special_chars(catalog_dict[str(product['con_category_id'])].strip()).replace('.','')
             if not os.path.exists(file_product_other):   # 不存在则创建
                 # 创建文件夹
                 os.makedirs(file_product_other)
             # 将所有商品写入到 product-[name].json 中
             with open(f'./' + file_product_other + '/product-' + replace_special_chars(product['name'].strip()).replace('.','') + '.json','w',encoding='utf-8') as f:
-                f.write(product_detail_response.text)
+                f.write(product_detail_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
             
             productDetailResponseData = json.loads(product_detail_response.text)['Data']
 
@@ -1035,14 +1038,14 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
 
 
 
-    file_ = '医院数据/免疫驱虫/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip()).replace('.','')
+    """ file_ = '医院数据/免疫驱虫/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip()).replace('.','')
     if not os.path.exists(file_):   # 不存在则创建
         # 创建文件夹
         os.makedirs(file_)
 
     # 将免疫驱虫信息写入vaccine-all.json中
     with open(f'./' + file_ + '/vaccine-all.json','w',encoding='utf-8') as f:
-        f.write(vaccine_response.text)
+        f.write(vaccine_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
     
     # 使用顾客 ID 查找宠物信息  (GET)  http://127.0.0.1:13301/daily%2fwork%2fpets%2f529
     URL_pets = headURL + 'daily%2fwork%2fpets%2f' + str(customer['id'])
@@ -1085,13 +1088,13 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                 # if retries == max_retries:  
                     # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
         clinicPetResponseData = json.loads(clinic_pet_response.text)['Data']
-        file_pet = file_ + '/' + str(pet['id']) + '-' + replace_special_chars(pet['pet_name'].strip()).replace('.','')
+        """ file_pet = file_ + '/' + str(pet['id']) + '-' + replace_special_chars(pet['pet_name'].strip()).replace('.','')
         if not os.path.exists(file_pet):   # 不存在则创建
         # 创建文件夹
             os.makedirs(file_pet)
         # 将疫苗头部信息 写入vaccine-head.json中
         with open(f'./' + file_pet + '/vaccine-head.json','w',encoding='utf-8') as f:
-            f.write(clinic_pet_response.text)
+            f.write(clinic_pet_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
 
         # 疫苗导航栏信息  （GET）http://127.0.0.1:13301/daily%2fwork%2fprotections%2f601 
@@ -1111,8 +1114,8 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                 # if retries == max_retries:  
                     # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
         # 将疫苗导航栏信息 写入vaccine-nav.json中
-        with open(f'./' + file_pet + '/vaccine-nav.json','w',encoding='utf-8') as f:
-            f.write(protections_response.text)
+        """ with open(f'./' + file_pet + '/vaccine-nav.json','w',encoding='utf-8') as f:
+            f.write(protections_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
         protectionsResponseListData = json.loads(protections_response.text)['Data']
         if not isinstance(protectionsResponseListData,list):
@@ -1135,8 +1138,8 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                     # if retries == max_retries:  
                         # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
             # 将疫苗详细信息 写入 protection['id']-protection['name']
-            with open(f'./' + file_pet + '/' + str(protection['id']) + '-' + protection['name'] +  '.json','w',encoding='utf-8') as f:
-                f.write(protection_response.text)
+            """ with open(f'./' + file_pet + '/' + str(protection['id']) + '-' + protection['name'] +  '.json','w',encoding='utf-8') as f:
+                f.write(protection_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
             
             protectionResponseData = json.loads(protection_response.text)['Data']
             if not isinstance(protectionResponseData,list):
@@ -1211,8 +1214,8 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                 # if retries == max_retries:  
                     # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
         # 将驱虫导航栏信息 写入insecticide-nav.json中
-        with open(f'./' + file_pet + '/insecticide-nav.json','w',encoding='utf-8') as f:
-            f.write(insects_response.text)
+        """ with open(f'./' + file_pet + '/insecticide-nav.json','w',encoding='utf-8') as f:
+            f.write(insects_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
         
         insectsResponseListData = json.loads(insects_response.text)['Data']
         if not isinstance(insectsResponseListData,list):
@@ -1235,8 +1238,8 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                     # if retries == max_retries:  
                         # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
             # 将驱虫详细信息 写入 insect['id']-insect['name']
-            with open(f'./' + file_pet + '/' + str(insect['id']) + '-' + insect['name'] +  '.json','w',encoding='utf-8') as f:
-                f.write(insect_response.text)
+            """ with open(f'./' + file_pet + '/' + str(insect['id']) + '-' + insect['name'] +  '.json','w',encoding='utf-8') as f:
+                f.write(insect_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
             insectResponseData = json.loads(insect_response.text)['Data']
             if not isinstance(insectResponseData,list):
@@ -1249,7 +1252,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                 vaccine_detail_data_copy['createtime'] = insectData['eventtime'] # 数据添加时间
                 vaccine_detail_data_copy['creater'] = insectData['cure_employee_name'] # 添加信息人员
                 # updater 最后修改信息人员ID 参数无
-                vaccine_detail_data_copy['his_protection_id'] = insectData['his_protection_id'] # 疫苗单fuID
+                vaccine_detail_data_copy['his_protection_id'] = insectData['his_insect_id'] # 疫苗单父ID
                 vaccine_detail_data_copy['cure_employee_name'] = insectData['cure_employee_name'] # 主治医生
                 vaccine_detail_data_copy['name'] = insectData['name'] # 名称
                 vaccine_detail_data_copy['weight'] = insectData['weight'] # 体重
@@ -1341,7 +1344,7 @@ def getCasesData(customer,cases_data):
     hospitalizationRecordResponseData = json.loads(hospitalization_record_response.text)['Data']
 
     
-    file_ = '医院数据/病例信息/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip()).replace('.','')
+    """ file_ = '医院数据/病例信息/' + str(customer['id']) + '-' + replace_special_chars(customer['name'].strip()).replace('.','')
     if not os.path.exists(file_):   # 不存在则创建
         # 创建文件夹
         os.makedirs(file_)
@@ -1351,9 +1354,9 @@ def getCasesData(customer,cases_data):
         f.write(medical_record_response.text)
     # 将住院信息信息写入hospitalization-all.json中
     with open(f'./' + file_ + '/hospitalization-all.json','w',encoding='utf-8') as f:
-        f.write(hospitalization_record_response.text)
+        f.write(hospitalization_record_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
-    # 医疗记录版本信息  (GET)  http://127.0.0.1:13301/daily%2fwork%2fmedical_record_version 
+    """ # 医疗记录版本信息  (GET)  http://127.0.0.1:13301/daily%2fwork%2fmedical_record_version 
     URL_medical_record_version = headURL + 'daily%2fwork%2fmedical_record_version'
     # 诊断信息 (GET) http://127.0.0.1:13301/daily%2fwork%2fdiagnosis
     URL_diagnosis = headURL + 'daily%2fwork%2fdiagnosis'
@@ -1430,7 +1433,7 @@ def getCasesData(customer,cases_data):
         f.write(usage_response.text)
     # 将"Data":["内科","外科"]写入abstracts.json中
     with open(f'./' + file_ + '/abstracts.json','w',encoding='utf-8') as f:
-        f.write(abstracts_response.text)
+        f.write(abstracts_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
 
 
@@ -1439,22 +1442,22 @@ def getCasesData(customer,cases_data):
 
     # 获取病例详细信息
     for medicalRecordData in medicalRecordResponseData:
-        # 病例详情头信息  (GET) http://127.0.0.1:13301/daily%2fwork%2fclinic_pet%2f160
+        """ # 病例详情头信息  (GET) http://127.0.0.1:13301/daily%2fwork%2fclinic_pet%2f160
         URL_cases_head = headURL + 'daily%2fwork%2fclinic_pet%2f' + str(medicalRecordData['pet_id'])
         # 病例导航信息  (GET) http://127.0.0.1:13301/daily%2fwork%2fmedical_record%2f160
-        URL_cases_nav = headURL + 'daily%2fwork%2fmedical_record%2f' + str(medicalRecordData['pet_id'])
+        URL_cases_nav = headURL + 'daily%2fwork%2fmedical_record%2f' + str(medicalRecordData['pet_id']) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
         # 回访名单信息  (GET) http://127.0.0.1:13301/daily%2fwork%2freturn_visit_list%2f234 
         URL_return_visit_list = headURL + 'daily%2fwork%2freturn_visit_list%2f' + str(medicalRecordData['id'])
         # 病例详情信息  (GET) http://127.0.0.1:13301/daily%2fwork%2fmedical_record_detail%2f234
         URL_cases_detail = headURL + 'daily%2fwork%2fmedical_record_detail%2f' + str(medicalRecordData['id'])
         
 
-        cases_head_response = ''
-        cases_nav_response = ''
-        return_visit_list_response = ''
+        """ cases_head_response = ''
+        cases_nav_response = '' """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
+        return_visit_list_response = '' 
         cases_detail_response = ''
 
-        retries = 0
+        """ retries = 0
         while retries < max_retries:
             try:
                 cases_head_response = requests.get(URL_cases_head, headers=headers)
@@ -1478,7 +1481,7 @@ def getCasesData(customer,cases_data):
                 time.sleep(retries)
                 retries += 1
                 # if retries == max_retries:  
-                    # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
+                    # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
         retries = 0
         while retries < max_retries:
@@ -1505,7 +1508,7 @@ def getCasesData(customer,cases_data):
                 retries += 1
                 # if retries == max_retries:  
                     # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
-        file_detail = file_ + '/' + str(medicalRecordData['pet_id']) + '-' + replace_special_chars(medicalRecordData['pet_name'].strip()).replace('.','') + '/' + '病例'
+        """ file_detail = file_ + '/' + str(medicalRecordData['pet_id']) + '-' + replace_special_chars(medicalRecordData['pet_name'].strip()).replace('.','') + '/' + '病例'
         if not os.path.exists(file_detail):   # 不存在则创建
             # 创建文件夹
             os.makedirs(file_detail)
@@ -1521,7 +1524,7 @@ def getCasesData(customer,cases_data):
             f.write(return_visit_list_response.text)
         # 将病例详情信息写入['病例号']-cases-detail.json中
         with open(f'./' + file_detail + '/' + str(medicalRecordData['id']) + '-' + 'cases-detail.json','w',encoding='utf-8') as f:
-            f.write(cases_detail_response.text)
+            f.write(cases_detail_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
         
         # 组装数据到 cases_data 中
         if int(json.loads(cases_detail_response.text)['Code']) != 0:
@@ -1642,17 +1645,17 @@ def getCasesData(customer,cases_data):
     # 获取住院详细信息
     for hospitalizationRecordData in hospitalizationRecordResponseData:
         # 住院详情头信息  (GET) http: //127.0.0.1:13301/daily%2fwork%2fclinic_pet%2f2299
-        URL_hospitalization_head = headURL + 'daily%2fwork%2fclinic_pet%2f' + str(hospitalizationRecordData['pet_id'])
+        """ URL_hospitalization_head = headURL + 'daily%2fwork%2fclinic_pet%2f' + str(hospitalizationRecordData['pet_id']) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
         # 住院导航信息    (GET) http://127.0.0.1:13301/daily%2fwork%2fhospitalizations%2f2299 
         URL_hospitalization_nav = headURL + 'daily%2fwork%2fhospitalizations%2f' + str(hospitalizationRecordData['pet_id'])
         # 住院表头信息    (GET) http://127.0.0.1:13301/daily%2fwork%2fhospitalization%2f697
-        URL_hospitalization_table_head = headURL + 'daily%2fwork%2fhospitalization%2f' + str(hospitalizationRecordData['id'])
+        """ URL_hospitalization_table_head = headURL + 'daily%2fwork%2fhospitalization%2f' + str(hospitalizationRecordData['id']) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
-        hospitalization_head_response = ''
+        """ hospitalization_head_response = '' """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
         hospitalization_nav_response = ''
-        hospitalization_table_head_response = ''
+        """ hospitalization_table_head_response = '' """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
-        retries = 0
+        """ retries = 0
         while retries < max_retries:
             try:
                 hospitalization_head_response = requests.get(URL_hospitalization_head, headers=headers)
@@ -1663,7 +1666,7 @@ def getCasesData(customer,cases_data):
                 time.sleep(retries)
                 retries += 1
                 # if retries == max_retries:  
-                    # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
+                    # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
                 
         retries = 0
         while retries < max_retries:
@@ -1678,7 +1681,7 @@ def getCasesData(customer,cases_data):
                 # if retries == max_retries:  
                     # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
                 
-        retries = 0
+        """ retries = 0
         while retries < max_retries:
             try:
                 hospitalization_table_head_response = requests.get(URL_hospitalization_table_head, headers=headers)
@@ -1689,8 +1692,8 @@ def getCasesData(customer,cases_data):
                 time.sleep(retries)
                 retries += 1
                 # if retries == max_retries:  
-                    # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
-        file_detail = file_ + '/' + str(hospitalizationRecordData['pet_id']) + '-' + replace_special_chars(hospitalizationRecordData['pet_name'].strip()).replace('.','') + '/' + '住院'
+                    # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
+        """ file_detail = file_ + '/' + str(hospitalizationRecordData['pet_id']) + '-' + replace_special_chars(hospitalizationRecordData['pet_name'].strip()).replace('.','') + '/' + '住院'
         if not os.path.exists(file_detail):   # 不存在则创建
             # 创建文件夹
             os.makedirs(file_detail)
@@ -1702,7 +1705,7 @@ def getCasesData(customer,cases_data):
             f.write(hospitalization_nav_response.text)
         # 将住院表头信息写入hospitalization-table-head.json中
         with open(f'./' + file_detail + '/hospitalization-table-head.json','w',encoding='utf-8') as f:
-            f.write(hospitalization_table_head_response.text)
+            f.write(hospitalization_table_head_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
 
         hospitalizationNavResponseData = json.loads(hospitalization_nav_response.text)['Data']
@@ -1713,19 +1716,18 @@ def getCasesData(customer,cases_data):
         # 获取住院详细信息
         for hospitalizationNavData in hospitalizationNavResponseData:
             for clinic in hospitalizationNavData['clinics']:
-                '''时间有问题'''
-                # 住院时间信息  (GET) http://127.0.0.1:13301/consumer%2fcenter%2fmr_update_time%2f11247
+                """ # 住院时间信息  (GET) http://127.0.0.1:13301/consumer%2fcenter%2fmr_update_time%2f11247
                 URL_hospitalization_time = headURL + 'consumer%2fcenter%2fmr_update_time%2f' + str(clinic['id'])
                 # 回访名单信息  (GET)  http://127.0.0.1:13301/daily%2fwork%2freturn_visit_list%2f11247
-                URL_hospitalization_return_visit_list = headURL + 'daily%2fwork%2freturn_visit_list%2f' + str(clinic['id'])
+                URL_hospitalization_return_visit_list = headURL + 'daily%2fwork%2freturn_visit_list%2f' + str(clinic['id']) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
                 # 住院详细信息  (GET) http: //127.0.0.1:13301/daily%2fwork%2fmedical_record_detail%2f11294
                 URL_hospitalization_detail = headURL + 'daily%2fwork%2fmedical_record_detail%2f' + str(clinic['id'])
 
-                hospitalization_time_response = ''
-                hospitalization_return_visit_list_response = ''
+                """ hospitalization_time_response = ''
+                hospitalization_return_visit_list_response = '' """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
                 hospitalization_detail_response = ''
 
-                retries = 0
+                """ retries = 0
                 while retries < max_retries:
                     try:
                         hospitalization_time_response = requests.get(URL_hospitalization_time, headers=headers)
@@ -1749,7 +1751,7 @@ def getCasesData(customer,cases_data):
                         time.sleep(retries)
                         retries += 1
                         # if retries == max_retries:  
-                            # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
+                            # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
 
                 retries = 0
                 while retries < max_retries:
@@ -1763,7 +1765,7 @@ def getCasesData(customer,cases_data):
                         retries += 1
                         # if retries == max_retries:  
                             # raise Exception(f"请求失败，达到最大重试次数：{max_retries}") from e
-                # 将住院时间信息写入['住院号']-hospitalization-time.json中
+                """ # 将住院时间信息写入['住院号']-hospitalization-time.json中
                 with open(f'./' + file_detail + '/' + str(clinic['id']) + '-' + 'hospitalization-time.json','w',encoding='utf-8') as f:
                     f.write(hospitalization_time_response.text)
                 # 将回访名单信息写入['住院号']-hospitalization-return-visit-list.json中
@@ -1771,7 +1773,7 @@ def getCasesData(customer,cases_data):
                     f.write(hospitalization_return_visit_list_response.text)
                 # 将住院详情信息写入['住院号']-hospitalization-detail.json中
                 with open(f'./' + file_detail + '/' + str(clinic['id']) + '-' + 'hospitalization-detail.json','w',encoding='utf-8') as f:
-                    f.write(hospitalization_detail_response.text)
+                    f.write(hospitalization_detail_response.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
                 
 
                 # 组装数据到 cases_data 中
@@ -1933,10 +1935,10 @@ for customer in customerListData:
     logging.info(f'正在采集当前客户信息：' + str(customer['id']) + '-' + customer['name'] + '!')
 
     print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
-    
+    print("获取客户信息中···")
     try: # 获取客户信息 successful
         getCustomerData(customer,user_data,pet_data,card_data) 
-        time.sleep(1)
+        # time.sleep(1)
     except Exception:
         logging.exception(f"获取客户信息-宠物信息 发生异常!")
         print(f"\n\n获取客户信息-宠物信息 发生异常!!!")
@@ -1947,23 +1949,23 @@ for customer in customerListData:
 
 
 
-    print("获取消费记录中···") # 获取当前客户：宠物编号的消费记录！！！
-    try: # 获取消费记录 successful
-        getExpenseCalendarData(customer)
-        time.sleep(1)
-    except Exception:
-        logging.exception(f"获取消费记录 发生异常!")
-        print(f"\n\n获取消费记录 发生异常!!!")
-        traceback.print_exc()
-        os.system('pause')
-        break
+    # print("获取消费记录中···") # 获取当前客户：宠物编号的消费记录！！！
+    # try: # 获取消费记录 successful
+    #     getExpenseCalendarData(customer)
+    #     time.sleep(1)
+    # except Exception:
+    #     logging.exception(f"获取消费记录 发生异常!")
+    #     print(f"\n\n获取消费记录 发生异常!!!")
+    #     traceback.print_exc()
+    #     os.system('pause')
+    #     break
 
 
 
     print("获取疫苗驱虫信息中···")
     try: # 获取疫苗驱虫信息 successful
         getVaccineData(customer,vaccine_data,vaccine_detail_data)
-        time.sleep(1)
+        # time.sleep(1)
     except Exception:
         logging.exception(f"疫苗驱虫信息 发生异常!")
         print(f"\n\n疫苗驱虫信息 发生异常!!!")
@@ -1976,7 +1978,7 @@ for customer in customerListData:
     print("获取病例信息中···")
     try: # 获取病例信息 successful
         getCasesData(customer,cases_data)
-        time.sleep(1)
+        # time.sleep(1)
     except Exception:
         logging.exception(f"获取病例信息 发生异常!")
         print(f"\n\n获取病例信息 发生异常!!!")

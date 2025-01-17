@@ -182,7 +182,8 @@ vaccine_detail_data = {
     'add_employee_name': '',
     'con_category_name': '',
     'commodity_name': '',
-    'commodity_brand': ''
+    'commodity_brand': '',
+    'pay_state': ''
 }
 
 product_catalog_data = {
@@ -1165,6 +1166,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                         vaccine_detail_data_copy['con_category_name'] = hisConsumptions['con_category_name'] # 疫苗服务
                         vaccine_detail_data_copy['commodity_name'] = hisConsumptions['commodity_name'] # 妙三多
                         vaccine_detail_data_copy['commodity_brand'] = hisConsumptions['commodity_brand'] # 硕腾
+                        vaccine_detail_data_copy['pay_state'] = hisConsumptions['pay_state'] # 支付状态
 
                         csv_file7 = './医院数据/疫苗单详情表.csv'
                         # 检查文件是否存在且不为空
@@ -1264,6 +1266,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                         vaccine_detail_data_copy['con_category_name'] = hisConsumptions['con_category_name'] # 疫苗服务
                         vaccine_detail_data_copy['commodity_name'] = hisConsumptions['commodity_name'] # 妙三多
                         vaccine_detail_data_copy['commodity_brand'] = hisConsumptions['commodity_brand'] # 硕腾
+                        vaccine_detail_data_copy['pay_state'] = hisConsumptions['pay_state'] # 支付状态
 
                         csv_file7 = './医院数据/疫苗单详情表.csv'
                         # 检查文件是否存在且不为空
