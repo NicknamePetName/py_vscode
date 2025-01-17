@@ -297,7 +297,7 @@ headers_text = {
 }
 
 # 采集数据起止日期-结束日期
-start_time = '2019-01-01'
+start_time = '2001-01-01'
 end_time = '2027-01-01'
 
 max_retries = 25  # 最大重试次数
