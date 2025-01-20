@@ -273,6 +273,88 @@ cases_data = {
     'evet_rft': ''
 }
 
+consumption_data = {
+    'task_id': '',
+    'id': '',
+    'add_employee_name': '',
+    'order_value': '',
+    'his_consumer_id': '',
+    'his_consumer_name': '',
+    'his_pet_id': '',
+    'his_pet_name': '',
+    'his_bill_id': '',
+    'con_commodity_id': '',
+    'con_category_id': '',
+    'con_category_name': '',
+    'top_category_id': '',
+    'commodity_code': '',
+    'commodity_encode': '',
+    'commodity_name': '',
+    'commodity_namepy': '',
+    'commodity_brand': '',
+    'commodity_isuse_alias': '',
+    'commodity_aliasname': '',
+    'commodity_standardname': '',
+    'commodity_standardcode': '',
+    'commodity_vender': '',
+    'commodity_format': '',
+    'commodity_unit': '',
+    'commodity_use_memberprice': '',
+    'commodity_memberprice': '',
+    'commodity_isuse_stock': '',
+    'commodity_isuse_off': '',
+    'commodity_isuse_batch': '',
+    'commodity_isrecommend': '',
+    'commodity_isexchange': '',
+    'commodity_ismeal': '',
+    'usages': '',
+    'usagesquantity': '',
+    'useunit': '',
+    'quantity': '',
+    'price': '',
+    'payprice': '',
+    'bussinesstype': '',
+    'sale_employee_id': '',
+    'sale_employee_name': '',
+    'service_employee_id': '',
+    'service_employee_name': '',
+    'cure_employee_id': '',
+    'cure_employee_name': '',
+    'daily_id': '',
+    'bill_type': '',
+    'state': '',
+    'mark': '',
+    'eventtime': '',
+    'meter_number': '',
+    'his_consumption_id': '',
+    'parent_id': '',
+    'tag': '',
+    'his_pet_code': '',
+    'is_count_stock': '',
+    'sale_type': '',
+    'sale_percent': '',
+    'sale_royalty_price': '',
+    'service_type': '',
+    'service_percent': '',
+    'service_royalty_price': '',
+    'pay_state': '',
+    'off': '',
+    'lot_number': '',
+    'is_refund': '',
+    'original_consumption_id': '',
+    'is_commodity_deposit': '',
+    'purchase_reminder': '',
+    'only_update_usage': '',
+    'usage_of_meal': '',
+    'select_model': '',
+    'is_update_sm': '',
+    'is_new_stock': '',
+    'his_retreat_bill_id': '',
+    'is_generate_examine': '',
+    'is_generate_image': '',
+    'is_use_metercard': '',
+    'is_account': ''
+}
 
 headers = {
     'Content-Type': 'application/json',
@@ -1298,7 +1380,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
 
 
 # 获取病例信息  （POST) http://127.0.0.1:13301/consumer%2fcenter%2fmedical_record
-def getCasesData(customer,cases_data):
+def getCasesData(customer,cases_data,consumption_data):
     # 病例卡片信息 （POST) http://127.0.0.1:13301/consumer%2fcenter%2fmedical_record
     URL_medical_record = headURL + 'consumer%2fcenter%2fmedical_record'
     # 住院卡片信息  (POST) http://127.0.0.1:13301/consumer%2fcenter%2fhospitalization_record
@@ -1617,13 +1699,115 @@ def getCasesData(customer,cases_data):
         cases_data_copy['case_level'] = casesDetailData['case_level'] # -
         cases_data_copy['present_history'] = casesDetailData['present_history'] # -
         try: # -
-            cases_data_copy['is_tw'] = hospitalizationDetailData['is_tw']
+            cases_data_copy['is_tw'] = casesDetailData['is_tw']
         except Exception:
             cases_data_copy['is_tw'] = 0
         try: # rft
-            cases_data_copy['evet_rft'] = hospitalizationDetailData['evet_rft']
+            cases_data_copy['evet_rft'] = casesDetailData['evet_rft']
         except Exception:
             cases_data_copy['evet_rft'] = ''
+
+        # 细节部分
+        consumptions = casesDetailData['his_consumptions']
+        if not isinstance(consumptions,list):
+            consumptions = []
+        # 组装数据到 consumption_data 中
+        consumption_list = []
+        for consumption in consumptions:
+            consumption_data_copy = copy.deepcopy(consumption_data)
+            # task_id 老子不知道
+            consumption_data_copy['id'] = consumption['id'] # 检查项目 ID 
+            consumption_data_copy['add_employee_name'] = consumption['add_employee_name'] # 添加员工的姓名
+            consumption_data_copy['order_value'] = consumption['order_value'] # 订单相关的值
+            consumption_data_copy['his_consumer_id'] = consumption['his_consumer_id'] # 关联的 HIS 系统消费者 ID
+            consumption_data_copy['his_consumer_name'] = consumption['his_consumer_name'] # 关联的 HIS 系统消费者姓名
+            consumption_data_copy['his_pet_id'] = consumption['his_pet_id'] # 关联的 HIS 系统宠物 ID
+            consumption_data_copy['his_pet_name'] = consumption['his_pet_name'] # 关联的 HIS 系统宠物名称
+            consumption_data_copy['his_bill_id'] = consumption['his_bill_id'] # 关联的 HIS 系统账单 ID
+            consumption_data_copy['con_commodity_id'] = consumption['con_commodity_id'] # 商品在当前业务系统中的 ID
+            consumption_data_copy['con_category_id'] = consumption['con_category_id'] # 商品所属分类 ID
+            consumption_data_copy['con_category_name'] = consumption['con_category_name'] # 商品所属分类名称
+            consumption_data_copy['top_category_id'] = consumption['top_category_id'] # 顶级分类 ID
+            consumption_data_copy['commodity_code'] = consumption['commodity_code'] # 商品编码
+            consumption_data_copy['commodity_encode'] = consumption['commodity_encode'] # 商品编码相关的其他编码
+            consumption_data_copy['commodity_name'] = consumption['commodity_name'] # 商品名称
+            consumption_data_copy['commodity_namepy'] = consumption['commodity_namepy'] # 商品名称拼音
+            consumption_data_copy['commodity_brand'] = consumption['commodity_brand'] # 商品品牌
+            consumption_data_copy['commodity_isuse_alias'] = consumption['commodity_isuse_alias'] # 是否使用商品别名
+            consumption_data_copy['commodity_aliasname'] = consumption['commodity_aliasname'] # 商品别名
+            consumption_data_copy['commodity_standardname'] = consumption['commodity_standardname'] # 商品标准名称
+            consumption_data_copy['commodity_standardcode'] = consumption['commodity_standardcode'] # 商品标准编码
+            consumption_data_copy['commodity_vender'] = consumption['commodity_vender'] # 商品供应商
+            consumption_data_copy['commodity_format'] = consumption['commodity_format'] # 商品规格
+            consumption_data_copy['commodity_unit'] = consumption['commodity_unit'] # 商品单位
+            consumption_data_copy['commodity_use_memberprice'] = consumption['commodity_use_memberprice'] # 是否使用会员价格
+            consumption_data_copy['commodity_memberprice'] = consumption['commodity_memberprice'] # 会员价格
+            consumption_data_copy['commodity_isuse_stock'] = consumption['commodity_isuse_stock'] # 是否使用库存
+            consumption_data_copy['commodity_isuse_off'] = consumption['commodity_isuse_off'] # 是否使用折扣
+            consumption_data_copy['commodity_isuse_batch'] = consumption['commodity_isuse_batch'] # 是否使用批次
+            consumption_data_copy['commodity_isrecommend'] = consumption['commodity_isrecommend'] # 是否推荐商品
+            consumption_data_copy['commodity_isexchange'] = consumption['commodity_isexchange'] # 是否可兑换
+            consumption_data_copy['commodity_ismeal'] = consumption['commodity_ismeal'] # 是否为套餐
+            consumption_data_copy['usages'] = consumption['usages'] # 用法
+            consumption_data_copy['usagesquantity'] = consumption['usagesquantity'] # 用法数量
+            consumption_data_copy['useunit'] = consumption['useunit'] # 使用单位
+            consumption_data_copy['quantity'] = consumption['quantity'] # 商品数量
+            consumption_data_copy['price'] = consumption['price'] # 商品价格
+            consumption_data_copy['payprice'] = consumption['payprice'] # 支付价格
+            consumption_data_copy['bussinesstype'] = consumption['bussinesstype'] # 业务类型
+            consumption_data_copy['sale_employee_id'] = consumption['sale_employee_id'] # 销售员工 ID
+            consumption_data_copy['sale_employee_name'] = consumption['sale_employee_name'] # 销售员工姓名
+            consumption_data_copy['service_employee_id'] = consumption['service_employee_id'] # 服务员工 ID
+            consumption_data_copy['service_employee_name'] = consumption['service_employee_name'] # 服务员工姓名
+            consumption_data_copy['cure_employee_id'] = consumption['cure_employee_id'] # 治疗员工 ID
+            consumption_data_copy['cure_employee_name'] = consumption['cure_employee_name'] # 治疗员工姓名
+            consumption_data_copy['daily_id'] = consumption['daily_id'] # 日常 ID（含义不太明确）
+            consumption_data_copy['bill_type'] = consumption['bill_type'] # 账单类型
+            consumption_data_copy['state'] = consumption['state'] # 状态
+            consumption_data_copy['mark'] = consumption['mark'] # 备注
+            consumption_data_copy['eventtime'] = consumption['eventtime'] # 事件时间
+            consumption_data_copy['meter_number'] = consumption['meter_number'] # 仪表数量（含义不太明确）
+            consumption_data_copy['his_consumption_id'] = consumption['his_consumption_id'] # HIS 系统消费 ID
+            consumption_data_copy['parent_id'] = consumption['parent_id'] # 父 ID
+            consumption_data_copy['tag'] = consumption['tag'] # 标签
+            consumption_data_copy['his_pet_code'] = consumption['his_pet_code'] # HIS 系统宠物编码
+            consumption_data_copy['is_count_stock'] = consumption['is_count_stock'] # 是否统计库存
+            consumption_data_copy['sale_type'] = consumption['sale_type'] # 销售类型
+            consumption_data_copy['sale_percent'] = consumption['sale_percent'] # 销售百分比
+            consumption_data_copy['sale_royalty_price'] = consumption['sale_royalty_price'] # 销售提成价格
+            consumption_data_copy['service_type'] = consumption['service_type'] # 服务类型
+            consumption_data_copy['service_percent'] = consumption['service_percent'] # 服务百分比
+            consumption_data_copy['service_royalty_price'] = consumption['service_royalty_price'] # 服务提成价格
+            consumption_data_copy['pay_state'] = consumption['pay_state'] # 支付状态
+            consumption_data_copy['off'] = consumption['off'] # 折扣（含义不太明确，可能与 commodity_isuse_off 相关）
+            consumption_data_copy['lot_number'] = consumption['lot_number'] # 批次号
+            consumption_data_copy['is_refund'] = consumption['is_refund'] # 是否退款
+            consumption_data_copy['original_consumption_id'] = consumption['original_consumption_id'] # 原始消费 ID
+            consumption_data_copy['is_commodity_deposit'] = consumption['is_commodity_deposit'] # 是否为商品押金
+            consumption_data_copy['purchase_reminder'] = consumption['purchase_reminder'] # 采购提醒（含义不太明确）
+            consumption_data_copy['only_update_usage'] = consumption['only_update_usage'] # 仅更新用法（含义不太明确）
+            consumption_data_copy['usage_of_meal'] = consumption['usage_of_meal'] # 套餐用法（值为 null）
+            consumption_data_copy['select_model'] = consumption['select_model'] # 选择模型（含义不太明确）
+            consumption_data_copy['is_update_sm'] = consumption['is_update_sm'] # 是否更新 SM（含义不太明确）
+            consumption_data_copy['is_new_stock'] = consumption['is_new_stock'] # 是否为新库存 
+            consumption_data_copy['his_retreat_bill_id'] = consumption['his_retreat_bill_id'] # HIS 系统退账单 ID
+            # is_generate_examine 是否生成检查 参数无
+            # is_generate_image 是否生成图像 参数无
+            # is_use_metercard 是否使用计次卡
+            # is_account 是否记账
+            consumption_list.append(consumption_data_copy)
+
+        print('写入处方信息到 病例处方表.csv 中')
+        csv_detail = './医院数据/病例处方表.csv'
+        file_exists = os.path.isfile(csv_detail) and os.path.getsize(csv_detail) > 0
+
+        with open(csv_detail,'a',encoding='utf-8',newline='') as f:
+            # 将文件对象转换成 DictWriter 对象
+            writer = csv.DictWriter(f,fieldnames = consumption_data.keys())
+            # 如果文件是新创建的，写入表头
+            if not file_exists:
+                writer.writeheader()
+            writer.writerows(consumption_list)
 
         csv_file8 = './医院数据/病例信息.csv'
         # 检查文件是否存在且不为空
@@ -1876,6 +2060,108 @@ def getCasesData(customer,cases_data):
                 except Exception:
                     cases_data_copy['evet_rft'] = ''
 
+                # 细节部分
+                consumptions = hospitalizationDetailData['his_consumptions']
+                if not isinstance(consumptions,list):
+                    consumptions = []
+                # 组装数据到 consumption_data 中
+                consumption_list = []
+                for consumption in consumptions:
+                    consumption_data_copy = copy.deepcopy(consumption_data)
+                    # task_id 老子不知道
+                    consumption_data_copy['id'] = consumption['id'] # 检查项目 ID 
+                    consumption_data_copy['add_employee_name'] = consumption['add_employee_name'] # 添加员工的姓名
+                    consumption_data_copy['order_value'] = consumption['order_value'] # 订单相关的值
+                    consumption_data_copy['his_consumer_id'] = consumption['his_consumer_id'] # 关联的 HIS 系统消费者 ID
+                    consumption_data_copy['his_consumer_name'] = consumption['his_consumer_name'] # 关联的 HIS 系统消费者姓名
+                    consumption_data_copy['his_pet_id'] = consumption['his_pet_id'] # 关联的 HIS 系统宠物 ID
+                    consumption_data_copy['his_pet_name'] = consumption['his_pet_name'] # 关联的 HIS 系统宠物名称
+                    consumption_data_copy['his_bill_id'] = consumption['his_bill_id'] # 关联的 HIS 系统账单 ID
+                    consumption_data_copy['con_commodity_id'] = consumption['con_commodity_id'] # 商品在当前业务系统中的 ID
+                    consumption_data_copy['con_category_id'] = consumption['con_category_id'] # 商品所属分类 ID
+                    consumption_data_copy['con_category_name'] = consumption['con_category_name'] # 商品所属分类名称
+                    consumption_data_copy['top_category_id'] = consumption['top_category_id'] # 顶级分类 ID
+                    consumption_data_copy['commodity_code'] = consumption['commodity_code'] # 商品编码
+                    consumption_data_copy['commodity_encode'] = consumption['commodity_encode'] # 商品编码相关的其他编码
+                    consumption_data_copy['commodity_name'] = consumption['commodity_name'] # 商品名称
+                    consumption_data_copy['commodity_namepy'] = consumption['commodity_namepy'] # 商品名称拼音
+                    consumption_data_copy['commodity_brand'] = consumption['commodity_brand'] # 商品品牌
+                    consumption_data_copy['commodity_isuse_alias'] = consumption['commodity_isuse_alias'] # 是否使用商品别名
+                    consumption_data_copy['commodity_aliasname'] = consumption['commodity_aliasname'] # 商品别名
+                    consumption_data_copy['commodity_standardname'] = consumption['commodity_standardname'] # 商品标准名称
+                    consumption_data_copy['commodity_standardcode'] = consumption['commodity_standardcode'] # 商品标准编码
+                    consumption_data_copy['commodity_vender'] = consumption['commodity_vender'] # 商品供应商
+                    consumption_data_copy['commodity_format'] = consumption['commodity_format'] # 商品规格
+                    consumption_data_copy['commodity_unit'] = consumption['commodity_unit'] # 商品单位
+                    consumption_data_copy['commodity_use_memberprice'] = consumption['commodity_use_memberprice'] # 是否使用会员价格
+                    consumption_data_copy['commodity_memberprice'] = consumption['commodity_memberprice'] # 会员价格
+                    consumption_data_copy['commodity_isuse_stock'] = consumption['commodity_isuse_stock'] # 是否使用库存
+                    consumption_data_copy['commodity_isuse_off'] = consumption['commodity_isuse_off'] # 是否使用折扣
+                    consumption_data_copy['commodity_isuse_batch'] = consumption['commodity_isuse_batch'] # 是否使用批次
+                    consumption_data_copy['commodity_isrecommend'] = consumption['commodity_isrecommend'] # 是否推荐商品
+                    consumption_data_copy['commodity_isexchange'] = consumption['commodity_isexchange'] # 是否可兑换
+                    consumption_data_copy['commodity_ismeal'] = consumption['commodity_ismeal'] # 是否为套餐
+                    consumption_data_copy['usages'] = consumption['usages'] # 用法
+                    consumption_data_copy['usagesquantity'] = consumption['usagesquantity'] # 用法数量
+                    consumption_data_copy['useunit'] = consumption['useunit'] # 使用单位
+                    consumption_data_copy['quantity'] = consumption['quantity'] # 商品数量
+                    consumption_data_copy['price'] = consumption['price'] # 商品价格
+                    consumption_data_copy['payprice'] = consumption['payprice'] # 支付价格
+                    consumption_data_copy['bussinesstype'] = consumption['bussinesstype'] # 业务类型
+                    consumption_data_copy['sale_employee_id'] = consumption['sale_employee_id'] # 销售员工 ID
+                    consumption_data_copy['sale_employee_name'] = consumption['sale_employee_name'] # 销售员工姓名
+                    consumption_data_copy['service_employee_id'] = consumption['service_employee_id'] # 服务员工 ID
+                    consumption_data_copy['service_employee_name'] = consumption['service_employee_name'] # 服务员工姓名
+                    consumption_data_copy['cure_employee_id'] = consumption['cure_employee_id'] # 治疗员工 ID
+                    consumption_data_copy['cure_employee_name'] = consumption['cure_employee_name'] # 治疗员工姓名
+                    consumption_data_copy['daily_id'] = consumption['daily_id'] # 日常 ID（含义不太明确）
+                    consumption_data_copy['bill_type'] = consumption['bill_type'] # 账单类型
+                    consumption_data_copy['state'] = consumption['state'] # 状态
+                    consumption_data_copy['mark'] = consumption['mark'] # 备注
+                    consumption_data_copy['eventtime'] = consumption['eventtime'] # 事件时间
+                    consumption_data_copy['meter_number'] = consumption['meter_number'] # 仪表数量（含义不太明确）
+                    consumption_data_copy['his_consumption_id'] = consumption['his_consumption_id'] # HIS 系统消费 ID
+                    consumption_data_copy['parent_id'] = consumption['parent_id'] # 父 ID
+                    consumption_data_copy['tag'] = consumption['tag'] # 标签
+                    consumption_data_copy['his_pet_code'] = consumption['his_pet_code'] # HIS 系统宠物编码
+                    consumption_data_copy['is_count_stock'] = consumption['is_count_stock'] # 是否统计库存
+                    consumption_data_copy['sale_type'] = consumption['sale_type'] # 销售类型
+                    consumption_data_copy['sale_percent'] = consumption['sale_percent'] # 销售百分比
+                    consumption_data_copy['sale_royalty_price'] = consumption['sale_royalty_price'] # 销售提成价格
+                    consumption_data_copy['service_type'] = consumption['service_type'] # 服务类型
+                    consumption_data_copy['service_percent'] = consumption['service_percent'] # 服务百分比
+                    consumption_data_copy['service_royalty_price'] = consumption['service_royalty_price'] # 服务提成价格
+                    consumption_data_copy['pay_state'] = consumption['pay_state'] # 支付状态
+                    consumption_data_copy['off'] = consumption['off'] # 折扣（含义不太明确，可能与 commodity_isuse_off 相关）
+                    consumption_data_copy['lot_number'] = consumption['lot_number'] # 批次号
+                    consumption_data_copy['is_refund'] = consumption['is_refund'] # 是否退款
+                    consumption_data_copy['original_consumption_id'] = consumption['original_consumption_id'] # 原始消费 ID
+                    consumption_data_copy['is_commodity_deposit'] = consumption['is_commodity_deposit'] # 是否为商品押金
+                    consumption_data_copy['purchase_reminder'] = consumption['purchase_reminder'] # 采购提醒（含义不太明确）
+                    consumption_data_copy['only_update_usage'] = consumption['only_update_usage'] # 仅更新用法（含义不太明确）
+                    consumption_data_copy['usage_of_meal'] = consumption['usage_of_meal'] # 套餐用法（值为 null）
+                    consumption_data_copy['select_model'] = consumption['select_model'] # 选择模型（含义不太明确）
+                    consumption_data_copy['is_update_sm'] = consumption['is_update_sm'] # 是否更新 SM（含义不太明确）
+                    consumption_data_copy['is_new_stock'] = consumption['is_new_stock'] # 是否为新库存 
+                    consumption_data_copy['his_retreat_bill_id'] = consumption['his_retreat_bill_id'] # HIS 系统退账单 ID
+                    # is_generate_examine 是否生成检查 参数无
+                    # is_generate_image 是否生成图像 参数无
+                    # is_use_metercard 是否使用计次卡
+                    # is_account 是否记账
+                    consumption_list.append(consumption_data_copy)
+
+                print('写入处方信息到 病例处方表.csv 中')
+                csv_detail = './医院数据/病例处方表.csv'
+                file_exists = os.path.isfile(csv_detail) and os.path.getsize(csv_detail) > 0
+
+                with open(csv_detail,'a',encoding='utf-8',newline='') as f:
+                    # 将文件对象转换成 DictWriter 对象
+                    writer = csv.DictWriter(f,fieldnames = consumption_data.keys())
+                    # 如果文件是新创建的，写入表头
+                    if not file_exists:
+                        writer.writeheader()
+                    writer.writerows(consumption_list)
+
                 csv_file8 = './医院数据/病例信息.csv'
                 # 检查文件是否存在且不为空
                 file_exists = os.path.isfile(csv_file8) and os.path.getsize(csv_file8) > 0
@@ -1935,15 +2221,15 @@ for customer in customerListData:
 
     print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
     print("获取客户信息中···")
-    try: # 获取客户信息 successful
-        getCustomerData(customer,user_data,pet_data,card_data) 
-        # time.sleep(1)
-    except Exception:
-        logging.exception(f"获取客户信息-宠物信息 发生异常!")
-        print(f"\n\n获取客户信息-宠物信息 发生异常!!!")
-        traceback.print_exc()
-        os.system('pause')
-        break
+    # try: # 获取客户信息 successful
+    #     getCustomerData(customer,user_data,pet_data,card_data) 
+    #     # time.sleep(1)
+    # except Exception:
+    #     logging.exception(f"获取客户信息-宠物信息 发生异常!")
+    #     print(f"\n\n获取客户信息-宠物信息 发生异常!!!")
+    #     traceback.print_exc()
+    #     os.system('pause')
+    #     break
         
 
 
@@ -1961,22 +2247,22 @@ for customer in customerListData:
 
 
 
-    print("获取疫苗驱虫信息中···")
-    try: # 获取疫苗驱虫信息 successful
-        getVaccineData(customer,vaccine_data,vaccine_detail_data)
-        # time.sleep(1)
-    except Exception:
-        logging.exception(f"疫苗驱虫信息 发生异常!")
-        print(f"\n\n疫苗驱虫信息 发生异常!!!")
-        traceback.print_exc()
-        os.system('pause')
-        break
+    # print("获取疫苗驱虫信息中···")
+    # try: # 获取疫苗驱虫信息 successful
+    #     getVaccineData(customer,vaccine_data,vaccine_detail_data)
+    #     # time.sleep(1)
+    # except Exception:
+    #     logging.exception(f"疫苗驱虫信息 发生异常!")
+    #     print(f"\n\n疫苗驱虫信息 发生异常!!!")
+    #     traceback.print_exc()
+    #     os.system('pause')
+    #     break
 
 
 
     print("获取病例信息中···")
     try: # 获取病例信息 successful
-        getCasesData(customer,cases_data)
+        getCasesData(customer,cases_data,consumption_data)
         # time.sleep(1)
     except Exception:
         logging.exception(f"获取病例信息 发生异常!")
