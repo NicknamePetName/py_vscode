@@ -1798,7 +1798,7 @@ def getCasesData(customer,cases_data,consumption_data):
             consumption_list.append(consumption_data_copy)
 
         print('写入处方信息到 病例处方表.csv 中')
-        csv_detail = '/医院数据/病例处方表.csv'
+        csv_detail = './医院数据/病例处方表.csv'
         file_exists = os.path.isfile(csv_detail) and os.path.getsize(csv_detail) > 0
 
         with open(csv_detail,'a',encoding='utf-8',newline='') as f:
@@ -2151,7 +2151,7 @@ def getCasesData(customer,cases_data,consumption_data):
                     consumption_list.append(consumption_data_copy)
 
                 print('写入处方信息到 病例处方表.csv 中')
-                csv_detail = '/医院数据/病例处方表.csv'
+                csv_detail = './医院数据/病例处方表.csv'
                 file_exists = os.path.isfile(csv_detail) and os.path.getsize(csv_detail) > 0
 
                 with open(csv_detail,'a',encoding='utf-8',newline='') as f:
@@ -2192,13 +2192,13 @@ def getCasesData(customer,cases_data,consumption_data):
 
 
 
-# try: # 获取商品信息 successful
-#     getProductData(product_data,product_catalog_data)
-# except Exception:
-#     logging.exception(f"商品信息 发生异常!")
-#     print(f"\n\n商品信息 发生异常!!!")
-#     traceback.print_exc()
-#     os.system("pause")
+try: # 获取商品信息 successful
+    getProductData(product_data,product_catalog_data)
+except Exception:
+    logging.exception(f"商品信息 发生异常!")
+    print(f"\n\n商品信息 发生异常!!!")
+    traceback.print_exc()
+    os.system("pause")
 
 
 # ---------------------------------------------------------------------------------------------
@@ -2212,8 +2212,8 @@ for customer in customerListData:
     if int(customer['is_chain']) == 1:  # 只爬取本店信息
         continue
 
-    if int(customer['id']) > 10220:  # 测试用户
-        continue
+    # if int(customer['id']) > 10220:  # 测试用户
+    #     continue
     
     # user_head_CSV = ['task_id','owner_id','owner_name','owner_gender','owner_vip_level','owner_phone1','owner_phone2','owner_deposit','owner_integral','owner_address','owner_reg_date','owner_remarks','owner_source','sale_state','is_customer','hospital_id','hospital_code','hospital_name']
     
@@ -2221,42 +2221,42 @@ for customer in customerListData:
 
     print('正在采集客户：' + str(customer['id']) + '-' + customer['name'] + ' 数据中！！！')
     print("获取客户信息中···")
-    # try: # 获取客户信息 successful
-    #     getCustomerData(customer,user_data,pet_data,card_data) 
-    #     # time.sleep(1)
-    # except Exception:
-    #     logging.exception(f"获取客户信息-宠物信息 发生异常!")
-    #     print(f"\n\n获取客户信息-宠物信息 发生异常!!!")
-    #     traceback.print_exc()
-    #     os.system('pause')
-    #     break
+    try: # 获取客户信息 successful
+        getCustomerData(customer,user_data,pet_data,card_data) 
+        # time.sleep(1)
+    except Exception:
+        logging.exception(f"获取客户信息-宠物信息 发生异常!")
+        print(f"\n\n获取客户信息-宠物信息 发生异常!!!")
+        traceback.print_exc()
+        os.system('pause')
+        break
         
 
 
 
-    # print("获取消费记录中···") # 获取当前客户：宠物编号的消费记录！！！
-    # try: # 获取消费记录 successful
-    #     getExpenseCalendarData(customer)
-    #     time.sleep(1)
-    # except Exception:
-    #     logging.exception(f"获取消费记录 发生异常!")
-    #     print(f"\n\n获取消费记录 发生异常!!!")
-    #     traceback.print_exc()
-    #     os.system('pause')
-    #     break
+    print("获取消费记录中···") # 获取当前客户：宠物编号的消费记录！！！
+    try: # 获取消费记录 successful
+        getExpenseCalendarData(customer)
+        time.sleep(1)
+    except Exception:
+        logging.exception(f"获取消费记录 发生异常!")
+        print(f"\n\n获取消费记录 发生异常!!!")
+        traceback.print_exc()
+        os.system('pause')
+        break
 
 
 
-    # print("获取疫苗驱虫信息中···")
-    # try: # 获取疫苗驱虫信息 successful
-    #     getVaccineData(customer,vaccine_data,vaccine_detail_data)
-    #     # time.sleep(1)
-    # except Exception:
-    #     logging.exception(f"疫苗驱虫信息 发生异常!")
-    #     print(f"\n\n疫苗驱虫信息 发生异常!!!")
-    #     traceback.print_exc()
-    #     os.system('pause')
-    #     break
+    print("获取疫苗驱虫信息中···")
+    try: # 获取疫苗驱虫信息 successful
+        getVaccineData(customer,vaccine_data,vaccine_detail_data)
+        # time.sleep(1)
+    except Exception:
+        logging.exception(f"疫苗驱虫信息 发生异常!")
+        print(f"\n\n疫苗驱虫信息 发生异常!!!")
+        traceback.print_exc()
+        os.system('pause')
+        break
 
 
 
