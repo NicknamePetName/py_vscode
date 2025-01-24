@@ -45,6 +45,7 @@ headers_text = {
 
 product_data = {
     'task_id': '',
+    'name': '',
     'goods_id': '',
     'goods_code': '',
     'stock': ''
@@ -68,6 +69,7 @@ if not isinstance(responseData,list):
 for product in responseData:
     product_data_copy = copy.deepcopy(product_data)
     product_data_copy['goods_id'] = product['con_commodity_id']
+    product_data_copy['name'] = product['name']
     product_data_copy['stock'] = product['quantity']
     product_data_copy['goods_code'] = product['code']
     product_list.append(product_data_copy)
@@ -76,7 +78,7 @@ for product in responseData:
 if not os.path.exists('医院数据'):   # 不存在则创建
     # 创建文件夹
     os.makedirs('医院数据')
-csv_file_product = './医院数据/商品库存信息.csv'
+csv_file_product = './医院数据/商品库存信息-new.csv'
 # 检查文件是否存在且不为空
 file_exists = os.path.isfile(csv_file_product) and os.path.getsize(csv_file_product) > 0
 # 保存到.csv文件中

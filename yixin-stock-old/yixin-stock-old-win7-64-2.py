@@ -45,6 +45,7 @@ headers_text = {
 
 product_data = {
     'task_id': '',
+    'name': '',
     'goods_id': '',
     'goods_code': '',
     'stock': ''
@@ -69,6 +70,7 @@ if not isinstance(responseData,list):
 for product in responseData:
     product_data_copy = copy.deepcopy(product_data)
     product_data_copy['goods_id'] = product['con_commodity_id']
+    product_data_copy['name'] = product['name']
     product_data_copy['stock'] = product['quantity']
     product_data_copy['goods_code'] = product['code']
     product_list.append(product_data_copy)

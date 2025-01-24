@@ -53,7 +53,8 @@ product_data = {
 
 
 product_list = []
-productURL = 'http://127.0.0.1:13301/hospital%2fmanage%2fnew_stock_statistics'
+# productURL = 'http://127.0.0.1:13301/hospital%2fmanage%2fnew_stock_statistics'
+productURL = 'http://127.0.0.1:13301/hospital%2fmanage%2fstock_statistics'
 logging.info('发起请求')
 response = requests.post(productURL, data=data, headers=headers_text)
 
@@ -78,7 +79,7 @@ for product in responseData:
 if not os.path.exists('医院数据'):   # 不存在则创建
     # 创建文件夹
     os.makedirs('医院数据')
-csv_file_product = './医院数据/商品库存信息-new.csv'
+csv_file_product = './医院数据/商品库存信息-old.csv'
 # 检查文件是否存在且不为空
 file_exists = os.path.isfile(csv_file_product) and os.path.getsize(csv_file_product) > 0
 # 保存到.csv文件中
