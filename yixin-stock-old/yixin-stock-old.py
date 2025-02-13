@@ -64,7 +64,7 @@ logging.info(response.text)
 responseData = json.loads(response.text)['Data']
 if not isinstance(responseData,list):
     responseData = []
-
+ 
 
 
 for product in responseData:
