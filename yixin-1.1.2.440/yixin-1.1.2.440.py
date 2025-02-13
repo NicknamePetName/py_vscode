@@ -167,6 +167,8 @@ vaccine_data = {
 
 vaccine_detail_data = {
     'task_id': '',
+    'customer_id': '',
+    'pet_id': '',
     'createtime': '',
     'creater': '',
     'updater': '',
@@ -186,7 +188,10 @@ vaccine_detail_data = {
     'commodity_name': '',
     'commodity_brand': '',
     'pay_state': '',
-    'bill_type': ''
+    'bill_type': '',
+    'quantity': '',
+    'price': '',
+    'payprice': '',
 }
 
 product_catalog_data = {
@@ -1238,6 +1243,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                 # 组装数据到 vaccine_detail_data 中
                 vaccine_detail_data_copy = copy.deepcopy(vaccine_detail_data) # 深拷贝
                 # task_id 老子不知道
+                vaccine_detail_data_copy['customer_id'] = customer['id'] # 客户ID
                 vaccine_detail_data_copy['createtime'] = protectionData['eventtime'] # 数据添加时间
                 vaccine_detail_data_copy['creater'] = protectionData['cure_employee_name'] # 添加信息人员
                 # updater 最后修改信息人员 参数无
@@ -1254,12 +1260,16 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                 vaccine_detail_data_copy['hospital_name'] = clinicPetResponseData['hospital_name'] # 医院名称
                 if isinstance(protectionData['his_consumptions'],list):
                     for hisConsumptions in protectionData['his_consumptions']:
+                        vaccine_detail_data_copy['pet_id'] = hisConsumptions['his_pet_id'] # 宠物ID
                         vaccine_detail_data_copy['add_employee_name'] = hisConsumptions['add_employee_name'] # 付医生
                         vaccine_detail_data_copy['con_category_name'] = hisConsumptions['con_category_name'] # 疫苗服务
                         vaccine_detail_data_copy['commodity_name'] = hisConsumptions['commodity_name'] # 妙三多
                         vaccine_detail_data_copy['commodity_brand'] = hisConsumptions['commodity_brand'] # 硕腾
                         vaccine_detail_data_copy['pay_state'] = hisConsumptions['pay_state'] # 支付状态
                         vaccine_detail_data_copy['bill_type'] = hisConsumptions['bill_type'] # 账单状态 0过期 1待付 2已付
+                        vaccine_detail_data_copy['quantity'] = hisConsumptions['quantity'] # 数量
+                        vaccine_detail_data_copy['price'] = hisConsumptions['price'] # 单价
+                        vaccine_detail_data_copy['payprice'] = hisConsumptions['payprice'] # 支付价格
 
                         csv_file7 = './医院数据/疫苗单详情表.csv'
                         # 检查文件是否存在且不为空
@@ -1339,6 +1349,7 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                 # 组装数据到 vaccine_detail_data 中
                 vaccine_detail_data_copy = copy.deepcopy(vaccine_detail_data) # 深拷贝
                 # task_id 老子不知道
+                vaccine_detail_data_copy['customer_id'] = customer['id'] # 客户ID
                 vaccine_detail_data_copy['createtime'] = insectData['eventtime'] # 数据添加时间
                 vaccine_detail_data_copy['creater'] = insectData['cure_employee_name'] # 添加信息人员
                 # updater 最后修改信息人员ID 参数无
@@ -1355,12 +1366,16 @@ def getVaccineData(customer,vaccine_data,vaccine_detail_data):
                 vaccine_detail_data_copy['hospital_name'] = clinicPetResponseData['hospital_name'] # 医院名称
                 if isinstance(insectData['his_consumptions'],list):
                     for hisConsumptions in insectData['his_consumptions']:
+                        vaccine_detail_data_copy['pet_id'] = hisConsumptions['his_pet_id'] # 宠物ID
                         vaccine_detail_data_copy['add_employee_name'] = hisConsumptions['add_employee_name'] # 付医生
                         vaccine_detail_data_copy['con_category_name'] = hisConsumptions['con_category_name'] # 疫苗服务
                         vaccine_detail_data_copy['commodity_name'] = hisConsumptions['commodity_name'] # 妙三多
                         vaccine_detail_data_copy['commodity_brand'] = hisConsumptions['commodity_brand'] # 硕腾
                         vaccine_detail_data_copy['pay_state'] = hisConsumptions['pay_state'] # 支付状态
                         vaccine_detail_data_copy['bill_type'] = hisConsumptions['bill_type'] # 账单状态 0过期 1待付 2已付
+                        vaccine_detail_data_copy['quantity'] = hisConsumptions['quantity'] # 数量
+                        vaccine_detail_data_copy['price'] = hisConsumptions['price'] # 单价
+                        vaccine_detail_data_copy['payprice'] = hisConsumptions['payprice'] # 支付价格
                         
 
                         csv_file7 = './医院数据/疫苗单详情表.csv'
