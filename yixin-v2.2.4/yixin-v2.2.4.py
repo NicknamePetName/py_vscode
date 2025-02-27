@@ -9,7 +9,6 @@ import traceback
 import time
 import tkinter as tk
 from tkinter import simpledialog
-case_level
 # 配置日志记录
 logging.basicConfig(filename='yixin.log',level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
