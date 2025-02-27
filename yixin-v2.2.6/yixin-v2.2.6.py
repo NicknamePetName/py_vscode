@@ -2083,12 +2083,14 @@ def getCasesData(customer,cases_data,consumption_data):
                 cases_data_copy['is_vaccine'] = hospitalizationDetailData['is_vaccine'] # 未选/未/已经
                 cases_data_copy['is_deworming'] = hospitalizationDetailData['is_deworming'] # 未选/未/已经
                 cases_data_copy['clinical_examination'] = hospitalizationDetailData['clinical_examination'] # 临床检查
-                # cases_data_copy['case_level'] = hospitalizationDetailData['case_level'] # -
                 try:
                     cases_data_copy['case_level'] = hospitalizationDetailData['case_level'] # -
                 except Exception:
                     cases_data_copy['case_level'] = '' # -
-                cases_data_copy['present_history'] = hospitalizationDetailData['present_history'] # -
+                try:
+                    cases_data_copy['present_history'] = hospitalizationDetailData['present_history'] # -
+                except Exception:
+                    cases_data_copy['present_history'] = ''
                 try: # -
                     cases_data_copy['is_tw'] = hospitalizationDetailData['is_tw']
                 except Exception:
