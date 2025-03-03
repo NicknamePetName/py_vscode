@@ -11,7 +11,6 @@ import tkinter as tk
 from tkinter import simpledialog
 # 配置日志记录
 logging.basicConfig(filename='yixin.log',level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
 """ try:
     print(a)
 except Exception as e:
@@ -2143,7 +2142,10 @@ def getCasesData(customer,cases_data,consumption_data):
                     consumption_data_copy['commodity_ismeal'] = consumption['commodity_ismeal'] # 是否为套餐
                     consumption_data_copy['usages'] = consumption['usages'] # 用法
                     consumption_data_copy['usagesquantity'] = consumption['usagesquantity'] # 用法数量
-                    consumption_data_copy['useunit'] = consumption['useunit'] # 使用单位
+                    try:
+                        consumption_data_copy['useunit'] = consumption['useunit'] # 使用单位
+                    except Exception as e:
+                        consumption_data_copy['useunit'] = '' # 使用单位
                     consumption_data_copy['quantity'] = consumption['quantity'] # 商品数量
                     consumption_data_copy['price'] = consumption['price'] # 商品价格
                     consumption_data_copy['payprice'] = consumption['payprice'] # 支付价格
