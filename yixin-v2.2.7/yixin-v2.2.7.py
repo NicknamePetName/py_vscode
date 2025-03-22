@@ -1419,7 +1419,7 @@ def getCasesData(customer,cases_data,consumption_data):
     }
     medical_record_response = ''
     hospitalization_record_response = ''
-
+    
     retries = 0
     while retries < max_retries:
         try:

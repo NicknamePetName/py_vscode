@@ -1,3 +1,4 @@
 {
-    "terminal.integrated.scrollback": 1000
+    "terminal.integrated.scrollback": 1000,
+    "editor.formatOnSave": true
 }
