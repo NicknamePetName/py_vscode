@@ -748,7 +748,7 @@ def getExpenseCalendarData(customer):
         with open(f'./' + file_detail + '/' + str(order['id']) + '-orderDetail.json','w',encoding='utf-8') as f:
                 f.write(orderDetailResponse.text) """ # 6666666666666666666666666666666666666666666666666666666666666666666666666666666
             
-        
+     
 # 获取商品信息  
 def getProductData(product_data,product_catalog_data):
     # 类目列表
@@ -824,10 +824,9 @@ def getProductData(product_data,product_catalog_data):
     
 
 
-    # 获取商品类目  （GET）http://127.0.0.1:13301/base%2fsetting%2fcategory%2fsub%2f1  
+    # 获取商品类目  （GET）http://127.0.0.1:13301/base%2fsetting%2fcategory%2fsub%2f1 
     # 备注： 从 1-12分别为：挂号，处方，检验，影像，处置，手术，住院，寄养，疫苗，驱虫，美容，商品；非处方为71
     catalog_list = ['占位','挂号','处方','检验','影像','处置','手术','住院','寄养','疫苗','驱虫','美容','商品','非处方']
-
     for i in range(1,14):
         # 商品一级类目
         product_catalog_data_copy = copy.deepcopy(product_catalog_data) # 深拷贝
@@ -839,14 +838,15 @@ def getProductData(product_data,product_catalog_data):
 
 
     URL_product = headURL + 'base%2fsetting%2fcategory%2fsub%2f'
-    for i in range(1,14):
+    for i in range(1,14):  
         # 商品类目
         product_catalog_data_copy = copy.deepcopy(product_catalog_data) # 深拷贝
 
         product_list = []
         # print('正在采集商品信息：' + catalog_list[i] + '中！！！')
         if i == 13:
-            URL_product_catalog = URL_product + '71'
+            # URL_product_catalog = URL_product + '71' # 4.9日 改成 69
+            URL_product_catalog = URL_product + '69'
         else:
             URL_product_catalog = URL_product + str(i)
         
@@ -881,7 +881,8 @@ def getProductData(product_data,product_catalog_data):
 
         
         data_all = []
-        # 获取商品详细信息  （POST）http://127.0.0.1:13301/base%2fsetting%2fgoods%2fget
+        # /base%2fsetting%2fgoods%2fget
+        # 获取商品详细信息  （POST）http://127.0.0.1:13301/base%2fsetting%2fgoods%2fget 
         URL_product_detail = headURL + 'base%2fsetting%2fgoods%2fget'
 
         for responseData in responseListData:
@@ -889,7 +890,7 @@ def getProductData(product_data,product_catalog_data):
             product_catalog_data_copy = copy.deepcopy(product_catalog_data) # 深拷贝
             # task_id 老子不知道
             product_catalog_data_copy['category_id'] = responseData['id'] # 分类 id
-            product_catalog_data_copy['parent_id'] = responseData['con_category_id'] # 父类分类ID
+            product_catalog_data_copy['parent_id'] = '13' if responseData['con_category_id'] == '69' else responseData['con_category_id'] # 父类分类ID
             product_catalog_data_copy['category_name'] = responseData['name'] # 分类名称
             product_catalog_data_list.append(product_catalog_data_copy)
 
@@ -993,7 +994,7 @@ def getProductData(product_data,product_catalog_data):
             # print_name 打印名 参数无
             product_data_copy['spec'] = product['format'] # 规格
             product_data_copy['barcode'] = product['encode'] # 条码
-            product_data_copy['category1'] = product['top_category_id'] # 一级类别
+            product_data_copy['category1'] = '13' if product['top_category_id'] == '69' else product['top_category_id'] # 一级类别
             product_data_copy['category2'] = product['con_category_id'] # 二级类别
             # category3 三级类别 无参数
             # category4 四级类别 无参数 
@@ -1719,7 +1720,10 @@ def getCasesData(customer,cases_data,consumption_data):
         cases_data_copy['oral_cavity'] = casesDetailData['oral_cavity'] # 口腔
         cases_data_copy['is_vaccine'] = casesDetailData['is_vaccine'] # 未选/未/已经
         cases_data_copy['is_deworming'] = casesDetailData['is_deworming'] # 未选/未/已经
-        cases_data_copy['clinical_examination'] = casesDetailData['clinical_examination'] # 临床检查
+        try:
+            cases_data_copy['clinical_examination'] = casesDetailData['clinical_examination'] # 临床检查
+        except:
+             cases_data_copy['clinical_examination'] = '' # 临床检查
         try:
             cases_data_copy['case_level'] = casesDetailData['case_level'] # -
         except Exception:
@@ -1822,7 +1826,10 @@ def getCasesData(customer,cases_data,consumption_data):
             consumption_data_copy['usage_of_meal'] = consumption['usage_of_meal'] # 套餐用法（值为 null）
             consumption_data_copy['select_model'] = consumption['select_model'] # 选择模型（含义不太明确）
             consumption_data_copy['is_update_sm'] = consumption['is_update_sm'] # 是否更新 SM（含义不太明确）
-            consumption_data_copy['is_new_stock'] = consumption['is_new_stock'] # 是否为新库存 
+            try:
+                consumption_data_copy['is_new_stock'] = consumption['is_new_stock'] # 是否为新库存 
+            except:
+                consumption_data_copy['is_new_stock'] = '' # 是否为新库存
             consumption_data_copy['his_retreat_bill_id'] = consumption['his_retreat_bill_id'] # HIS 系统退账单 ID
             # is_generate_examine 是否生成检查 参数无
             # is_generate_image 是否生成图像 参数无
@@ -2081,7 +2088,10 @@ def getCasesData(customer,cases_data,consumption_data):
                 cases_data_copy['oral_cavity'] = hospitalizationDetailData['oral_cavity'] # 口腔
                 cases_data_copy['is_vaccine'] = hospitalizationDetailData['is_vaccine'] # 未选/未/已经
                 cases_data_copy['is_deworming'] = hospitalizationDetailData['is_deworming'] # 未选/未/已经
-                cases_data_copy['clinical_examination'] = hospitalizationDetailData['clinical_examination'] # 临床检查
+                try:
+                    cases_data_copy['clinical_examination'] = hospitalizationDetailData['clinical_examination'] # 临床检查
+                except:
+                    cases_data_copy['clinical_examination'] = '' # 临床检查
                 try:
                     cases_data_copy['case_level'] = hospitalizationDetailData['case_level'] # -
                 except Exception:
@@ -2184,7 +2194,10 @@ def getCasesData(customer,cases_data,consumption_data):
                     consumption_data_copy['usage_of_meal'] = consumption['usage_of_meal'] # 套餐用法（值为 null）
                     consumption_data_copy['select_model'] = consumption['select_model'] # 选择模型（含义不太明确）
                     consumption_data_copy['is_update_sm'] = consumption['is_update_sm'] # 是否更新 SM（含义不太明确）
-                    consumption_data_copy['is_new_stock'] = consumption['is_new_stock'] # 是否为新库存 
+                    try:
+                        consumption_data_copy['is_new_stock'] = consumption['is_new_stock'] # 是否为新库存
+                    except:
+                        consumption_data_copy['is_new_stock'] = '' # 是否为新库存 
                     consumption_data_copy['his_retreat_bill_id'] = consumption['his_retreat_bill_id'] # HIS 系统退账单 ID
                     # is_generate_examine 是否生成检查 参数无
                     # is_generate_image 是否生成图像 参数无
